@@ -1,0 +1,1259 @@
+Mplus VERSION 8 (Mac)
+MUTHEN & MUTHEN
+11/03/2017   9:51 AM
+
+INPUT INSTRUCTIONS
+
+  TITLE:		Title
+  DATA:		FILE = /Users/chadgevans/Research/Projects/Data/HERI/Cache/mdata.txt;
+  VARIABLE:		NAMES = TURNINTE SATIS01 SATIS02 SATIS03 SATIS04 SATIS05
+  		SATIS06 SATIS07 SATIS08 SATIS09 SATIS10 SATIS11 SATIS12
+  		SATIS13 SATIS14 SATIS15 SATIS16 SATIS17 SATIS18 SATIS20
+  		Female English Age Public Product GAPAA GAPCE GAPEx GAPFree
+  		Asian Black Hisp RACEOth DEGProf DEGMast DEGBAL HardPure
+  		SoftApp SoftPure BIGOTH TIMEEMP PRIRe PRIAdmin PRIOth nChild
+  		TIMEEMP2 Age2;
+  		USEVARIABLES = TURNINTE SATIS01 SATIS02 SATIS03 SATIS04 SATIS05
+  		SATIS06 SATIS07 SATIS08 SATIS09 SATIS10 SATIS11 SATIS12
+  		SATIS13 SATIS14 SATIS15 SATIS16 SATIS17 SATIS18 SATIS20
+  		Female English Age Public Product GAPAA GAPCE GAPEx GAPFree
+  		Asian Black Hisp RACEOth DEGProf DEGMast DEGBAL HardPure
+  		SoftApp SoftPure TIMEEMP PRIRe PRIAdmin PRIOth nChild
+  		TIMEEMP2 Age2;
+  		CATEGORICAL = TURNINTE;
+  		MISSING = *;
+  ANALYSIS: 		ESTIMATOR=BAYES;
+  		PROCESSORS=2;
+  		FBITER=1000
+  MODEL:		Work BY SATIS05 SATIS06 SATIS07 SATIS08
+      		SATIS13 SATIS14 SATIS15 SATIS18;
+      		Relations BY SATIS09 SATIS10 SATIS11;
+      		Terms BY SATIS01 SATIS04 SATIS12 SATIS16 SATIS17;
+      		Benefits BY SATIS02 SATIS03 SATIS20;
+      		TURNINTE ON GAPAA GAPCE GAPEx GAPFree PRIRe PRIAdmin PRIOth
+  		DEGProf DEGMast DEGBAL TIMEEMP TIMEEMP2 Product Public HardPure
+  		SoftApp SoftPure English Age Age2 Female nChild Asian
+  		Black Hisp RACEOth Work Relations Terms Benefits;
+  		GAPAA GAPCE GAPEx GAPFree PRIRe PRIAdmin PRIOth
+  		DEGProf DEGMast DEGBAL TIMEEMP TIMEEMP2 Product Public HardPure
+  		SoftApp SoftPure English Age Age2 Female nChild Asian
+  		Black Hisp RACEOth SATIS01 SATIS02 SATIS03 SATIS04 SATIS05
+  		SATIS06 SATIS07 SATIS08 SATIS09 SATIS10 SATIS11 SATIS12
+  		SATIS13 SATIS14 SATIS15 SATIS16 SATIS17 SATIS18 SATIS20;
+
+
+
+INPUT READING TERMINATED NORMALLY
+
+
+
+Title
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        3592
+
+Number of dependent variables                                   20
+Number of independent variables                                 26
+Number of continuous latent variables                            4
+
+Observed dependent variables
+
+  Continuous
+   SATIS01     SATIS02     SATIS03     SATIS04     SATIS05     SATIS06
+   SATIS07     SATIS08     SATIS09     SATIS10     SATIS11     SATIS12
+   SATIS13     SATIS14     SATIS15     SATIS16     SATIS17     SATIS18
+   SATIS20
+
+  Binary and ordered categorical (ordinal)
+   TURNINTE
+
+Observed independent variables
+   FEMALE      ENGLISH     AGE         PUBLIC      PRODUCT     GAPAA
+   GAPCE       GAPEX       GAPFREE     ASIAN       BLACK       HISP
+   RACEOTH     DEGPROF     DEGMAST     DEGBAL      HARDPURE    SOFTAPP
+   SOFTPURE    TIMEEMP     PRIRE       PRIADMIN    PRIOTH      NCHILD
+   TIMEEMP2    AGE2
+
+Continuous latent variables
+   WORK        RELATION    TERMS       BENEFITS
+
+
+Estimator                                                    BAYES
+Specifications for Bayesian Estimation
+  Point estimate                                            MEDIAN
+  Number of Markov chain Monte Carlo (MCMC) chains               2
+  Random seed for the first chain                                0
+  Starting value information                           UNPERTURBED
+  Treatment of categorical mediator                         LATENT
+  Algorithm used for Markov chain Monte Carlo           GIBBS(PX1)
+  Fixed number of iterations                                  1000
+  K-th iteration used for thinning                               1
+Link                                                        PROBIT
+
+Input data file(s)
+  /Users/chadgevans/Research/Projects/Data/HERI/Cache/mdata.txt
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.100
+
+     Number of missing data patterns           793
+
+
+     PROPORTION OF DATA PRESENT
+
+
+           Covariance Coverage
+              TURNINTE      SATIS01       SATIS02       SATIS03       SATIS04
+              ________      ________      ________      ________      ________
+ TURNINTE       0.994
+ SATIS01        0.980         0.983
+ SATIS02        0.724         0.724         0.725
+ SATIS03        0.739         0.739         0.689         0.741
+ SATIS04        0.766         0.761         0.652         0.662         0.767
+ SATIS05        0.943         0.938         0.697         0.712         0.744
+ SATIS06        0.977         0.969         0.716         0.731         0.758
+ SATIS07        0.865         0.861         0.692         0.703         0.715
+ SATIS08        0.976         0.969         0.719         0.734         0.761
+ SATIS09        0.967         0.960         0.718         0.732         0.758
+ SATIS10        0.882         0.877         0.676         0.688         0.711
+ SATIS11        0.965         0.958         0.717         0.731         0.756
+ SATIS12        0.934         0.932         0.708         0.722         0.743
+ SATIS13        0.962         0.955         0.713         0.728         0.753
+ SATIS14        0.951         0.943         0.694         0.709         0.740
+ SATIS15        0.943         0.936         0.694         0.708         0.737
+ SATIS16        0.142         0.141         0.127         0.127         0.128
+ SATIS17        0.776         0.773         0.622         0.633         0.655
+ SATIS18        0.934         0.928         0.700         0.715         0.742
+ SATIS20        0.324         0.324         0.284         0.295         0.283
+ FEMALE         0.986         0.975         0.720         0.735         0.761
+ ENGLISH        0.989         0.978         0.722         0.737         0.763
+ AGE            0.963         0.952         0.702         0.717         0.744
+ PUBLIC         0.984         0.973         0.719         0.734         0.760
+ PRODUCT        0.994         0.983         0.724         0.740         0.767
+ GAPAA          0.989         0.978         0.723         0.739         0.764
+ GAPCE          0.989         0.978         0.723         0.739         0.764
+ GAPEX          0.989         0.978         0.723         0.739         0.764
+ GAPFREE        0.989         0.978         0.723         0.739         0.764
+ ASIAN          0.975         0.964         0.712         0.726         0.752
+ BLACK          0.975         0.964         0.712         0.726         0.752
+ HISP           0.975         0.964         0.712         0.726         0.752
+ RACEOTH        0.975         0.964         0.712         0.726         0.752
+ DEGPROF        0.993         0.982         0.724         0.740         0.766
+ DEGMAST        0.993         0.982         0.724         0.740         0.766
+ DEGBAL         0.993         0.982         0.724         0.740         0.766
+ HARDPURE       0.984         0.974         0.718         0.734         0.762
+ SOFTAPP        0.984         0.974         0.718         0.734         0.762
+ SOFTPURE       0.984         0.974         0.718         0.734         0.762
+ TIMEEMP        0.934         0.925         0.682         0.698         0.723
+ PRIRE          0.994         0.983         0.725         0.741         0.767
+ PRIADMIN       0.994         0.983         0.725         0.741         0.767
+ PRIOTH         0.994         0.983         0.725         0.741         0.767
+ NCHILD         0.966         0.955         0.704         0.719         0.746
+ TIMEEMP2       0.934         0.925         0.682         0.698         0.723
+ AGE2           0.963         0.952         0.702         0.717         0.744
+
+
+           Covariance Coverage
+              SATIS05       SATIS06       SATIS07       SATIS08       SATIS09
+              ________      ________      ________      ________      ________
+ SATIS05        0.947
+ SATIS06        0.945         0.981
+ SATIS07        0.836         0.860         0.869
+ SATIS08        0.937         0.969         0.863         0.980
+ SATIS09        0.928         0.960         0.861         0.961         0.971
+ SATIS10        0.849         0.875         0.803         0.876         0.882
+ SATIS11        0.926         0.956         0.859         0.958         0.955
+ SATIS12        0.899         0.924         0.836         0.928         0.921
+ SATIS13        0.923         0.953         0.851         0.952         0.947
+ SATIS14        0.932         0.949         0.835         0.942         0.933
+ SATIS15        0.923         0.942         0.832         0.936         0.926
+ SATIS16        0.135         0.139         0.136         0.141         0.141
+ SATIS17        0.750         0.768         0.710         0.770         0.766
+ SATIS18        0.897         0.926         0.836         0.928         0.920
+ SATIS20        0.313         0.322         0.309         0.324         0.321
+ FEMALE         0.939         0.972         0.862         0.972         0.963
+ ENGLISH        0.942         0.975         0.865         0.975         0.967
+ AGE            0.919         0.951         0.843         0.949         0.940
+ PUBLIC         0.937         0.970         0.861         0.969         0.961
+ PRODUCT        0.947         0.980         0.868         0.979         0.971
+ GAPAA          0.942         0.975         0.863         0.974         0.965
+ GAPCE          0.942         0.975         0.863         0.974         0.965
+ GAPEX          0.942         0.975         0.863         0.974         0.965
+ GAPFREE        0.942         0.975         0.863         0.974         0.965
+ ASIAN          0.929         0.962         0.852         0.961         0.953
+ BLACK          0.929         0.962         0.852         0.961         0.953
+ HISP           0.929         0.962         0.852         0.961         0.953
+ RACEOTH        0.929         0.962         0.852         0.961         0.953
+ DEGPROF        0.947         0.980         0.868         0.979         0.970
+ DEGMAST        0.947         0.980         0.868         0.979         0.970
+ DEGBAL         0.947         0.980         0.868         0.979         0.970
+ HARDPURE       0.939         0.972         0.861         0.970         0.963
+ SOFTAPP        0.939         0.972         0.861         0.970         0.963
+ SOFTPURE       0.939         0.972         0.861         0.970         0.963
+ TIMEEMP        0.892         0.922         0.817         0.921         0.913
+ PRIRE          0.947         0.981         0.869         0.980         0.971
+ PRIADMIN       0.947         0.981         0.869         0.980         0.971
+ PRIOTH         0.947         0.981         0.869         0.980         0.971
+ NCHILD         0.920         0.952         0.845         0.952         0.943
+ TIMEEMP2       0.892         0.922         0.817         0.921         0.913
+ AGE2           0.919         0.951         0.843         0.949         0.940
+
+
+           Covariance Coverage
+              SATIS10       SATIS11       SATIS12       SATIS13       SATIS14
+              ________      ________      ________      ________      ________
+ SATIS10        0.886
+ SATIS11        0.876         0.969
+ SATIS12        0.845         0.922         0.937
+ SATIS13        0.868         0.948         0.918         0.966
+ SATIS14        0.851         0.932         0.903         0.931         0.955
+ SATIS15        0.846         0.923         0.895         0.922         0.932
+ SATIS16        0.135         0.141         0.139         0.141         0.137
+ SATIS17        0.712         0.765         0.761         0.764         0.751
+ SATIS18        0.845         0.919         0.891         0.917         0.903
+ SATIS20        0.306         0.323         0.321         0.322         0.313
+ FEMALE         0.880         0.961         0.930         0.959         0.947
+ ENGLISH        0.883         0.964         0.933         0.962         0.949
+ AGE            0.860         0.938         0.908         0.937         0.925
+ PUBLIC         0.876         0.958         0.928         0.956         0.944
+ PRODUCT        0.886         0.968         0.937         0.966         0.954
+ GAPAA          0.881         0.963         0.933         0.960         0.949
+ GAPCE          0.881         0.963         0.933         0.960         0.949
+ GAPEX          0.881         0.963         0.933         0.960         0.949
+ GAPFREE        0.881         0.963         0.933         0.960         0.949
+ ASIAN          0.870         0.950         0.920         0.948         0.936
+ BLACK          0.870         0.950         0.920         0.948         0.936
+ HISP           0.870         0.950         0.920         0.948         0.936
+ RACEOTH        0.870         0.950         0.920         0.948         0.936
+ DEGPROF        0.886         0.968         0.937         0.965         0.954
+ DEGMAST        0.886         0.968         0.937         0.965         0.954
+ DEGBAL         0.886         0.968         0.937         0.965         0.954
+ HARDPURE       0.879         0.960         0.929         0.957         0.946
+ SOFTAPP        0.879         0.960         0.929         0.957         0.946
+ SOFTPURE       0.879         0.960         0.929         0.957         0.946
+ TIMEEMP        0.835         0.911         0.882         0.910         0.899
+ PRIRE          0.886         0.969         0.937         0.966         0.955
+ PRIADMIN       0.886         0.969         0.937         0.966         0.955
+ PRIOTH         0.886         0.969         0.937         0.966         0.955
+ NCHILD         0.861         0.942         0.911         0.940         0.927
+ TIMEEMP2       0.835         0.911         0.882         0.910         0.899
+ AGE2           0.860         0.938         0.908         0.937         0.925
+
+
+           Covariance Coverage
+              SATIS15       SATIS16       SATIS17       SATIS18       SATIS20
+              ________      ________      ________      ________      ________
+ SATIS15        0.947
+ SATIS16        0.136         0.142
+ SATIS17        0.746         0.136         0.777
+ SATIS18        0.897         0.140         0.754         0.938
+ SATIS20        0.311         0.094         0.289         0.318         0.325
+ FEMALE         0.939         0.140         0.771         0.930         0.322
+ ENGLISH        0.942         0.141         0.774         0.934         0.323
+ AGE            0.918         0.138         0.754         0.910         0.316
+ PUBLIC         0.937         0.140         0.769         0.929         0.323
+ PRODUCT        0.947         0.142         0.777         0.937         0.325
+ GAPAA          0.942         0.142         0.774         0.933         0.324
+ GAPCE          0.942         0.142         0.774         0.933         0.324
+ GAPEX          0.942         0.142         0.774         0.933         0.324
+ GAPFREE        0.942         0.142         0.774         0.933         0.324
+ ASIAN          0.928         0.140         0.764         0.921         0.319
+ BLACK          0.928         0.140         0.764         0.921         0.319
+ HISP           0.928         0.140         0.764         0.921         0.319
+ RACEOTH        0.928         0.140         0.764         0.921         0.319
+ DEGPROF        0.946         0.142         0.776         0.937         0.325
+ DEGMAST        0.946         0.142         0.776         0.937         0.325
+ DEGBAL         0.946         0.142         0.776         0.937         0.325
+ HARDPURE       0.938         0.141         0.771         0.930         0.323
+ SOFTAPP        0.938         0.141         0.771         0.930         0.323
+ SOFTPURE       0.938         0.141         0.771         0.930         0.323
+ TIMEEMP        0.891         0.131         0.731         0.882         0.303
+ PRIRE          0.947         0.142         0.777         0.938         0.325
+ PRIADMIN       0.947         0.142         0.777         0.938         0.325
+ PRIOTH         0.947         0.142         0.777         0.938         0.325
+ NCHILD         0.919         0.137         0.756         0.913         0.316
+ TIMEEMP2       0.891         0.131         0.731         0.882         0.303
+ AGE2           0.918         0.138         0.754         0.910         0.316
+
+
+           Covariance Coverage
+              FEMALE        ENGLISH       AGE           PUBLIC        PRODUCT
+              ________      ________      ________      ________      ________
+ FEMALE         0.990
+ ENGLISH        0.989         0.993
+ AGE            0.964         0.965         0.966
+ PUBLIC         0.980         0.982         0.956         0.989
+ PRODUCT        0.990         0.992         0.966         0.989         0.999
+ GAPAA          0.985         0.987         0.961         0.983         0.993
+ GAPCE          0.985         0.987         0.961         0.983         0.993
+ GAPEX          0.985         0.987         0.961         0.983         0.993
+ GAPFREE        0.985         0.987         0.961         0.983         0.993
+ ASIAN          0.978         0.979         0.955         0.969         0.979
+ BLACK          0.978         0.979         0.955         0.969         0.979
+ HISP           0.978         0.979         0.955         0.969         0.979
+ RACEOTH        0.978         0.979         0.955         0.969         0.979
+ DEGPROF        0.990         0.992         0.965         0.989         0.998
+ DEGMAST        0.990         0.992         0.965         0.989         0.998
+ DEGBAL         0.990         0.992         0.965         0.989         0.998
+ HARDPURE       0.984         0.986         0.963         0.979         0.989
+ SOFTAPP        0.984         0.986         0.963         0.979         0.989
+ SOFTPURE       0.984         0.986         0.963         0.979         0.989
+ TIMEEMP        0.935         0.936         0.925         0.928         0.937
+ PRIRE          0.990         0.993         0.966         0.989         0.999
+ PRIADMIN       0.990         0.993         0.966         0.989         0.999
+ PRIOTH         0.990         0.993         0.966         0.989         0.999
+ NCHILD         0.967         0.968         0.947         0.959         0.969
+ TIMEEMP2       0.935         0.936         0.925         0.928         0.937
+ AGE2           0.964         0.965         0.966         0.956         0.966
+
+
+           Covariance Coverage
+              GAPAA         GAPCE         GAPEX         GAPFREE       ASIAN
+              ________      ________      ________      ________      ________
+ GAPAA          0.994
+ GAPCE          0.994         0.994
+ GAPEX          0.994         0.994         0.994
+ GAPFREE        0.994         0.994         0.994         0.994
+ ASIAN          0.974         0.974         0.974         0.974         0.979
+ BLACK          0.974         0.974         0.974         0.974         0.979
+ HISP           0.974         0.974         0.974         0.974         0.979
+ RACEOTH        0.974         0.974         0.974         0.974         0.979
+ DEGPROF        0.993         0.993         0.993         0.993         0.979
+ DEGMAST        0.993         0.993         0.993         0.993         0.979
+ DEGBAL         0.993         0.993         0.993         0.993         0.979
+ HARDPURE       0.984         0.984         0.984         0.984         0.974
+ SOFTAPP        0.984         0.984         0.984         0.984         0.974
+ SOFTPURE       0.984         0.984         0.984         0.984         0.974
+ TIMEEMP        0.932         0.932         0.932         0.932         0.926
+ PRIRE          0.994         0.994         0.994         0.994         0.979
+ PRIADMIN       0.994         0.994         0.994         0.994         0.979
+ PRIOTH         0.994         0.994         0.994         0.994         0.979
+ NCHILD         0.964         0.964         0.964         0.964         0.958
+ TIMEEMP2       0.932         0.932         0.932         0.932         0.926
+ AGE2           0.961         0.961         0.961         0.961         0.955
+
+
+           Covariance Coverage
+              BLACK         HISP          RACEOTH       DEGPROF       DEGMAST
+              ________      ________      ________      ________      ________
+ BLACK          0.979
+ HISP           0.979         0.979
+ RACEOTH        0.979         0.979         0.979
+ DEGPROF        0.979         0.979         0.979         0.999
+ DEGMAST        0.979         0.979         0.979         0.999         0.999
+ DEGBAL         0.979         0.979         0.979         0.999         0.999
+ HARDPURE       0.974         0.974         0.974         0.989         0.989
+ SOFTAPP        0.974         0.974         0.974         0.989         0.989
+ SOFTPURE       0.974         0.974         0.974         0.989         0.989
+ TIMEEMP        0.926         0.926         0.926         0.937         0.937
+ PRIRE          0.979         0.979         0.979         0.999         0.999
+ PRIADMIN       0.979         0.979         0.979         0.999         0.999
+ PRIOTH         0.979         0.979         0.979         0.999         0.999
+ NCHILD         0.958         0.958         0.958         0.969         0.969
+ TIMEEMP2       0.926         0.926         0.926         0.937         0.937
+ AGE2           0.955         0.955         0.955         0.965         0.965
+
+
+           Covariance Coverage
+              DEGBAL        HARDPURE      SOFTAPP       SOFTPURE      TIMEEMP
+              ________      ________      ________      ________      ________
+ DEGBAL         0.999
+ HARDPURE       0.989         0.989
+ SOFTAPP        0.989         0.989         0.989
+ SOFTPURE       0.989         0.989         0.989         0.989
+ TIMEEMP        0.937         0.934         0.934         0.934         0.938
+ PRIRE          0.999         0.989         0.989         0.989         0.938
+ PRIADMIN       0.999         0.989         0.989         0.989         0.938
+ PRIOTH         0.999         0.989         0.989         0.989         0.938
+ NCHILD         0.969         0.964         0.964         0.964         0.916
+ TIMEEMP2       0.937         0.934         0.934         0.934         0.938
+ AGE2           0.965         0.963         0.963         0.963         0.925
+
+
+           Covariance Coverage
+              PRIRE         PRIADMIN      PRIOTH        NCHILD        TIMEEMP2
+              ________      ________      ________      ________      ________
+ PRIRE          1.000
+ PRIADMIN       1.000         1.000
+ PRIOTH         1.000         1.000         1.000
+ NCHILD         0.970         0.970         0.970         0.970
+ TIMEEMP2       0.938         0.938         0.938         0.916         0.938
+ AGE2           0.966         0.966         0.966         0.947         0.925
+
+
+           Covariance Coverage
+              AGE2
+              ________
+ AGE2           0.966
+
+
+UNIVARIATE PROPORTIONS AND COUNTS FOR CATEGORICAL VARIABLES
+
+    TURNINTE
+      Category 1    0.429         1533.000
+      Category 2    0.571         2038.000
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     SATIS01               2.239       0.084       1.000   25.06%       1.000      2.000      2.000
+            3532.000       0.826      -0.954       4.000    7.16%       3.000      3.000
+     SATIS02               2.618      -0.376       1.000   18.93%       2.000      3.000      3.000
+            2604.000       0.965      -0.882       4.000   17.51%       3.000      3.000
+     SATIS03               2.523      -0.267       1.000   18.98%       2.000      2.000      3.000
+            2660.000       0.895      -0.885       4.000   13.31%       3.000      3.000
+     SATIS04               2.345      -0.087       1.000   23.19%       1.000      2.000      2.000
+            2756.000       0.862      -1.003       4.000    8.64%       3.000      3.000
+     SATIS05               2.598      -0.432       1.000   13.66%       2.000      3.000      3.000
+            3403.000       0.734      -0.475       4.000   11.02%       3.000      3.000
+     SATIS06               2.742      -0.370       1.000    7.44%       2.000      3.000      3.000
+            3523.000       0.642      -0.223       4.000   15.07%       3.000      3.000
+     SATIS07               2.670      -0.352       1.000   16.82%       2.000      3.000      3.000
+            3121.000       0.975      -0.889       4.000   20.89%       3.000      4.000
+     SATIS08               3.228      -0.886       1.000    3.44%       3.000      3.000      3.000
+            3519.000       0.567       0.722       4.000   38.96%       3.000      4.000
+     SATIS09               3.060      -0.692       1.000    5.36%       2.000      3.000      3.000
+            3489.000       0.673       0.080       4.000   31.47%       3.000      4.000
+     SATIS10               2.848      -0.504       1.000    8.17%       2.000      3.000      3.000
+            3183.000       0.722      -0.245       4.000   21.49%       3.000      4.000
+     SATIS11               3.179      -0.678       1.000    2.53%       3.000      3.000      3.000
+            3480.000       0.537       0.330       4.000   34.86%       3.000      4.000
+     SATIS12               2.330       0.032       1.000   26.14%       1.000      2.000      2.000
+            3367.000       0.979      -1.114       4.000   11.76%       3.000      3.000
+     SATIS13               2.920      -0.589       1.000   11.47%       2.000      3.000      3.000
+            3469.000       0.945      -0.627       4.000   32.08%       3.000      4.000
+     SATIS14               3.056      -0.644       1.000    4.00%       3.000      3.000      3.000
+            3429.000       0.574       0.362       4.000   27.68%       3.000      4.000
+     SATIS15               3.281      -1.017       1.000    3.94%       3.000      3.000      3.000
+            3402.000       0.629       0.659       4.000   45.47%       4.000      4.000
+     SATIS16               1.825       0.842       1.000   55.99%       1.000      1.000      1.000
+             509.000       1.103      -0.745       4.000    9.43%       2.000      3.000
+     SATIS17               1.965       0.444       1.000   39.47%       1.000      2.000      2.000
+            2792.000       0.851      -0.952       4.000    4.91%       2.000      3.000
+     SATIS18               2.849      -0.512       1.000   11.34%       2.000      3.000      3.000
+            3369.000       0.886      -0.592       4.000   26.57%       3.000      4.000
+     SATIS20               2.710      -0.372       1.000   25.54%       1.000      3.000      3.000
+            1167.000       1.375      -1.348       4.000   32.90%       3.000      4.000
+     FEMALE                0.546      -0.184       0.000   45.43%       0.000      0.000      1.000
+            3557.000       0.248      -1.966       1.000   54.57%       1.000      1.000
+     ENGLISH               0.903      -2.718       0.000    9.73%       1.000      1.000      1.000
+            3567.000       0.088       5.387       1.000   90.27%       1.000      1.000
+     AGE                   0.000      -0.084     -26.949    0.06%     -11.949     -2.949      1.051
+            3470.000     146.614      -0.793      40.051    0.06%       5.051     11.051
+     PUBLIC                0.396       0.427       0.000   60.44%       0.000      0.000      0.000
+            3554.000       0.239      -1.818       1.000   39.56%       0.000      1.000
+     PRODUCT              44.360       1.019      38.110   44.00%      38.110     38.110     43.390
+            3589.000      48.798       0.631      79.970    0.03%      46.180     50.420
+     GAPAA                 0.209       1.433       0.000   79.13%       0.000      0.000      0.000
+            3569.000       0.165       0.054       1.000   20.87%       0.000      1.000
+     GAPCE                 0.014       8.358       0.000   98.63%       0.000      0.000      0.000
+            3569.000       0.014      67.851       1.000    1.37%       0.000      0.000
+     GAPEX                 0.102       2.630       0.000   89.80%       0.000      0.000      0.000
+            3569.000       0.092       4.919       1.000   10.20%       0.000      0.000
+     GAPFREE               0.164       1.813       0.000   83.58%       0.000      0.000      0.000
+            3569.000       0.137       1.287       1.000   16.42%       0.000      0.000
+     ASIAN                 0.036       5.017       0.000   96.45%       0.000      0.000      0.000
+            3517.000       0.034      23.173       1.000    3.55%       0.000      0.000
+     BLACK                 0.031       5.386       0.000   96.87%       0.000      0.000      0.000
+            3517.000       0.030      27.005       1.000    3.13%       0.000      0.000
+     HISP                  0.027       5.869       0.000   97.33%       0.000      0.000      0.000
+            3517.000       0.026      32.442       1.000    2.67%       0.000      0.000
+     RACEOTH               0.072       3.313       0.000   92.81%       0.000      0.000      0.000
+            3517.000       0.067       8.979       1.000    7.19%       0.000      0.000
+     DEGPROF               0.100       2.666       0.000   90.00%       0.000      0.000      0.000
+            3589.000       0.090       5.108       1.000   10.00%       0.000      0.000
+     DEGMAST               0.519      -0.076       0.000   48.09%       0.000      0.000      1.000
+            3589.000       0.250      -1.994       1.000   51.91%       1.000      1.000
+     DEGBAL                0.079       3.111       0.000   92.06%       0.000      0.000      0.000
+            3589.000       0.073       7.679       1.000    7.94%       0.000      0.000
+     HARDPURE              0.033       5.235       0.000   96.71%       0.000      0.000      0.000
+            3553.000       0.032      25.402       1.000    3.29%       0.000      0.000
+     SOFTAPP               0.186       1.611       0.000   81.37%       0.000      0.000      0.000
+            3553.000       0.152       0.596       1.000   18.63%       0.000      0.000
+     SOFTPURE              0.364       0.566       0.000   63.61%       0.000      0.000      0.000
+            3553.000       0.231      -1.680       1.000   36.39%       0.000      1.000
+     TIMEEMP               7.675       1.813      -1.000    2.05%       1.000      3.000      5.000
+            3368.000      74.160       4.938      90.000    0.03%       7.000     13.000
+     PRIRE                 0.023       6.390       0.000   97.72%       0.000      0.000      0.000
+            3592.000       0.022      38.828       1.000    2.28%       0.000      0.000
+     PRIADMIN              0.068       3.434       0.000   93.21%       0.000      0.000      0.000
+            3592.000       0.063       9.794       1.000    6.79%       0.000      0.000
+     PRIOTH                0.039       4.745       0.000   96.07%       0.000      0.000      0.000
+            3592.000       0.038      20.516       1.000    3.93%       0.000      0.000
+     NCHILD                1.577       0.523       0.000   31.47%       0.000      1.000      2.000
+            3483.000       1.878      -0.091       8.000    0.11%       2.000      3.000
+     TIMEEMP2            133.068       8.110       0.000   15.68%       1.000      9.000     25.000
+            3368.000   91172.446     154.293    8100.000    0.03%      49.000    169.000
+     AGE2                146.614       1.929       0.003    2.54%      15.592     63.182     98.977
+            3470.000   25945.040       6.741    1604.106    0.06%     122.131    257.644
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+     USE THE FBITERATIONS OPTION TO INCREASE THE NUMBER OF ITERATIONS BY A FACTOR
+     OF AT LEAST TWO TO CHECK CONVERGENCE AND THAT THE PSR VALUE DOES NOT INCREASE.
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                             575
+
+Bayesian Posterior Predictive Checking using Chi-Square
+
+          95% Confidence Interval for the Difference Between
+          the Observed and the Replicated Chi-Square Values
+
+                               2642.464          2875.475
+
+          Posterior Predictive P-Value              0.000
+
+
+
+MODEL RESULTS
+
+                                Posterior  One-Tailed         95% C.I.
+                    Estimate       S.D.      P-Value   Lower 2.5%  Upper 2.5%  Significance
+
+ WORK     BY
+    SATIS05            1.000       0.000      0.000       1.000       1.000
+    SATIS06            0.756       0.037      0.000       0.689       0.833      *
+    SATIS07            0.898       0.044      0.000       0.812       0.986      *
+    SATIS08            0.963       0.038      0.000       0.898       1.047      *
+    SATIS13            1.223       0.049      0.000       1.139       1.337      *
+    SATIS14            1.059       0.041      0.000       0.989       1.150      *
+    SATIS15            0.913       0.040      0.000       0.843       1.002      *
+    SATIS18            0.914       0.043      0.000       0.828       0.998      *
+
+ RELATION BY
+    SATIS09            1.000       0.000      0.000       1.000       1.000
+    SATIS10            0.901       0.020      0.000       0.862       0.941      *
+    SATIS11            0.569       0.019      0.000       0.533       0.606      *
+
+ TERMS    BY
+    SATIS01            1.000       0.000      0.000       1.000       1.000
+    SATIS04            1.209       0.047      0.000       1.112       1.294      *
+    SATIS12            1.327       0.049      0.000       1.233       1.420      *
+    SATIS16            0.851       0.086      0.000       0.666       1.003      *
+    SATIS17            1.339       0.046      0.000       1.250       1.431      *
+
+ BENEFITS BY
+    SATIS02            1.000       0.000      0.000       1.000       1.000
+    SATIS03            1.040       0.023      0.000       0.997       1.088      *
+    SATIS20            0.718       0.045      0.000       0.627       0.801      *
+
+ TURNINTE   ON
+    WORK               0.222       0.167      0.107      -0.131       0.501
+    RELATIONS         -0.165       0.059      0.006      -0.277      -0.039      *
+    TERMS             -1.459       0.214      0.000      -1.900      -1.058      *
+    BENEFITS           0.233       0.075      0.000       0.101       0.389      *
+
+ TURNINTE   ON
+    GAPAA              0.016       0.075      0.394      -0.118       0.171
+    GAPCE             -0.018       0.218      0.459      -0.468       0.386
+    GAPEX             -0.328       0.089      0.000      -0.503      -0.155      *
+    GAPFREE           -0.032       0.082      0.344      -0.190       0.135
+    PRIRE              0.251       0.177      0.062      -0.081       0.608
+    PRIADMIN           0.359       0.100      0.000       0.166       0.563      *
+    PRIOTH             0.271       0.129      0.020       0.017       0.521      *
+    DEGPROF           -0.038       0.100      0.340      -0.234       0.162
+    DEGMAST           -0.096       0.064      0.060      -0.225       0.027
+    DEGBAL            -0.126       0.099      0.102      -0.337       0.067
+    TIMEEMP            0.013       0.007      0.043      -0.001       0.027
+    TIMEEMP2           0.000       0.000      0.372      -0.001       0.000
+    PRODUCT            0.016       0.004      0.001       0.008       0.024      *
+    PUBLIC             0.035       0.053      0.268      -0.075       0.136
+    HARDPURE          -0.220       0.138      0.055      -0.493       0.052
+    SOFTAPP            0.171       0.070      0.008       0.035       0.312      *
+    SOFTPURE           0.046       0.058      0.235      -0.073       0.152
+    ENGLISH            0.432       0.091      0.000       0.251       0.608      *
+    AGE               -0.008       0.003      0.004      -0.013      -0.002      *
+    AGE2               0.000       0.000      0.018      -0.001       0.000      *
+    FEMALE            -0.064       0.051      0.104      -0.178       0.033
+    NCHILD            -0.043       0.019      0.005      -0.082      -0.007      *
+    ASIAN             -0.144       0.142      0.153      -0.438       0.140
+    BLACK             -0.016       0.140      0.450      -0.281       0.277
+    HISP              -0.267       0.152      0.038      -0.579       0.014
+    RACEOTH           -0.135       0.103      0.082      -0.340       0.056
+
+ RELATION WITH
+    WORK               0.250       0.011      0.000       0.229       0.272      *
+
+ TERMS    WITH
+    WORK               0.185       0.010      0.000       0.167       0.206      *
+    RELATIONS          0.188       0.010      0.000       0.169       0.209      *
+
+ BENEFITS WITH
+    WORK               0.145       0.011      0.000       0.126       0.167      *
+    RELATIONS          0.128       0.012      0.000       0.106       0.154      *
+    TERMS              0.252       0.013      0.000       0.229       0.277      *
+
+ FEMALE   WITH
+    WORK               0.004       0.005      0.202      -0.006       0.014
+    RELATIONS          0.008       0.007      0.101      -0.005       0.022
+    TERMS             -0.022       0.005      0.000      -0.032      -0.012      *
+    BENEFITS           0.018       0.008      0.012       0.002       0.034      *
+
+ ENGLISH  WITH
+    WORK               0.010       0.003      0.000       0.005       0.015      *
+    RELATIONS          0.004       0.004      0.164      -0.004       0.012
+    TERMS              0.006       0.003      0.029       0.000       0.012
+    BENEFITS           0.013       0.005      0.003       0.004       0.022      *
+
+ AGE      WITH
+    WORK               0.177       0.114      0.067      -0.043       0.396
+    RELATIONS          0.364       0.164      0.010       0.058       0.695      *
+    TERMS              0.858       0.129      0.000       0.616       1.112      *
+    BENEFITS          -0.041       0.205      0.411      -0.469       0.360
+
+ PUBLIC   WITH
+    WORK              -0.017       0.005      0.000      -0.026      -0.008      *
+    RELATIONS         -0.009       0.007      0.097      -0.023       0.004
+    TERMS             -0.032       0.005      0.000      -0.042      -0.022      *
+    BENEFITS          -0.004       0.008      0.299      -0.019       0.011
+
+ PRODUCT  WITH
+    WORK              -0.211       0.064      0.000      -0.330      -0.082      *
+    RELATIONS         -0.209       0.089      0.010      -0.389      -0.036      *
+    TERMS             -0.075       0.071      0.138      -0.217       0.055
+    BENEFITS           0.180       0.108      0.055      -0.041       0.387
+
+ GAPAA    WITH
+    WORK               0.022       0.004      0.000       0.015       0.030      *
+    RELATIONS          0.019       0.005      0.001       0.007       0.029      *
+    TERMS              0.044       0.004      0.000       0.035       0.053      *
+    BENEFITS          -0.012       0.007      0.044      -0.026       0.001
+
+ GAPCE    WITH
+    WORK               0.002       0.001      0.017       0.000       0.004      *
+    RELATIONS          0.004       0.002      0.012       0.000       0.007      *
+    TERMS              0.001       0.001      0.298      -0.002       0.003
+    BENEFITS           0.002       0.002      0.242      -0.003       0.006
+
+ GAPEX    WITH
+    WORK               0.000       0.003      0.474      -0.006       0.005
+    RELATIONS         -0.002       0.004      0.315      -0.010       0.007
+    TERMS             -0.011       0.003      0.000      -0.018      -0.005      *
+    BENEFITS          -0.041       0.006      0.000      -0.052      -0.030      *
+
+ GAPFREE  WITH
+    WORK              -0.025       0.003      0.000      -0.032      -0.018      *
+    RELATIONS         -0.018       0.005      0.000      -0.028      -0.009      *
+    TERMS             -0.063       0.004      0.000      -0.072      -0.055      *
+    BENEFITS          -0.095       0.007      0.000      -0.108      -0.083      *
+
+ ASIAN    WITH
+    WORK              -0.005       0.002      0.004      -0.008      -0.002      *
+    RELATIONS         -0.003       0.002      0.142      -0.008       0.002
+    TERMS             -0.003       0.002      0.044      -0.006       0.000
+    BENEFITS          -0.004       0.003      0.066      -0.009       0.001
+
+ BLACK    WITH
+    WORK               0.000       0.002      0.421      -0.004       0.003
+    RELATIONS          0.000       0.002      0.456      -0.004       0.005
+    TERMS              0.003       0.002      0.040       0.000       0.007
+    BENEFITS          -0.002       0.003      0.222      -0.008       0.003
+
+ HISP     WITH
+    WORK              -0.001       0.002      0.201      -0.004       0.002
+    RELATIONS          0.000       0.002      0.437      -0.004       0.005
+    TERMS             -0.001       0.002      0.218      -0.004       0.002
+    BENEFITS          -0.005       0.003      0.021      -0.010       0.000      *
+
+ RACEOTH  WITH
+    WORK              -0.009       0.002      0.000      -0.015      -0.005      *
+    RELATIONS         -0.010       0.003      0.001      -0.017      -0.004      *
+    TERMS             -0.009       0.003      0.000      -0.014      -0.004      *
+    BENEFITS          -0.010       0.004      0.010      -0.018      -0.002      *
+
+ DEGPROF  WITH
+    WORK              -0.004       0.003      0.073      -0.010       0.001
+    RELATIONS          0.005       0.004      0.101      -0.003       0.013
+    TERMS              0.002       0.003      0.222      -0.003       0.008
+    BENEFITS          -0.001       0.005      0.453      -0.010       0.009
+
+ DEGMAST  WITH
+    WORK               0.002       0.005      0.342      -0.008       0.011
+    RELATIONS         -0.007       0.007      0.186      -0.020       0.007
+    TERMS              0.002       0.005      0.332      -0.008       0.012
+    BENEFITS          -0.022       0.008      0.002      -0.038      -0.007      *
+
+ DEGBAL   WITH
+    WORK               0.006       0.003      0.004       0.001       0.012      *
+    RELATIONS          0.009       0.004      0.011       0.002       0.016      *
+    TERMS              0.007       0.003      0.010       0.001       0.012      *
+    BENEFITS           0.001       0.004      0.431      -0.008       0.009
+
+ HARDPURE WITH
+    WORK              -0.003       0.002      0.051      -0.006       0.001
+    RELATIONS          0.000       0.002      0.495      -0.005       0.005
+    TERMS              0.000       0.002      0.488      -0.003       0.004
+    BENEFITS           0.003       0.003      0.114      -0.002       0.008
+
+ SOFTAPP  WITH
+    WORK               0.019       0.004      0.000       0.012       0.026      *
+    RELATIONS          0.014       0.005      0.004       0.004       0.025      *
+    TERMS              0.022       0.004      0.000       0.014       0.030      *
+    BENEFITS           0.020       0.006      0.001       0.008       0.032      *
+
+ SOFTPURE WITH
+    WORK              -0.014       0.005      0.001      -0.023      -0.005      *
+    RELATIONS         -0.019       0.006      0.000      -0.032      -0.007      *
+    TERMS             -0.050       0.005      0.000      -0.060      -0.041      *
+    BENEFITS          -0.051       0.008      0.000      -0.066      -0.036      *
+
+ TIMEEMP  WITH
+    WORK              -0.026       0.083      0.382      -0.181       0.136
+    RELATIONS          0.014       0.122      0.453      -0.232       0.256
+    TERMS              0.588       0.095      0.000       0.402       0.790      *
+    BENEFITS           0.566       0.140      0.000       0.297       0.836      *
+
+ PRIRE    WITH
+    WORK              -0.001       0.001      0.327      -0.004       0.002
+    RELATIONS          0.000       0.002      0.453      -0.004       0.004
+    TERMS              0.005       0.001      0.000       0.002       0.008      *
+    BENEFITS           0.005       0.002      0.007       0.001       0.010      *
+
+ PRIADMIN WITH
+    WORK               0.000       0.002      0.421      -0.004       0.005
+    RELATIONS         -0.004       0.004      0.108      -0.011       0.002
+    TERMS              0.013       0.003      0.000       0.007       0.018      *
+    BENEFITS           0.025       0.004      0.000       0.018       0.032      *
+
+ PRIOTH   WITH
+    WORK               0.000       0.002      0.465      -0.003       0.004
+    RELATIONS          0.002       0.003      0.246      -0.003       0.006
+    TERMS              0.005       0.002      0.005       0.002       0.009      *
+    BENEFITS           0.006       0.003      0.022       0.000       0.012      *
+
+ NCHILD   WITH
+    WORK               0.068       0.014      0.000       0.041       0.095      *
+    RELATIONS          0.081       0.018      0.000       0.043       0.115      *
+    TERMS              0.099       0.014      0.000       0.070       0.127      *
+    BENEFITS           0.031       0.022      0.083      -0.014       0.074
+
+ TIMEEMP2 WITH
+    WORK               2.821       2.926      0.156      -3.033       8.790
+    RELATIONS          4.031       4.303      0.166      -4.619      12.672
+    TERMS             23.085       3.558      0.000      16.130      30.363      *
+    BENEFITS          20.323       5.274      0.000      10.290      30.584      *
+
+ AGE2     WITH
+    WORK               7.648       1.598      0.000       4.470      10.756      *
+    RELATIONS          8.964       2.277      0.000       4.395      13.218      *
+    TERMS             10.336       1.758      0.000       6.921      13.674      *
+    BENEFITS           3.834       2.658      0.072      -1.224       9.049
+
+ ENGLISH  WITH
+    FEMALE            -0.001       0.003      0.315      -0.006       0.004
+
+ AGE      WITH
+    FEMALE            -0.906       0.105      0.000      -1.111      -0.699      *
+    ENGLISH            0.217       0.062      0.000       0.098       0.336      *
+
+ PUBLIC   WITH
+    FEMALE             0.007       0.004      0.061      -0.002       0.015
+    ENGLISH           -0.005       0.003      0.027      -0.010       0.000
+    AGE                0.112       0.100      0.132      -0.073       0.307
+
+ PRODUCT  WITH
+    FEMALE            -0.374       0.059      0.000      -0.487      -0.261      *
+    ENGLISH           -0.141       0.037      0.000      -0.210      -0.068      *
+    AGE                7.623       1.470      0.000       4.934      10.517      *
+    PUBLIC             0.015       0.056      0.388      -0.093       0.127
+
+ GAPAA    WITH
+    FEMALE            -0.007       0.003      0.019      -0.014      -0.001      *
+    ENGLISH            0.007       0.002      0.001       0.003       0.011      *
+    AGE                1.101       0.083      0.000       0.944       1.270      *
+    PUBLIC            -0.002       0.003      0.253      -0.009       0.004
+    PRODUCT           -0.085       0.047      0.033      -0.173       0.004
+
+ GAPCE    WITH
+    FEMALE            -0.001       0.001      0.201      -0.003       0.001
+    ENGLISH           -0.001       0.001      0.123      -0.002       0.000
+    AGE                0.198       0.024      0.000       0.155       0.249      *
+    PUBLIC             0.001       0.001      0.187      -0.001       0.003
+    PRODUCT            0.008       0.014      0.282      -0.020       0.034
+    GAPAA             -0.003       0.001      0.000      -0.004      -0.001      *
+
+ GAPEX    WITH
+    FEMALE            -0.015       0.003      0.000      -0.019      -0.010      *
+    ENGLISH            0.001       0.002      0.290      -0.002       0.004
+    AGE               -0.079       0.063      0.116      -0.198       0.050
+    PUBLIC             0.000       0.003      0.468      -0.005       0.005
+    PRODUCT           -0.224       0.035      0.000      -0.296      -0.160      *
+    GAPAA             -0.021       0.002      0.000      -0.025      -0.017      *
+    GAPCE             -0.001       0.001      0.005      -0.003       0.000      *
+
+ GAPFREE  WITH
+    FEMALE             0.012       0.003      0.000       0.006       0.018      *
+    ENGLISH           -0.006       0.002      0.000      -0.009      -0.002      *
+    AGE               -0.544       0.075      0.000      -0.685      -0.406      *
+    PUBLIC             0.014       0.003      0.000       0.008       0.020      *
+    PRODUCT           -0.112       0.042      0.004      -0.195      -0.029      *
+    GAPAA             -0.034       0.003      0.000      -0.039      -0.029      *
+    GAPCE             -0.002       0.001      0.004      -0.004      -0.001      *
+    GAPEX             -0.017       0.002      0.000      -0.020      -0.013      *
+
+ ASIAN    WITH
+    FEMALE             0.001       0.002      0.249      -0.002       0.004
+    ENGLISH           -0.018       0.001      0.000      -0.020      -0.017      *
+    AGE               -0.169       0.038      0.000      -0.244      -0.093      *
+    PUBLIC            -0.001       0.002      0.156      -0.005       0.001
+    PRODUCT            0.031       0.021      0.073      -0.010       0.073
+    GAPAA             -0.001       0.001      0.154      -0.004       0.001
+    GAPCE              0.000       0.000      0.158       0.000       0.001
+    GAPEX              0.001       0.001      0.165      -0.001       0.003
+    GAPFREE            0.002       0.001      0.020       0.000       0.005      *
+
+ BLACK    WITH
+    FEMALE             0.002       0.001      0.112      -0.001       0.005
+    ENGLISH            0.001       0.001      0.281      -0.001       0.002
+    AGE               -0.025       0.036      0.244      -0.096       0.042
+    PUBLIC            -0.001       0.001      0.295      -0.004       0.002
+    PRODUCT           -0.075       0.021      0.000      -0.119      -0.038      *
+    GAPAA             -0.003       0.001      0.001      -0.006      -0.001      *
+    GAPCE              0.000       0.000      0.337       0.000       0.001
+    GAPEX              0.002       0.001      0.018       0.000       0.004      *
+    GAPFREE            0.000       0.001      0.376      -0.002       0.002
+    ASIAN             -0.001       0.001      0.026      -0.002       0.000
+
+ HISP     WITH
+    FEMALE             0.002       0.001      0.080      -0.001       0.004
+    ENGLISH           -0.013       0.001      0.000      -0.015      -0.012      *
+    AGE               -0.049       0.034      0.079      -0.113       0.015
+    PUBLIC             0.006       0.001      0.000       0.003       0.008      *
+    PRODUCT           -0.041       0.019      0.013      -0.077      -0.003      *
+    GAPAA             -0.002       0.001      0.015      -0.005       0.000      *
+    GAPCE              0.000       0.000      0.245       0.000       0.001
+    GAPEX              0.001       0.001      0.075       0.000       0.003
+    GAPFREE            0.002       0.001      0.026       0.000       0.004
+    ASIAN             -0.001       0.001      0.026      -0.002       0.000
+    BLACK             -0.001       0.000      0.040      -0.002       0.000
+
+ RACEOTH  WITH
+    FEMALE            -0.002       0.002      0.118      -0.007       0.002
+    ENGLISH           -0.009       0.001      0.000      -0.011      -0.006      *
+    AGE               -0.184       0.051      0.000      -0.284      -0.085      *
+    PUBLIC             0.006       0.002      0.001       0.002       0.011      *
+    PRODUCT            0.047       0.030      0.054      -0.008       0.107
+    GAPAA             -0.002       0.002      0.115      -0.006       0.001
+    GAPCE              0.000       0.001      0.395      -0.001       0.001
+    GAPEX              0.003       0.001      0.006       0.001       0.006      *
+    GAPFREE            0.000       0.002      0.458      -0.003       0.003
+    ASIAN             -0.003       0.001      0.001      -0.004      -0.001      *
+    BLACK             -0.002       0.001      0.002      -0.004      -0.001      *
+    HISP              -0.002       0.001      0.002      -0.003       0.000      *
+
+ DEGPROF  WITH
+    FEMALE            -0.005       0.003      0.027      -0.010       0.000
+    ENGLISH            0.001       0.001      0.305      -0.002       0.004
+    AGE                0.445       0.064      0.000       0.319       0.567      *
+    PUBLIC            -0.005       0.003      0.029      -0.010       0.000
+    PRODUCT            0.075       0.036      0.016       0.003       0.142      *
+    GAPAA              0.005       0.002      0.005       0.001       0.009      *
+    GAPCE              0.002       0.001      0.000       0.001       0.003      *
+    GAPEX              0.003       0.002      0.023       0.000       0.006      *
+    GAPFREE           -0.004       0.002      0.012      -0.008      -0.001      *
+    ASIAN              0.000       0.001      0.432      -0.002       0.002
+    BLACK              0.001       0.001      0.159      -0.001       0.003
+    HISP               0.001       0.001      0.110      -0.001       0.003
+    RACEOTH           -0.001       0.001      0.259      -0.003       0.002
+
+ DEGMAST  WITH
+    FEMALE             0.022       0.004      0.000       0.013       0.030      *
+    ENGLISH            0.011       0.002      0.000       0.006       0.016      *
+    AGE               -0.577       0.104      0.000      -0.775      -0.354      *
+    PUBLIC             0.002       0.004      0.296      -0.005       0.011
+    PRODUCT           -1.294       0.062      0.000      -1.418      -1.179      *
+    GAPAA             -0.003       0.003      0.197      -0.010       0.003
+    GAPCE             -0.002       0.001      0.011      -0.004       0.000      *
+    GAPEX              0.012       0.002      0.000       0.007       0.017      *
+    GAPFREE            0.007       0.003      0.008       0.001       0.013      *
+    ASIAN             -0.003       0.002      0.012      -0.006       0.000      *
+    BLACK              0.002       0.001      0.157      -0.001       0.004
+    HISP               0.001       0.001      0.247      -0.002       0.004
+    RACEOTH           -0.002       0.002      0.240      -0.006       0.003
+    DEGPROF           -0.052       0.003      0.000      -0.057      -0.047      *
+
+ DEGBAL   WITH
+    FEMALE            -0.004       0.002      0.033      -0.008       0.000
+    ENGLISH            0.002       0.001      0.119      -0.001       0.004
+    AGE                0.019       0.055      0.369      -0.096       0.121
+    PUBLIC             0.004       0.002      0.043      -0.001       0.008
+    PRODUCT           -0.190       0.033      0.000      -0.255      -0.125      *
+    GAPAA              0.008       0.002      0.000       0.005       0.012      *
+    GAPCE              0.000       0.001      0.294      -0.001       0.001
+    GAPEX              0.002       0.001      0.125      -0.001       0.004
+    GAPFREE            0.000       0.002      0.427      -0.003       0.004
+    ASIAN              0.000       0.001      0.356      -0.002       0.001
+    BLACK             -0.001       0.001      0.098      -0.003       0.001
+    HISP              -0.001       0.001      0.170      -0.002       0.001
+    RACEOTH            0.000       0.001      0.448      -0.002       0.002
+    DEGPROF           -0.008       0.001      0.000      -0.011      -0.005      *
+    DEGMAST           -0.041       0.002      0.000      -0.046      -0.037      *
+
+ HARDPURE WITH
+    FEMALE            -0.006       0.002      0.000      -0.008      -0.002      *
+    ENGLISH            0.000       0.001      0.324      -0.002       0.001
+    AGE               -0.049       0.036      0.097      -0.123       0.024
+    PUBLIC             0.001       0.001      0.227      -0.002       0.004
+    PRODUCT            0.130       0.022      0.000       0.087       0.172      *
+    GAPAA             -0.001       0.001      0.332      -0.003       0.002
+    GAPCE              0.000       0.000      0.372      -0.001       0.001
+    GAPEX             -0.003       0.001      0.001      -0.005      -0.001      *
+    GAPFREE           -0.002       0.001      0.018      -0.005       0.000      *
+    ASIAN             -0.001       0.001      0.130      -0.002       0.001
+    BLACK              0.000       0.001      0.191      -0.002       0.001
+    HISP               0.000       0.000      0.260      -0.001       0.001
+    RACEOTH           -0.001       0.001      0.188      -0.002       0.001
+    DEGPROF           -0.003       0.001      0.000      -0.005      -0.001      *
+    DEGMAST           -0.008       0.001      0.000      -0.011      -0.005      *
+    DEGBAL            -0.001       0.001      0.067      -0.003       0.000
+
+ SOFTAPP  WITH
+    FEMALE             0.017       0.003      0.000       0.011       0.023      *
+    ENGLISH            0.012       0.002      0.000       0.008       0.016      *
+    AGE                0.429       0.077      0.000       0.283       0.592      *
+    PUBLIC             0.002       0.003      0.233      -0.004       0.008
+    PRODUCT           -0.236       0.046      0.000      -0.326      -0.147      *
+    GAPAA              0.005       0.003      0.041      -0.001       0.010
+    GAPCE              0.002       0.001      0.005       0.000       0.003      *
+    GAPEX             -0.003       0.002      0.043      -0.007       0.000
+    GAPFREE           -0.003       0.002      0.133      -0.008       0.002
+    ASIAN             -0.003       0.001      0.007      -0.005      -0.001      *
+    BLACK              0.001       0.001      0.214      -0.001       0.003
+    HISP              -0.001       0.001      0.192      -0.003       0.001
+    RACEOTH           -0.003       0.002      0.033      -0.006       0.000
+    DEGPROF            0.021       0.002      0.000       0.017       0.025      *
+    DEGMAST            0.009       0.003      0.001       0.002       0.015      *
+    DEGBAL            -0.003       0.002      0.038      -0.007       0.000
+    HARDPURE          -0.006       0.001      0.000      -0.008      -0.004      *
+
+ SOFTPURE WITH
+    FEMALE             0.006       0.004      0.067      -0.002       0.014
+    ENGLISH           -0.009       0.002      0.000      -0.014      -0.005      *
+    AGE               -0.558       0.097      0.000      -0.760      -0.366      *
+    PUBLIC            -0.010       0.004      0.010      -0.018      -0.002      *
+    PRODUCT            0.189       0.056      0.000       0.078       0.298      *
+    GAPAA             -0.003       0.003      0.183      -0.010       0.004
+    GAPCE             -0.001       0.001      0.138      -0.003       0.001
+    GAPEX             -0.004       0.002      0.028      -0.009       0.000
+    GAPFREE            0.027       0.003      0.000       0.022       0.033      *
+    ASIAN              0.002       0.002      0.074      -0.001       0.005
+    BLACK             -0.003       0.001      0.023      -0.006       0.000      *
+    HISP               0.004       0.001      0.003       0.001       0.006      *
+    RACEOTH            0.004       0.002      0.012       0.001       0.009      *
+    DEGPROF           -0.017       0.002      0.000      -0.023      -0.013      *
+    DEGMAST           -0.014       0.004      0.000      -0.023      -0.007      *
+    DEGBAL             0.000       0.002      0.499      -0.005       0.004
+    HARDPURE          -0.012       0.001      0.000      -0.015      -0.009      *
+    SOFTAPP           -0.068       0.003      0.000      -0.075      -0.061      *
+
+ TIMEEMP  WITH
+    FEMALE            -0.280       0.074      0.000      -0.432      -0.137      *
+    ENGLISH            0.191       0.045      0.000       0.108       0.286      *
+    AGE               50.263       1.966      0.000      46.351      54.331      *
+    PUBLIC            -0.078       0.074      0.144      -0.218       0.063
+    PRODUCT            5.761       1.066      0.000       3.790       7.900      *
+    GAPAA              0.369       0.059      0.000       0.254       0.485      *
+    GAPCE              0.100       0.017      0.000       0.068       0.136      *
+    GAPEX             -0.192       0.044      0.000      -0.276      -0.105      *
+    GAPFREE           -0.310       0.054      0.000      -0.418      -0.207      *
+    ASIAN             -0.038       0.028      0.073      -0.096       0.011
+    BLACK             -0.074       0.026      0.004      -0.123      -0.022      *
+    HISP              -0.062       0.024      0.002      -0.112      -0.018      *
+    RACEOTH           -0.123       0.037      0.002      -0.195      -0.051      *
+    DEGPROF            0.050       0.043      0.123      -0.040       0.125
+    DEGMAST           -0.106       0.071      0.065      -0.254       0.030
+    DEGBAL            -0.022       0.041      0.285      -0.103       0.056
+    HARDPURE           0.039       0.026      0.059      -0.010       0.093
+    SOFTAPP           -0.041       0.057      0.238      -0.149       0.076
+    SOFTPURE           0.050       0.071      0.226      -0.090       0.194
+
+ PRIRE    WITH
+    FEMALE            -0.001       0.001      0.126      -0.004       0.001
+    ENGLISH           -0.003       0.001      0.000      -0.004      -0.001      *
+    AGE               -0.088       0.031      0.006      -0.144      -0.024      *
+    PUBLIC             0.005       0.001      0.000       0.003       0.008      *
+    PRODUCT            0.201       0.018      0.000       0.164       0.237      *
+    GAPAA             -0.003       0.001      0.007      -0.005      -0.001      *
+    GAPCE              0.000       0.000      0.423      -0.001       0.000
+    GAPEX             -0.001       0.001      0.053      -0.003       0.000
+    GAPFREE           -0.001       0.001      0.076      -0.003       0.000
+    ASIAN              0.001       0.000      0.002       0.000       0.002      *
+    BLACK              0.000       0.000      0.177      -0.001       0.000
+    HISP               0.000       0.000      0.204      -0.001       0.001
+    RACEOTH            0.000       0.001      0.295      -0.001       0.002
+    DEGPROF           -0.002       0.001      0.010      -0.003       0.000      *
+    DEGMAST           -0.008       0.001      0.000      -0.011      -0.006      *
+    DEGBAL             0.000       0.001      0.430      -0.001       0.001
+    HARDPURE           0.003       0.000      0.000       0.002       0.004      *
+    SOFTAPP           -0.001       0.001      0.103      -0.003       0.001
+    SOFTPURE          -0.004       0.001      0.000      -0.007      -0.002      *
+    TIMEEMP           -0.008       0.021      0.344      -0.048       0.035
+
+ PRIADMIN WITH
+    FEMALE             0.005       0.002      0.014       0.000       0.009      *
+    ENGLISH            0.004       0.001      0.000       0.002       0.007      *
+    AGE                0.022       0.052      0.359      -0.080       0.120
+    PUBLIC            -0.009       0.002      0.000      -0.013      -0.005      *
+    PRODUCT           -0.039       0.029      0.090      -0.097       0.022
+    GAPAA             -0.010       0.002      0.000      -0.013      -0.007      *
+    GAPCE              0.000       0.000      0.236      -0.001       0.001
+    GAPEX             -0.006       0.001      0.000      -0.009      -0.004      *
+    GAPFREE           -0.009       0.002      0.000      -0.012      -0.006      *
+    ASIAN             -0.001       0.001      0.089      -0.003       0.000
+    BLACK              0.002       0.001      0.009       0.000       0.003      *
+    HISP              -0.001       0.001      0.072      -0.002       0.000
+    RACEOTH           -0.002       0.001      0.060      -0.004       0.000
+    DEGPROF            0.002       0.001      0.035       0.000       0.005
+    DEGMAST            0.001       0.002      0.331      -0.003       0.005
+    DEGBAL             0.000       0.001      0.388      -0.003       0.002
+    HARDPURE          -0.001       0.001      0.146      -0.002       0.001
+    SOFTAPP            0.002       0.002      0.112      -0.001       0.005
+    SOFTPURE          -0.008       0.002      0.000      -0.012      -0.004      *
+    TIMEEMP            0.162       0.037      0.000       0.086       0.233      *
+    PRIRE             -0.002       0.001      0.008      -0.003       0.000      *
+
+ PRIOTH   WITH
+    FEMALE             0.001       0.002      0.207      -0.002       0.004
+    ENGLISH            0.000       0.001      0.313      -0.002       0.002
+    AGE               -0.073       0.041      0.039      -0.150       0.011
+    PUBLIC             0.003       0.002      0.044       0.000       0.006
+    PRODUCT           -0.014       0.023      0.268      -0.060       0.026
+    GAPAA             -0.002       0.001      0.093      -0.005       0.001
+    GAPCE              0.000       0.000      0.470      -0.001       0.001
+    GAPEX             -0.002       0.001      0.021      -0.004       0.000      *
+    GAPFREE           -0.004       0.001      0.000      -0.006      -0.002      *
+    ASIAN              0.000       0.001      0.480      -0.001       0.001
+    BLACK              0.000       0.001      0.250      -0.001       0.001
+    HISP               0.000       0.001      0.192      -0.001       0.001
+    RACEOTH           -0.001       0.001      0.155      -0.002       0.001
+    DEGPROF            0.001       0.001      0.127      -0.001       0.003
+    DEGMAST            0.002       0.002      0.076      -0.001       0.006
+    DEGBAL             0.002       0.001      0.024       0.000       0.003      *
+    HARDPURE          -0.001       0.001      0.094      -0.002       0.000
+    SOFTAPP            0.005       0.001      0.000       0.002       0.007      *
+    SOFTPURE          -0.005       0.002      0.001      -0.008      -0.002      *
+    TIMEEMP            0.031       0.028      0.130      -0.024       0.090
+    PRIRE             -0.001       0.000      0.031      -0.002       0.000
+    PRIADMIN          -0.003       0.001      0.000      -0.004      -0.001      *
+
+ NCHILD   WITH
+    FEMALE            -0.058       0.011      0.000      -0.082      -0.038      *
+    ENGLISH            0.007       0.007      0.148      -0.006       0.020
+    AGE                5.184       0.291      0.000       4.628       5.770      *
+    PUBLIC            -0.010       0.011      0.189      -0.033       0.013
+    PRODUCT           -0.436       0.164      0.004      -0.762      -0.117      *
+    GAPAA              0.056       0.009      0.000       0.038       0.074      *
+    GAPCE              0.007       0.003      0.007       0.001       0.012      *
+    GAPEX              0.017       0.007      0.007       0.002       0.030      *
+    GAPFREE           -0.029       0.009      0.000      -0.047      -0.012      *
+    ASIAN             -0.012       0.005      0.006      -0.020      -0.003      *
+    BLACK             -0.001       0.004      0.449      -0.008       0.007
+    HISP               0.001       0.004      0.379      -0.006       0.008
+    RACEOTH           -0.006       0.006      0.144      -0.018       0.006
+    DEGPROF            0.015       0.007      0.014       0.001       0.029      *
+    DEGMAST            0.015       0.012      0.087      -0.007       0.040
+    DEGBAL             0.017       0.006      0.004       0.005       0.030      *
+    HARDPURE          -0.008       0.004      0.031      -0.017       0.001
+    SOFTAPP            0.021       0.009      0.006       0.004       0.038      *
+    SOFTPURE          -0.086       0.011      0.000      -0.109      -0.066      *
+    TIMEEMP            1.335       0.205      0.000       0.948       1.732      *
+    PRIRE             -0.004       0.003      0.107      -0.011       0.003
+    PRIADMIN           0.005       0.006      0.203      -0.007       0.016
+    PRIOTH            -0.006       0.004      0.085      -0.015       0.003
+
+ TIMEEMP2 WITH
+    FEMALE           -10.996       2.563      0.000     -16.054      -5.947      *
+    ENGLISH            5.316       1.575      0.002       2.440       8.755      *
+    AGE             1397.898      67.750      0.000    1265.848    1534.983      *
+    PUBLIC            -3.394       2.606      0.094      -8.296       1.797
+    PRODUCT          178.364      37.625      0.000     107.718     255.191      *
+    GAPAA             14.792       2.125      0.000      10.575      19.138      *
+    GAPCE              3.716       0.608      0.000       2.508       4.940      *
+    GAPEX             -5.221       1.547      0.000      -8.310      -1.951      *
+    GAPFREE           -8.023       1.845      0.000     -11.648      -4.496      *
+    ASIAN             -0.988       1.018      0.160      -3.050       0.907
+    BLACK             -2.297       0.911      0.007      -4.088      -0.535      *
+    HISP              -1.590       0.840      0.030      -3.235       0.055
+    RACEOTH           -3.602       1.273      0.003      -6.039      -1.152      *
+    DEGPROF           -0.128       1.482      0.455      -3.027       2.742
+    DEGMAST           -8.121       2.522      0.002     -13.259      -3.090      *
+    DEGBAL             1.165       1.432      0.210      -1.584       4.027
+    HARDPURE           1.589       0.927      0.043      -0.225       3.400
+    SOFTAPP           -2.802       1.994      0.081      -6.486       1.035
+    SOFTPURE           3.166       2.420      0.098      -1.789       7.948
+    TIMEEMP         2295.685      61.541      0.000    2179.039    2422.927      *
+    PRIRE              0.507       0.738      0.237      -0.868       1.923
+    PRIADMIN           3.431       1.312      0.005       0.726       5.823      *
+    PRIOTH             0.556       1.009      0.303      -1.348       2.628
+    NCHILD            33.124       7.233      0.000      19.368      47.144      *
+
+ AGE2     WITH
+    FEMALE            -5.193       1.359      0.000      -7.768      -2.572      *
+    ENGLISH            0.600       0.818      0.234      -0.913       2.194
+    AGE             -152.098      33.795      0.000    -214.665     -84.528      *
+    PUBLIC            -1.425       1.365      0.144      -4.264       1.209
+    PRODUCT           -5.162      18.871      0.403     -43.099      33.109
+    GAPAA              8.249       1.116      0.000       5.905      10.341      *
+    GAPCE              1.824       0.329      0.000       1.219       2.453      *
+    GAPEX             -3.077       0.836      0.000      -4.695      -1.341      *
+    GAPFREE            0.136       1.013      0.444      -1.829       2.094
+    ASIAN              0.445       0.496      0.175      -0.561       1.415
+    BLACK             -0.599       0.468      0.103      -1.524       0.318
+    HISP              -0.662       0.444      0.062      -1.590       0.155
+    RACEOTH            0.022       0.704      0.488      -1.369       1.317
+    DEGPROF           -1.090       0.814      0.087      -2.662       0.567
+    DEGMAST           -2.212       1.312      0.048      -4.801       0.430
+    DEGBAL             1.216       0.748      0.054      -0.340       2.715
+    HARDPURE           0.288       0.510      0.276      -0.648       1.378
+    SOFTAPP            0.408       1.109      0.342      -1.830       2.656
+    SOFTPURE           3.663       1.328      0.003       1.007       6.351      *
+    TIMEEMP           56.245      24.141      0.012       8.135     102.512      *
+    PRIRE              0.592       0.408      0.076      -0.202       1.422
+    PRIADMIN          -0.990       0.703      0.079      -2.370       0.322
+    PRIOTH             1.168       0.537      0.013       0.128       2.269      *
+    NCHILD           -28.093       3.679      0.000     -35.185     -20.823      *
+    TIMEEMP2        8808.771     868.377      0.000    7048.189   10446.269      *
+
+ Means
+    FEMALE             0.546       0.009      0.000       0.528       0.563      *
+    ENGLISH            0.902       0.005      0.000       0.893       0.912      *
+    AGE               -0.015       0.205      0.470      -0.422       0.373
+    PUBLIC             0.396       0.008      0.000       0.380       0.413      *
+    PRODUCT           44.354       0.120      0.000      44.132      44.598      *
+    GAPAA              0.209       0.007      0.000       0.196       0.222      *
+    GAPCE              0.014       0.002      0.000       0.010       0.018      *
+    GAPEX              0.102       0.005      0.000       0.093       0.112      *
+    GAPFREE            0.165       0.006      0.000       0.152       0.178      *
+    ASIAN              0.036       0.003      0.000       0.030       0.042      *
+    BLACK              0.031       0.003      0.000       0.026       0.037      *
+    HISP               0.027       0.003      0.000       0.021       0.032      *
+    RACEOTH            0.072       0.005      0.000       0.063       0.080      *
+    DEGPROF            0.100       0.005      0.000       0.091       0.110      *
+    DEGMAST            0.519       0.009      0.000       0.503       0.537      *
+    DEGBAL             0.079       0.004      0.000       0.070       0.088      *
+    HARDPURE           0.033       0.003      0.000       0.027       0.039      *
+    SOFTAPP            0.186       0.007      0.000       0.173       0.199      *
+    SOFTPURE           0.364       0.008      0.000       0.348       0.381      *
+    TIMEEMP            7.631       0.146      0.000       7.353       7.937      *
+    PRIRE              0.023       0.002      0.000       0.018       0.028      *
+    PRIADMIN           0.068       0.004      0.000       0.059       0.077      *
+    PRIOTH             0.039       0.003      0.000       0.033       0.045      *
+    NCHILD             1.579       0.023      0.000       1.533       1.624      *
+    TIMEEMP2         131.746       5.058      0.000     121.805     141.932      *
+    AGE2             146.419       2.693      0.000     141.249     151.405      *
+
+ Intercepts
+    SATIS01            2.238       0.015      0.000       2.210       2.269      *
+    SATIS02            2.558       0.019      0.000       2.519       2.592      *
+    SATIS03            2.463       0.019      0.000       2.422       2.497      *
+    SATIS04            2.371       0.016      0.000       2.338       2.404      *
+    SATIS05            2.596       0.015      0.000       2.567       2.625      *
+    SATIS06            2.741       0.013      0.000       2.714       2.765      *
+    SATIS07            2.673       0.018      0.000       2.637       2.708      *
+    SATIS08            3.227       0.012      0.000       3.203       3.251      *
+    SATIS09            3.056       0.014      0.000       3.028       3.082      *
+    SATIS10            2.840       0.015      0.000       2.810       2.866      *
+    SATIS11            3.174       0.012      0.000       3.151       3.197      *
+    SATIS12            2.337       0.017      0.000       2.304       2.371      *
+    SATIS13            2.917       0.017      0.000       2.885       2.950      *
+    SATIS14            3.055       0.013      0.000       3.030       3.079      *
+    SATIS15            3.282       0.013      0.000       3.256       3.306      *
+    SATIS16            1.848       0.040      0.000       1.776       1.925      *
+    SATIS17            2.036       0.017      0.000       2.003       2.069      *
+    SATIS18            2.846       0.016      0.000       2.814       2.877      *
+    SATIS20            2.653       0.033      0.000       2.585       2.718      *
+
+ Thresholds
+    TURNINTE$1         0.755       0.246      0.003       0.283       1.241      *
+
+ Variances
+    FEMALE             0.248       0.006      0.000       0.238       0.261      *
+    ENGLISH            0.088       0.002      0.000       0.084       0.092      *
+    AGE              146.864       3.524      0.000     139.986     154.014      *
+    PUBLIC             0.239       0.006      0.000       0.228       0.252      *
+    PRODUCT           48.841       1.148      0.000      46.646      51.161      *
+    GAPAA              0.165       0.004      0.000       0.158       0.174      *
+    GAPCE              0.014       0.000      0.000       0.013       0.014      *
+    GAPEX              0.092       0.002      0.000       0.088       0.096      *
+    GAPFREE            0.137       0.003      0.000       0.131       0.144      *
+    ASIAN              0.035       0.001      0.000       0.033       0.036      *
+    BLACK              0.031       0.001      0.000       0.029       0.032      *
+    HISP               0.026       0.001      0.000       0.025       0.028      *
+    RACEOTH            0.067       0.002      0.000       0.064       0.070      *
+    DEGPROF            0.090       0.002      0.000       0.086       0.094      *
+    DEGMAST            0.250       0.006      0.000       0.239       0.261      *
+    DEGBAL             0.073       0.002      0.000       0.070       0.077      *
+    HARDPURE           0.032       0.001      0.000       0.031       0.034      *
+    SOFTAPP            0.152       0.004      0.000       0.145       0.159      *
+    SOFTPURE           0.232       0.005      0.000       0.222       0.242      *
+    TIMEEMP           74.171       1.820      0.000      70.649      78.000      *
+    PRIRE              0.023       0.001      0.000       0.022       0.024      *
+    PRIADMIN           0.064       0.001      0.000       0.061       0.067      *
+    PRIOTH             0.038       0.001      0.000       0.036       0.040      *
+    NCHILD             1.876       0.043      0.000       1.797       1.967      *
+    TIMEEMP2       91174.156    2308.535      0.000   86710.406   95744.930      *
+    AGE2           25932.441     622.714      0.000   24742.576   27255.062      *
+    WORK               0.243       0.016      0.000       0.209       0.273      *
+    RELATIONS          0.527       0.019      0.000       0.494       0.569      *
+    TERMS              0.266       0.017      0.000       0.238       0.305      *
+    BENEFITS           0.622       0.026      0.000       0.573       0.672      *
+
+ Residual Variances
+    SATIS01            0.555       0.015      0.000       0.528       0.585      *
+    SATIS02            0.321       0.015      0.000       0.293       0.350      *
+    SATIS03            0.211       0.013      0.000       0.184       0.236      *
+    SATIS04            0.469       0.015      0.000       0.439       0.500      *
+    SATIS05            0.486       0.013      0.000       0.461       0.513      *
+    SATIS06            0.505       0.012      0.000       0.481       0.528      *
+    SATIS07            0.782       0.020      0.000       0.741       0.819      *
+    SATIS08            0.344       0.009      0.000       0.327       0.362      *
+    SATIS09            0.144       0.009      0.000       0.126       0.163      *
+    SATIS10            0.296       0.010      0.000       0.276       0.315      *
+    SATIS11            0.368       0.010      0.000       0.349       0.389      *
+    SATIS12            0.516       0.016      0.000       0.484       0.548      *
+    SATIS13            0.582       0.016      0.000       0.552       0.615      *
+    SATIS14            0.303       0.009      0.000       0.287       0.321      *
+    SATIS15            0.426       0.011      0.000       0.406       0.450      *
+    SATIS16            0.919       0.056      0.000       0.817       1.034      *
+    SATIS17            0.385       0.013      0.000       0.362       0.415      *
+    SATIS18            0.684       0.018      0.000       0.651       0.720      *
+    SATIS20            1.059       0.050      0.000       0.970       1.164      *
+
+
+     Beginning Time:  09:51:20
+        Ending Time:  09:51:41
+       Elapsed Time:  00:00:21
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2017 Muthen & Muthen

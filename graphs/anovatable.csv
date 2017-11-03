@@ -1,0 +1,4 @@
+"","Df","CFI","RMSEA","Chisq","Chisq diff","Df diff","Pr(>Chisq)"
+"Configural Model",730,0.877,0.067,4197.374,NA,NA,NA
+"Loadings Model",790,0.874,0.065,4319.743,122.368,60,0
+"Intercepts Model",850,0.851,0.068,5053.267,733.524,60,0
