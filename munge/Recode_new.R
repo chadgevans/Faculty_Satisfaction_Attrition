@@ -16,7 +16,7 @@ df<-df %>% mutate(GAPPANTT=factor(if_else(FULLSTAT=="Yes", "FT NTT",
                                                           if_else(FULLSTAT=="No" & PTCHOICE=="Yes" & PTCAREER=="No" & GENACT03=="Yes", "Career-Ender", "Freelancer"))))))
 df$GAPPANTT<-relevel(df$GAPPANTT,"FT NTT")
 
-df<-df %>% mutate(TURNINTENT=factor(if_else(PASTACT01=="Yes" |  PASTACT02=="Yes" |  PASTACT03=="Yes", "Yes", "No")))
+df<-df %>% mutate(TURNINTENT=factor(if_else(PASTACT01=="Yes" |  PASTACT02=="Yes", "Yes", "No")))
 # This defines Turnover and dropping out of academia entirely, not changing academic employers. (see Pastact04)
 df$YEAR<-NULL # 2010 for all R's
 df$RESTYPE<-NULL # empty vector
@@ -119,15 +119,15 @@ df$BIGLAN2<-df$DEPT; levels(df$BIGLAN2)<-c("Hard.Applied.Life","Soft.Applied.Non
 df$BIGLAN3<-df$BIGLAN2; levels(df$BIGLAN3)<-c("Hard.Applied","Soft.Applied","Soft.Pure.Life","Soft.Pure.NonLife","Hard.Applied","Soft.Applied","Hard.Pure","Other")
 
 df<- df %>%
-  mutate(OBEREG=recode(OBEREG, `Far West - AK CA HI NV OR WA`="West",
+  mutate(OBEREG=recode(OBEREG, `Far West - AK CA HI NV OR WA`="West_Other",
                        `Great Lakes - IL IN MI OH WI`="Midwest",
                        `Mid East - DE DC MD NJ NY PA`="East",
                        `New England - CT ME MA NH RI VT`="East",
-                       `Other`="Other",
+                       `Other`="West_Other",
                        `Plains - IA KS MN MO NE ND SD`="Midwest",
-                       `Rocky Mountains - CO ID MT UT WY`="West",
+                       `Rocky Mountains - CO ID MT UT WY`="West_Other",
                        `Southeast - AL AR FL GA KY LA MS NC SC TN VA WV`="South",
-                       `Southwest - AZ NM OK TX`="West"))
+                       `Southwest - AZ NM OK TX`="West_Other"))
 df$OBEREG<-relevel(df$OBEREG,"East")
 
 df$TIMEEMPLOYED<-2010-df$APPTYR
@@ -135,8 +135,8 @@ df$TIMEEMPLOYED<-2010-df$APPTYR
 df$SUBJID<-factor(df$SUBJID)
 
 df<- df %>%
-  mutate(PRINACT2=recode(PRINACT, `Services to clients and patients`="Other"))
-df$PRINACT2<-factor(df$PRINACT2, levels = c("Teaching","Research","Administration","Other"))
+  mutate(PRINACT2=recode(PRINACT, `Services to clients and patients`="Admin/Other",`Administration`="Admin/Other",`Other`="Admin/Other"))
+df$PRINACT2<-factor(df$PRINACT2, levels = c("Teaching","Research","Admin/Other"))
 
 df$ACADRANK<-factor(df$ACADRANK, levels = c("Instructor","Lecturer","Assistant Professor","Associate Professor","Professor"))
 

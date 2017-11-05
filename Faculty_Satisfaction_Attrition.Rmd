@@ -25,15 +25,9 @@ Built with `r getRversion()`.  Last run on `r params$d`.
     + [Measurement Invariance](#measurement-invariance)
 * [Model Specification with Training Data](#model-specification-with-training-data)
     + [Linear Training Model with Robust SEs](#linear-training-model-with-robust-ses)
-* [Structural Equation Models](#structural-equation-models)
-    + [Evaluating Models Using Test Data](#evaluating-models-using-test-data)
-    + [Frequentist Estimates](#frequentist-estimates)
-    + [Bayesian Estimates](#bayesian-estimates)
-    + [Table to Compare Frequentist and Bayesian Estimates](#table-to-compare-frequentist-and-bayesian-estimates)
-    + [Multi-level Models](#multi-level-models)
-    + [MPlus Code](#mplus-code)
-
-
+* [Model Evaluation with Training Data](#model-evaluation-with-test-data)
+    + [Bayesian Multi-level Models](#bayesian-multi-level-models)
+    
 ## Configure{#config}
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message=FALSE, fig.width=7, fig.height=7, fig.path='graphs/', cache.path ='cache/')
@@ -87,10 +81,10 @@ source(file.path(Diagnostics, "Diagnostics.R"))
 ## Descriptive Statistics
 ```{r Descriptive_Stats}
 GAPPAnames<-c("Full-time","Aspiring Academic","Career-Ender","Expert","Freelancer")
-VARS<-c("AGE", "SEX","MARITAL2","RACEGROUP2","DEGEARN2","PRINACT2","INSTTYPE","INSTCONT","CARNEGIE2","BIGLAN","SELECTIVITY2")
+VARS<-c("AGE", "SEX","MARITAL2","RACEGROUP2","DEGEARN2","PRINACT2","INSTCONT","CARNEGIE2","BIGLAN","SELECTIVITY2","OBEREG")
 table<-round(nfCrossTable(data=df[,VARS],CTvar=as.integer(df$GAPPANTT)),2)
 colnames(table)<-GAPPAnames
-rownames(table)<-c("Avg. Age","Female","Married","White","Ph.D.","Professional","Masters","BA or Less","Teacher","Researcher","Administrator","Other","4-year","2-year","University","Public","Research I","Research II","Research III/Doctoral","Bachelor's/Master's","Associates/Other","Hard/Applied","Hard/Pure","Soft/Applied","Soft/Pure","Other","Selective")
+rownames(table)<-c("Avg. Age","Female","Married","White","Ph.D.","Professional","Masters","BA or Less","Teacher","Researcher","Administrator/Other","Public","Research I","Research II","Research III/Doctoral","Bachelor's/Master's","Associates/Other","Hard/Applied","Hard/Pure","Soft/Applied","Soft/Pure","Other","Selective","East","West/Other","Midwest","South")
 kable(table, caption = "Distribution of Adjunct Clusters by Work Characteristics")
 prop.table(table(df$GAPPANTT))
 ```
@@ -230,11 +224,11 @@ kable(anovatable)
 For this project, I will use a backward stepping variable selection process. I begin with what are the (approx.) twenty most important variables (excluding satisfaction indicators for now). These variables are as follows:
 
 ```{r Potentially_Important_variables}
-indvars<-c("GAPPANTT","PRINACT2","DEGEARN2","GENACT01","TIMEEMPLOYED","PRODUCTIVITY")
-instvars<-c("INSTTYPE","CARNEGIE2","INSTCONT","SELECTIVITY","BIGLAN","OBEREG")
+indvars<-c("GAPPANTT","PRINACT2","DEGEARN2","GENACT01","TIMEEMPLOYED","PRODUCTIVITY","SALARYALL")
+instvars<-c("CARNEGIE2","INSTCONT","SELECTIVITY","BIGLAN","OBEREG") # Not including INSTTYPE bc of small cells
 demvars<-c("NATENGSP","GENACT02","AGE","SEX","MARITAL2","NCHILD3","RACE")
 Vars<-c("TURNINTENT",indvars,instvars,demvars)
-Description<-c("Turnover Intentions","Adjunct Classifier","Principle Activity","Highest Degree Earned","Union Member","Time Employed","Scholarly Productivity","Level","Carnegie Research Status","Control","Selectivity","Biglan Subject Area","Region","Native English-speaker","Citizenship status","Age","Sex","Marital Status","Number of Children","Race")
+Description<-c("Turnover Intentions","Adjunct Classifier","Principle Activity","Highest Degree Earned","Union Member","Time Employed","Scholarly Productivity","Salary","Carnegie Research Status","Control","Selectivity","Biglan Subject Area","Region","Native English-speaker","Citizenship status","Age","Sex","Marital Status","Number of Children","Race")
 print(data.frame(cbind(Vars,Description)))
 
 df_train <- df_train %>%
@@ -244,12 +238,12 @@ df_train <- df_train %>%
 Importantly, the variable selection process (and developmnt of the functional form) will occur on training data--not test data.  This will prevent overfitting.
 
 ## Linear Training Model with Robust SEs
-Let's train a linear logistic regression model on these variables and use robust standard errors to deal with the fact that faculty members are clustered within institutions.  I also include a second order polynomial for the main numeric variables, but no interactions.  Robust SE is not the best solution to correlated errors, but seems adequate for model development.  The glm package used to estimate parameters uses iteratively reweighted least squares (IRLS) to deal with missingness.
+Let's train a linear logistic regression model on these variables and use robust standard errors to deal with the fact that faculty members are clustered within institutions.  I also include a second order polynomial for the main numeric variables, but no interactions.  Robust SE is not the best solution to correlated errors, but seems adequate for model development.  The glm package used to estimate parameters uses iteratively reweighted least squares (IRLS).
 
 ```{r Robust_Logistic_regression}
 # helper script to chain model variables into model formula
 #paste("as.numeric(TURNINTENT)-1 ~", paste(c(indvars,instvars,demvars), collapse= "+"))
-glmmod<-glm(formula= as.numeric(TURNINTENT)-1 ~ GAPPANTT+PRINACT2+DEGEARN2+TIMEEMPLOYED+I(TIMEEMPLOYED^2)+PRODUCTIVITY+INSTCONT+BIGLAN+NATENGSP+AGE+I(AGE^2)+SEX+NCHILD3+RACE+MARITAL2, data=df_train, family = binomial)
+glmmod<-glm(formula=as.numeric(TURNINTENT)-1 ~ GAPPANTT+PRINACT2+DEGEARN2+TIMEEMPLOYED+I(TIMEEMPLOYED^2)+INSTCONT+OBEREG+NATENGSP+AGE+I(AGE^2)+NCHILD3+RACE, data=df_train, family = binomial) #937 observations lost to missingness (or 17 percent of the data)
 RobustMod<-coeftest(glmmod, vcov = sandwich) # To get Robust SEs.
 print(RobustMod)
 #100*exp(RobustMod[,1]-1)
@@ -258,239 +252,55 @@ print(RobustMod)
 The backward selection process suggests the following important individual and work characteristics (alpha<0.05).  It also suggests that second order terms are appropriate for the effect of time employed and age. 
 
 ```{r Important_variables}
-Impvars<-c("GAPPANTT","PRINACT2","DEGEARN2","TIMEEMPLOYED","PRODUCTIVITY","INSTCONT","BIGLAN","NATENGSP","AGE","SEX","NCHILD3","RACE")
+Impvars<-c("GAPPANTT","PRINACT2","DEGEARN2","TIMEEMPLOYED","INSTCONT","OBEREG","NATENGSP","AGE","NCHILD3","RACE")
 print(Impvars)
 ```
 
+# Model Evaluation with Training Data
+## Bayesian Multi-level Models
 
-## Structural Equation Models 
-Now we want to include the intermediary satisfaction variables.  Because satisfaction is a multi-dimensional construct, we need to model that in an SEM.  But first, we need to data wrangle.  SEM logit in R is fussy, requiring that factor variables be coded into numeric binaries.
+Now we want to include the intermediary satisfaction variables.  Because satisfaction is a multi-dimensional construct, we need to model that in an SEM.  But first, we need to data wrangle.  Mplus has variable names constraints and binary requirements.
 
 ```{r Variable_Prep}
-semdf_train<-df_train[names(df_train) %in% c(Impvars,names(dfS),"TURNINTENT")] # probably need to include for Mplus hierarchical analysis
-options(na.action='na.pass') # required to keep na's in the model.matrix function
-semdf_train<-data.frame(model.matrix(~ . -1, data=semdf_train))
-options(na.action='na.omit')
-semdf_train$TIMEEMPLOYED_SQ<-semdf_train$TIMEEMPLOYED^2 # Allow for non-linearity in time employed
-semdf_train$AGE_SQ<-semdf_train$AGE^2 # Allow for non-linearity in time employed
-#paste("TURNINTENTYes ~", paste(names(semdf_train)[-c(1:2)], collapse= "+"))
-```
-
-First, let's look at a simple model of adjunct class predicting turnover intentions.
-It is necessary to use a probit at this time in R (and Mplus).  Missingness is dealt with using FIML.  First, the faculty typology variable.
-
-```{r Simple_OLS_Model, warning=FALSE}
-Model1 <- '
-# structural model
-TURNINTENTYes ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+ GAPPANTTExpert+GAPPANTTFreelancer
-'
-fit1<-sem(Model1, link="probit",data=semdf_train, missing = "fiml")
-```
-
-Now include work-related characteristics.
-
-```{r OLS_Model_with_Work_Vars, results='hide'}
-Model2 <- '
-# structural model
-
-TURNINTENTYes ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+GAPPANTTExpert+GAPPANTTFreelancer+PRINACT2Research+PRINACT2Administration+PRINACT2Other+DEGEARN2Professional+DEGEARN2Masters+DEGEARN2BA.or.Less+TIMEEMPLOYED+TIMEEMPLOYED_SQ+PRODUCTIVITY+INSTCONTPublic+BIGLANHard.Pure+BIGLANSoft.Applied+BIGLANSoft.Pure
-'
-fit2<-sem(Model2, link="probit", data=semdf_train, missing = "fiml") 
-```
-
-Now let's add all the important variables identified in the logit training model (e.g., demography).
-
-```{r Full_OLS_Model, results='hide'}
-Model3 <- '
-# structural model
-
-TURNINTENTYes ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+GAPPANTTExpert+GAPPANTTFreelancer+PRINACT2Research+PRINACT2Administration+PRINACT2Other+DEGEARN2Professional+DEGEARN2Masters+DEGEARN2BA.or.Less+TIMEEMPLOYED+TIMEEMPLOYED_SQ+PRODUCTIVITY+INSTCONTPublic+BIGLANHard.Pure+BIGLANSoft.Applied+BIGLANSoft.Pure+NATENGSPYes+AGE+AGE_SQ+SEXFemale+NCHILD3+RACEAsian+RACEBlack+RACEHispanic+RACEOther
-'
-fit3<-sem(Model3, link="probit", data=semdf_train, missing = "fiml") 
-```
-
-For the next model, we include the measuement model of satisfaction items to see how satisfaction mitigates the connection between background characteristics and turnover intentions.
-
-```{r Full_SEM_Model, eval=FALSE, include=FALSE, warning=FALSE}
-# computational time equals ~ 10 minutes
-Model4a <- '
-# measurement model
-
-Work =~ SATIS05+SATIS06+SATIS07+SATIS08+SATIS13+SATIS14+SATIS15+SATIS18
-Terms =~ SATIS01+SATIS04+SATIS12+SATIS16+SATIS17
-Relations =~ SATIS09+SATIS10+SATIS11
-Benefits =~ SATIS02+SATIS03+SATIS20
-
-# structural model
-
-Work ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+GAPPANTTExpert+GAPPANTTFreelancer+PRINACT2Research+PRINACT2Administration+PRINACT2Other+DEGEARN2Professional+DEGEARN2Masters+DEGEARN2BA.or.Less+TIMEEMPLOYED+TIMEEMPLOYED_SQ+PRODUCTIVITY+INSTCONTPublic+BIGLANHard.Pure+BIGLANSoft.Applied+BIGLANSoft.Pure+NATENGSPYes+AGE+AGE_SQ+SEXFemale+NCHILD3+RACEAsian+RACEBlack+RACEHispanic+RACEOther
-Relations ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+GAPPANTTExpert+GAPPANTTFreelancer+PRINACT2Research+PRINACT2Administration+PRINACT2Other+DEGEARN2Professional+DEGEARN2Masters+DEGEARN2BA.or.Less+TIMEEMPLOYED+TIMEEMPLOYED_SQ+PRODUCTIVITY+INSTCONTPublic+BIGLANHard.Pure+BIGLANSoft.Applied+BIGLANSoft.Pure+NATENGSPYes+AGE+AGE_SQ+SEXFemale+NCHILD3+RACEAsian+RACEBlack+RACEHispanic+RACEOther
-Terms ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+GAPPANTTExpert+GAPPANTTFreelancer+PRINACT2Research+PRINACT2Administration+PRINACT2Other+DEGEARN2Professional+DEGEARN2Masters+DEGEARN2BA.or.Less+TIMEEMPLOYED+TIMEEMPLOYED_SQ+PRODUCTIVITY+INSTCONTPublic+BIGLANHard.Pure+BIGLANSoft.Applied+BIGLANSoft.Pure+NATENGSPYes+AGE+AGE_SQ+SEXFemale+NCHILD3+RACEAsian+RACEBlack+RACEHispanic+RACEOther
-Benefits ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+GAPPANTTExpert+GAPPANTTFreelancer+PRINACT2Research+PRINACT2Administration+PRINACT2Other+DEGEARN2Professional+DEGEARN2Masters+DEGEARN2BA.or.Less+TIMEEMPLOYED+TIMEEMPLOYED_SQ+PRODUCTIVITY+INSTCONTPublic+BIGLANHard.Pure+BIGLANSoft.Applied+BIGLANSoft.Pure+NATENGSPYes+AGE+AGE_SQ+SEXFemale+NCHILD3+RACEAsian+RACEBlack+RACEHispanic+RACEOther
-TURNINTENTYes ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+GAPPANTTExpert+GAPPANTTFreelancer+PRINACT2Research+PRINACT2Administration+PRINACT2Other+DEGEARN2Professional+DEGEARN2Masters+DEGEARN2BA.or.Less+TIMEEMPLOYED+TIMEEMPLOYED_SQ+PRODUCTIVITY+INSTCONTPublic+BIGLANHard.Pure+BIGLANSoft.Applied+BIGLANSoft.Pure+NATENGSPYes+AGE+AGE_SQ+SEXFemale+NCHILD3+RACEAsian+RACEBlack+RACEHispanic+RACEOther+Work+Relations+Terms+Benefits
-
-Work ~~ Relations
-Work ~~ Terms
-Work ~~ Benefits
-Relations ~~ Terms
-Relations ~~ Benefits
-Terms ~~ Benefits
-'
-fit4a<-sem(Model4a, link="probit", data=semdf_train, missing = "fiml") 
-```
-
-CFI and TFI now look pretty low, but the RMSEA is decent.
-
-What sort of modifications should be made to the model?  Let's use the modification indices to modify the last model.  We'll focus on which satisfaction items should be allowed to be correlated.
-
-```{r mod_indices, cache=TRUE}
-mi <- modindices(fit4a); head(mi[order(mi$mi, decreasing=TRUE), ], 10) # n most impactful ways to modify
-```
-
-```{r Final_SEM_Specification, cache=TRUE, warning=FALSE}
-# computational time equals ~ 10 minutes
-Model4 <- '
-# measurement model
-
-Work =~ SATIS05+SATIS06+SATIS07+SATIS08+SATIS13+SATIS14+SATIS15+SATIS18
-Terms =~ SATIS01+SATIS04+SATIS12+SATIS16+SATIS17
-Relations =~ SATIS09+SATIS10+SATIS11
-Benefits =~ SATIS02+SATIS03+SATIS20
-
-# structural model
-Work ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+GAPPANTTExpert+GAPPANTTFreelancer+PRINACT2Research+PRINACT2Administration+PRINACT2Other+DEGEARN2Professional+DEGEARN2Masters+DEGEARN2BA.or.Less+TIMEEMPLOYED+TIMEEMPLOYED_SQ+PRODUCTIVITY+INSTCONTPublic+BIGLANHard.Pure+BIGLANSoft.Applied+BIGLANSoft.Pure+NATENGSPYes+AGE+AGE_SQ+SEXFemale+NCHILD3+RACEAsian+RACEBlack+RACEHispanic+RACEOther
-Relations ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+GAPPANTTExpert+GAPPANTTFreelancer+PRINACT2Research+PRINACT2Administration+PRINACT2Other+DEGEARN2Professional+DEGEARN2Masters+DEGEARN2BA.or.Less+TIMEEMPLOYED+TIMEEMPLOYED_SQ+PRODUCTIVITY+INSTCONTPublic+BIGLANHard.Pure+BIGLANSoft.Applied+BIGLANSoft.Pure+NATENGSPYes+AGE+AGE_SQ+SEXFemale+NCHILD3+RACEAsian+RACEBlack+RACEHispanic+RACEOther
-Terms ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+GAPPANTTExpert+GAPPANTTFreelancer+PRINACT2Research+PRINACT2Administration+PRINACT2Other+DEGEARN2Professional+DEGEARN2Masters+DEGEARN2BA.or.Less+TIMEEMPLOYED+TIMEEMPLOYED_SQ+PRODUCTIVITY+INSTCONTPublic+BIGLANHard.Pure+BIGLANSoft.Applied+BIGLANSoft.Pure+NATENGSPYes+AGE+AGE_SQ+SEXFemale+NCHILD3+RACEAsian+RACEBlack+RACEHispanic+RACEOther
-Benefits ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+GAPPANTTExpert+GAPPANTTFreelancer+PRINACT2Research+PRINACT2Administration+PRINACT2Other+DEGEARN2Professional+DEGEARN2Masters+DEGEARN2BA.or.Less+TIMEEMPLOYED+TIMEEMPLOYED_SQ+PRODUCTIVITY+INSTCONTPublic+BIGLANHard.Pure+BIGLANSoft.Applied+BIGLANSoft.Pure+NATENGSPYes+AGE+AGE_SQ+SEXFemale+NCHILD3+RACEAsian+RACEBlack+RACEHispanic+RACEOther
-TURNINTENTYes ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+GAPPANTTExpert+GAPPANTTFreelancer+PRINACT2Research+PRINACT2Administration+PRINACT2Other+DEGEARN2Professional+DEGEARN2Masters+DEGEARN2BA.or.Less+TIMEEMPLOYED+TIMEEMPLOYED_SQ+PRODUCTIVITY+INSTCONTPublic+BIGLANHard.Pure+BIGLANSoft.Applied+BIGLANSoft.Pure+NATENGSPYes+AGE+AGE_SQ+SEXFemale+NCHILD3+RACEAsian+RACEBlack+RACEHispanic+RACEOther+Work+Relations+Terms+Benefits
-
-Work ~~ Relations
-Work ~~ Terms
-Work ~~ Benefits
-Relations ~~ Terms
-Relations ~~ Benefits
-Terms ~~ Benefits
-
-SATIS09 ~~ SATIS10
-SATIS08 ~~ SATIS15
-SATIS14 ~~ SATIS15
-SATIS11 ~~ SATIS13
-'
-
-fit4<-sem(Model4, link="probit", data=semdf_train, missing = "fiml")
-fitMeasures(fit4, c("chisq","cfi","tli","rmsea"))
-```
-
-# Evaluating Models Using Test Data
-Our model was built exclusively using training data.  These models will now be run on test data.  Splitting the sample in this way corrects for overfitting.
-
-```{r Test_Variable_Prep}
-semdf_test<-df_test[names(df_test) %in% c(Impvars,names(dfS),"TURNINTENT")] # probably need to include for Mplus hierarchical analysis
+semdf_test<-df_test[names(df_test) %in% c(Impvars,names(dfS),"TURNINTENT","ACE")] # probably need to include for Mplus hierarchical analysis
 options(na.action='na.pass') # required to keep na's in the model.matrix function
 semdf_test<-data.frame(model.matrix(~ . -1, data=semdf_test))
 options(na.action='na.omit')
-semdf_test$AGE_SQ<-semdf_test$AGE^2 # Allow for non-linearity in time employed
+semdf_test$TIMEEMPLOYED<-semdf_test$TIMEEMPLOYED-mean(semdf_test$TIMEEMPLOYED,na.rm=T)
 semdf_test$TIMEEMPLOYED_SQ<-semdf_test$TIMEEMPLOYED^2 # Allow for non-linearity in time employed
-#paste("TURNINTENTYes ~", paste(names(semdf_test)[-c(1:2)], collapse= "+"))
-```
-
-```{r Model_1_Test_Data, results='hide', warning=FALSE}
-Mod1<-sem(Model1, link="probit", data=semdf_test, missing = "fiml")
-Mod2<-sem(Model2, link="probit", data=semdf_test, missing = "fiml") 
-Mod3<-sem(Model3, link="probit",data=semdf_test, missing = "fiml") 
-```
-
-```{r Model_4_Test_Data, cache=TRUE, warning=FALSE, results='hide'}
-Mod4<-sem(Model4, link="probit", data=semdf_test, missing = "fiml") 
-summary(Mod4, standardized = TRUE, fit.measures = TRUE)
-```
-
-## Frequentist Estimates
-### Comparing All Frequentist Models Using Test Data (Probit)
-
-```{r SEM_tables, results='hide'}
-# Parameter estimates
-PE1<-parameterEstimates(Mod1)[c(1:4),c(3:4,7)]
-PE2<-parameterEstimates(Mod2)[c(1:17),c(3:4,7)]
-PE3<-parameterEstimates(Mod3)[c(1:26),c(3:4,7)]
-PE4<-parameterEstimates(Mod4)[c(124:153),c(3:4,7)]
-
-cbind.fill <- function(...){
-    nm <- list(...) 
-    nm <- lapply(nm, as.matrix)
-    n <- max(sapply(nm, nrow)) 
-    do.call(cbind, lapply(nm, function (x) 
-        rbind(x, matrix(, n-nrow(x), ncol(x))))) 
-}
-
-PE<-cbind.fill(PE1[,(2:3)],PE2[,(2:3)], PE3[,(2:3)], PE4[,(2:3)])
-row.names(PE)<-c("Aspiring Academic","Career-Ender","Expert","Freelancer","Research","Administration","Other","Professional","Masters","BA or Less","Time-Employed","Time-Employed^2","Scholarly Productivity","Public Control","Hard/Pure","Soft/Applied","Soft/Pure","Native English","Age","Age^2","Female","Number of Children","Asian","Black","Hispanic","Other","Work and Responsibilities","Work Relationships","Terms of Employment","Job Benefits")
-
-# Fit Statistics
-fs1<-fitMeasures(Mod1, c("chisq","cfi","tli","rmsea"))
-fs2<-fitMeasures(Mod2, c("chisq","cfi","tli","rmsea"))
-fs3<-fitMeasures(Mod3, c("chisq","cfi","tli","rmsea"))
-fs4<-fitMeasures(Mod4, c("chisq","cfi","tli","rmsea"))
-
-C3<-rep(NA,4)
-fs<-cbind(fs1,C3,fs2,C3,fs3,C3,fs4,C3)
-Fit_Statistics<-rep(NA,4)
-table<-round(rbind(PE,Fit_Statistics,fs),3)
-colnames(table)<-rep(c("Estimate","p-value"),4)
-kable(table)
-```
-
-## Bayesian Estimates
-### Bayesian Estimate Using Test Data (Probit)
-
-```{r}
-mplus_out<-read.xls(file.path(Doc, "Bayesian_results.xlsx"))
-mplus_out$X<-c("Aspiring Academic","Career-Ender","Expert","Freelancer","Research","Administration","Other","Professional","Masters","BA or Less","Time-Employed","Time-Employed^2","Scholarly Productivity","Public Control","Hard/Pure","Soft/Applied","Soft/Pure","Native English","Age","Age^2","Female","Number of Children","Asian","Black","Hispanic","Other","Work and Responsibilities","Work Relationships","Terms of Employment","Job Benefits")
-kable(mplus_out)
-```
-
-## Table to Compare Frequentist and Bayesian Estimates
-
-```{r, warning=FALSE}
-space<-c("","")
-Bayes<-rbind(mplus_out[,c(2,6)],space,space,space,space,space)
-names(Bayes)<-c("Bayes","Sign.Bayes")
-FinalTable<-cbind(table,Bayes)
-kable(FinalTable)
-```
-
-## Multi-level Models
-
-Working
-
-## MPlus Code 
-### Mplus Code for Bayesian Analysis
-First, we export the data in Mplus ready format:
-
-```{r Export_Dataframe_to_MPlus, eval=FALSE}
-semdf_test<-df_test[names(df_test) %in% c("TURNINTENT",Impvars,names(dfS))] # probably need to include for Mplus hierarchical analysis
-options(na.action='na.pass') # required to keep na's in the model.matrix function
-semdf_test<-data.frame(model.matrix(~ . -1, data=semdf_test))
-options(na.action='na.omit')
-semdf_test$TIMEEMPLOYED_SQ<-semdf_test$TIMEEMPLOYED^2 # Allow for non-linearity in stress.
-semdf_test$AGE=semdf_test$AGE-mean(semdf_test$AGE, na.rm=T)
-semdf_test$AGE_SQ<-semdf_test$AGE^2 # Allow for non-linearity in stress.
+semdf_test$AGE<-semdf_test$AGE-mean(semdf_test$AGE,na.rm=T)
+semdf_test$AGE_SQ<-semdf_test$AGE^2 # Allow for non-linearity in time employed
+#paste("TURNINTENTYes ~", paste(names(semdf_train)[-c(1:2)], collapse= "+"))
 
 mdata<-semdf_test
 col_idx <- grep("TURNINTENT", names(mdata))
 mdata<- mdata[, c(col_idx, (1:ncol(mdata))[-col_idx])]
 mdata[is.na(mdata)] <- "*"
-mdata= mdata %>% select(-SEXMale)
-names(mdata)<-c('TURNINTE','SATIS01','SATIS02','SATIS03','SATIS04','SATIS05','SATIS06','SATIS07','SATIS08','SATIS09','SATIS10','SATIS11','SATIS12','SATIS13','SATIS14','SATIS15','SATIS16','SATIS17','SATIS18','SATIS20', 'Female','English','Age','Public','Product','GAPAA','GAPCE','GAPEx','GAPFree','Asian','Black','Hisp','RACEOth','DEGProf','DEGMast','DEGBAL','HardPure','SoftApp','SoftPure','BIGOTH','TIMEEMP','PRIRe','PRIAdmin','PRIOth','nChild','TIMEEMP2','Age2')
-write.table(mdata, file.path(Private_Cache,"mdata.txt"), sep="\t", col.names = F, row.names = F)
+mdata= mdata %>% select(-NATENGSPNo)
+names(mdata)<-c('TURNINTE','ACE','SATIS01','SATIS02','SATIS03','SATIS04','SATIS05','SATIS06','SATIS07','SATIS08','SATIS09','SATIS10','SATIS11','SATIS12','SATIS13','SATIS14','SATIS15','SATIS16','SATIS17','SATIS18','SATIS20','English','Age','Public','WestOth','Midwest','South','GAPAA','GAPCE','GAPEx','GAPFree','Asian','Black','Hisp','RACEOth','DEGProf','DEGMast','DEGBAL','TIMEEMP','PRIRe','PRIAdOth','nChild','TIMEEMP2','Age2')
+write.table(mdata, file.path(Private_Cache,"mp_test.txt"), sep="\t", col.names = F, row.names = F)
 ```
 
-The specific programming code for MPlus is as follows.
+First, let's look at a simple model of adjunct class predicting turnover intentions.
+It is necessary to use a probit at this time in R (and Mplus).  Missingness is dealt with using FIML.  First, the faculty typology variable.
+
+```{r}
+###_HERE<-read.xls("/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/Mod1.inp")
+###_HERE<-read.xls("/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/Mod2.inp")
+###_HERE<-read.xls("/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/Mod3.inp")
+
+```
+
+### Bayesian Models
+```{r}
+BayesianTables<-read.xls("/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/doc/Bayesian_Tables.xlsx")
+Btable<-BayesianTables[,c(1,2,3,7,8,9,13,14,15,19,20,21,25)]
+kable(Btable)
+```
 
 ```{r eval=FALSE}
-###_HERE<-read.xls("/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Turnover/doc/analysis.inp")
+write.csv(Btable, "/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/doc/Final_Bayesian_Tables.csv")
 ```
-
 
 ```{r}
 sessionInfo()

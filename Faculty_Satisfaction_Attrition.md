@@ -2,7 +2,7 @@ Faculty Satisfaction and Turnover Analysis
 ================
 Chad Evans
 
-Built with 3.3.2. Last run on 2017-10-29.
+Built with 3.3.2. Last run on 2017-11-05.
 
 -   [Configure](#configure)
     -   Libraries
@@ -18,13 +18,8 @@ Built with 3.3.2. Last run on 2017-10-29.
     -   [Measurement Invariance](#measurement-invariance)
 -   [Model Specification with Training Data](#model-specification-with-training-data)
     -   [Linear Training Model with Robust SEs](#linear-training-model-with-robust-ses)
--   [Structural Equation Models](#structural-equation-models)
-    -   [Evaluating Models Using Test Data](#evaluating-models-using-test-data)
-    -   [Frequentist Estimates](#frequentist-estimates)
-    -   [Bayesian Estimates](#bayesian-estimates)
-    -   [Table to Compare Frequentist and Bayesian Estimates](#table-to-compare-frequentist-and-bayesian-estimates)
-    -   [Multi-level Models](#multi-level-models)
-    -   [MPlus Code](#mplus-code)
+-   [Model Evaluation with Training Data](#model-evaluation-with-test-data)
+    -   [Bayesian Multi-level Models](#bayesian-multi-level-models)
 
 Configure
 ---------
@@ -55,10 +50,10 @@ Descriptive Statistics
 
 ``` r
 GAPPAnames<-c("Full-time","Aspiring Academic","Career-Ender","Expert","Freelancer")
-VARS<-c("AGE", "SEX","MARITAL2","RACEGROUP2","DEGEARN2","PRINACT2","INSTTYPE","INSTCONT","CARNEGIE2","BIGLAN","SELECTIVITY2")
+VARS<-c("AGE", "SEX","MARITAL2","RACEGROUP2","DEGEARN2","PRINACT2","INSTCONT","CARNEGIE2","BIGLAN","SELECTIVITY2","OBEREG")
 table<-round(nfCrossTable(data=df[,VARS],CTvar=as.integer(df$GAPPANTT)),2)
 colnames(table)<-GAPPAnames
-rownames(table)<-c("Avg. Age","Female","Married","White","Ph.D.","Professional","Masters","BA or Less","Teacher","Researcher","Administrator","Other","4-year","2-year","University","Public","Research I","Research II","Research III/Doctoral","Bachelor's/Master's","Associates/Other","Hard/Applied","Hard/Pure","Soft/Applied","Soft/Pure","Other","Selective")
+rownames(table)<-c("Avg. Age","Female","Married","White","Ph.D.","Professional","Masters","BA or Less","Teacher","Researcher","Administrator/Other","Public","Research I","Research II","Research III/Doctoral","Bachelor's/Master's","Associates/Other","Hard/Applied","Hard/Pure","Soft/Applied","Soft/Pure","Other","Selective","East","West/Other","Midwest","South")
 kable(table, caption = "Distribution of Adjunct Clusters by Work Characteristics")
 ```
 
@@ -74,11 +69,7 @@ kable(table, caption = "Distribution of Adjunct Clusters by Work Characteristics
 | BA or Less            |       0.05|               0.11|          0.09|    0.10|        0.07|
 | Teacher               |       0.80|               0.95|          0.95|    0.98|        0.96|
 | Researcher            |       0.04|               0.01|          0.02|    0.01|        0.01|
-| Administrator         |       0.11|               0.01|          0.02|    0.01|        0.01|
-| Other                 |       0.05|               0.03|          0.02|    0.01|        0.02|
-| 4-year                |       0.64|               0.69|          0.69|    0.66|        0.71|
-| 2-year                |       0.00|               0.04|          0.07|    0.04|        0.04|
-| University            |       0.36|               0.26|          0.24|    0.30|        0.25|
+| Administrator/Other   |       0.17|               0.04|          0.04|    0.02|        0.02|
 | Public                |       0.38|               0.38|          0.46|    0.39|        0.47|
 | Research I            |       0.05|               0.05|          0.05|    0.05|        0.04|
 | Research II           |       0.21|               0.15|          0.12|    0.16|        0.13|
@@ -91,6 +82,10 @@ kable(table, caption = "Distribution of Adjunct Clusters by Work Characteristics
 | Soft/Pure             |       0.33|               0.34|          0.37|    0.29|        0.51|
 | Other                 |       0.09|               0.07|          0.06|    0.06|        0.07|
 | Selective             |       0.14|               0.06|          0.03|    0.03|        0.06|
+| East                  |       0.32|               0.26|          0.28|    0.26|        0.26|
+| West/Other            |       0.25|               0.33|          0.33|    0.31|        0.37|
+| Midwest               |       0.29|               0.38|          0.29|    0.38|        0.34|
+| South                 |       0.14|               0.03|          0.09|    0.05|        0.03|
 
 ``` r
 prop.table(table(df$GAPPANTT))
@@ -459,11 +454,11 @@ Model Specification with Training Data
 For this project, I will use a backward stepping variable selection process. I begin with what are the (approx.) twenty most important variables (excluding satisfaction indicators for now). These variables are as follows:
 
 ``` r
-indvars<-c("GAPPANTT","PRINACT2","DEGEARN2","GENACT01","TIMEEMPLOYED","PRODUCTIVITY")
-instvars<-c("INSTTYPE","CARNEGIE2","INSTCONT","SELECTIVITY","BIGLAN","OBEREG")
+indvars<-c("GAPPANTT","PRINACT2","DEGEARN2","GENACT01","TIMEEMPLOYED","PRODUCTIVITY","SALARYALL")
+instvars<-c("CARNEGIE2","INSTCONT","SELECTIVITY","BIGLAN","OBEREG") # Not including INSTTYPE bc of small cells
 demvars<-c("NATENGSP","GENACT02","AGE","SEX","MARITAL2","NCHILD3","RACE")
 Vars<-c("TURNINTENT",indvars,instvars,demvars)
-Description<-c("Turnover Intentions","Adjunct Classifier","Principle Activity","Highest Degree Earned","Union Member","Time Employed","Scholarly Productivity","Level","Carnegie Research Status","Control","Selectivity","Biglan Subject Area","Region","Native English-speaker","Citizenship status","Age","Sex","Marital Status","Number of Children","Race")
+Description<-c("Turnover Intentions","Adjunct Classifier","Principle Activity","Highest Degree Earned","Union Member","Time Employed","Scholarly Productivity","Salary","Carnegie Research Status","Control","Selectivity","Biglan Subject Area","Region","Native English-speaker","Citizenship status","Age","Sex","Marital Status","Number of Children","Race")
 print(data.frame(cbind(Vars,Description)))
 ```
 
@@ -475,7 +470,7 @@ print(data.frame(cbind(Vars,Description)))
     ## 5      GENACT01             Union Member
     ## 6  TIMEEMPLOYED            Time Employed
     ## 7  PRODUCTIVITY   Scholarly Productivity
-    ## 8      INSTTYPE                    Level
+    ## 8     SALARYALL                   Salary
     ## 9     CARNEGIE2 Carnegie Research Status
     ## 10     INSTCONT                  Control
     ## 11  SELECTIVITY              Selectivity
@@ -499,12 +494,12 @@ Importantly, the variable selection process (and developmnt of the functional fo
 Linear Training Model with Robust SEs
 -------------------------------------
 
-Let's train a linear logistic regression model on these variables and use robust standard errors to deal with the fact that faculty members are clustered within institutions. I also include a second order polynomial for the main numeric variables, but no interactions. Robust SE is not the best solution to correlated errors, but seems adequate for model development. The glm package used to estimate parameters uses iteratively reweighted least squares (IRLS) to deal with missingness.
+Let's train a linear logistic regression model on these variables and use robust standard errors to deal with the fact that faculty members are clustered within institutions. I also include a second order polynomial for the main numeric variables, but no interactions. Robust SE is not the best solution to correlated errors, but seems adequate for model development. The glm package used to estimate parameters uses iteratively reweighted least squares (IRLS).
 
 ``` r
 # helper script to chain model variables into model formula
 #paste("as.numeric(TURNINTENT)-1 ~", paste(c(indvars,instvars,demvars), collapse= "+"))
-glmmod<-glm(formula= as.numeric(TURNINTENT)-1 ~ GAPPANTT+PRINACT2+DEGEARN2+TIMEEMPLOYED+I(TIMEEMPLOYED^2)+PRODUCTIVITY+INSTCONT+BIGLAN+NATENGSP+AGE+I(AGE^2)+SEX+NCHILD3+RACE+MARITAL2, data=df_train, family = binomial)
+glmmod<-glm(formula=as.numeric(TURNINTENT)-1 ~ GAPPANTT+PRINACT2+DEGEARN2+TIMEEMPLOYED+I(TIMEEMPLOYED^2)+INSTCONT+OBEREG+NATENGSP+AGE+I(AGE^2)+NCHILD3+RACE, data=df_train, family = binomial) #937 observations lost to missingness (or 17 percent of the data)
 RobustMod<-coeftest(glmmod, vcov = sandwich) # To get Robust SEs.
 print(RobustMod)
 ```
@@ -513,35 +508,30 @@ print(RobustMod)
     ## z test of coefficients:
     ## 
     ##                              Estimate  Std. Error z value  Pr(>|z|)    
-    ## (Intercept)               -1.73569198  0.57925591 -2.9964 0.0027317 ** 
-    ## GAPPANTTAspiring Academic -0.39318959  0.08306393 -4.7336 2.206e-06 ***
-    ## GAPPANTTCareer-Ender       0.85818888  0.28590934  3.0016 0.0026855 ** 
-    ## GAPPANTTExpert            -0.36947901  0.11325905 -3.2622 0.0011053 ** 
-    ## GAPPANTTFreelancer        -0.00512670  0.08780970 -0.0584 0.9534426    
-    ## PRINACT2Research           0.24187229  0.22813476  1.0602 0.2890460    
-    ## PRINACT2Administration     0.27319092  0.13828917  1.9755 0.0482109 *  
-    ## PRINACT2Other             -0.08423768  0.16282327 -0.5174 0.6049073    
-    ## DEGEARN2Professional      -0.17614564  0.12277803 -1.4347 0.1513819    
-    ## DEGEARN2Masters           -0.24332880  0.08171222 -2.9779 0.0029025 ** 
-    ## DEGEARN2BA or Less        -0.44790155  0.13487634 -3.3208 0.0008975 ***
-    ## TIMEEMPLOYED               0.02801272  0.00984685  2.8448 0.0044434 ** 
-    ## I(TIMEEMPLOYED^2)         -0.00073772  0.00029104 -2.5348 0.0112504 *  
-    ## PRODUCTIVITY               0.02133902  0.00528441  4.0381 5.388e-05 ***
-    ## INSTCONTPublic             0.17938070  0.06288323  2.8526 0.0043363 ** 
-    ## BIGLANHard/Pure           -0.19423478  0.17498198 -1.1100 0.2669873    
-    ## BIGLANSoft/Applied         0.05715783  0.08873344  0.6442 0.5194768    
-    ## BIGLANSoft/Pure            0.16015290  0.07479830  2.1411 0.0322635 *  
-    ## BIGLANOther                0.08466110  0.12582991  0.6728 0.5010607    
-    ## NATENGSPYes                0.54298935  0.12048179  4.5068 6.581e-06 ***
-    ## AGE                        0.06108374  0.02195462  2.7823 0.0053980 ** 
-    ## I(AGE^2)                  -0.00082842  0.00022368 -3.7037 0.0002125 ***
-    ## SEXFemale                 -0.18333738  0.06334316 -2.8944 0.0037994 ** 
-    ## NCHILD3                   -0.07778951  0.02510531 -3.0985 0.0019448 ** 
-    ## RACEAsian                 -0.28971123  0.18508348 -1.5653 0.1175125    
-    ## RACEBlack                 -0.02427694  0.16980552 -0.1430 0.8863146    
-    ## RACEHispanic               0.04044678  0.18329689  0.2207 0.8253551    
-    ## RACEOther                  0.26919375  0.12717562  2.1167 0.0342846 *  
-    ## MARITAL2Married           -0.04446485  0.07783962 -0.5712 0.5678392    
+    ## (Intercept)               -2.43249417  0.52325589 -4.6488 3.339e-06 ***
+    ## GAPPANTTAspiring Academic -0.31978874  0.08282310 -3.8611 0.0001129 ***
+    ## GAPPANTTCareer-Ender       0.90727627  0.26870357  3.3765 0.0007342 ***
+    ## GAPPANTTExpert            -0.47992708  0.11646473 -4.1208 3.776e-05 ***
+    ## GAPPANTTFreelancer        -0.09167444  0.08572278 -1.0694 0.2848763    
+    ## PRINACT2Research           0.51026063  0.19874272  2.5674 0.0102452 *  
+    ## PRINACT2Admin/Other       -0.03203307  0.10466189 -0.3061 0.7595571    
+    ## DEGEARN2Professional      -0.10175145  0.11540147 -0.8817 0.3779298    
+    ## DEGEARN2Masters           -0.23270024  0.07077966 -3.2877 0.0010102 ** 
+    ## DEGEARN2BA or Less        -0.26181623  0.12996770 -2.0145 0.0439601 *  
+    ## TIMEEMPLOYED               0.02745059  0.00963560  2.8489 0.0043875 ** 
+    ## I(TIMEEMPLOYED^2)         -0.00051372  0.00028758 -1.7864 0.0740395 .  
+    ## INSTCONTPublic             0.17731124  0.06454317  2.7472 0.0060111 ** 
+    ## OBEREGWest_Other           0.16677759  0.08330577  2.0020 0.0452855 *  
+    ## OBEREGMidwest              0.10286966  0.07946765  1.2945 0.1954981    
+    ## OBEREGSouth                0.02926781  0.11889961  0.2462 0.8055617    
+    ## NATENGSPYes                0.59583269  0.12367798  4.8176 1.453e-06 ***
+    ## AGE                        0.08696226  0.02195028  3.9618 7.439e-05 ***
+    ## I(AGE^2)                  -0.00099482  0.00022410 -4.4391 9.034e-06 ***
+    ## NCHILD3                   -0.06031170  0.02339673 -2.5778 0.0099436 ** 
+    ## RACEAsian                 -0.39411870  0.19765111 -1.9940 0.0461507 *  
+    ## RACEBlack                 -0.02403224  0.16729526 -0.1437 0.8857755    
+    ## RACEHispanic               0.14339267  0.18128914  0.7910 0.4289667    
+    ## RACEOther                  0.31042510  0.11951164  2.5974 0.0093920 ** 
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -552,321 +542,92 @@ print(RobustMod)
 The backward selection process suggests the following important individual and work characteristics (alpha&lt;0.05). It also suggests that second order terms are appropriate for the effect of time employed and age.
 
 ``` r
-Impvars<-c("GAPPANTT","PRINACT2","DEGEARN2","TIMEEMPLOYED","PRODUCTIVITY","INSTCONT","BIGLAN","NATENGSP","AGE","SEX","NCHILD3","RACE")
+Impvars<-c("GAPPANTT","PRINACT2","DEGEARN2","TIMEEMPLOYED","INSTCONT","OBEREG","NATENGSP","AGE","NCHILD3","RACE")
 print(Impvars)
 ```
 
     ##  [1] "GAPPANTT"     "PRINACT2"     "DEGEARN2"     "TIMEEMPLOYED"
-    ##  [5] "PRODUCTIVITY" "INSTCONT"     "BIGLAN"       "NATENGSP"    
-    ##  [9] "AGE"          "SEX"          "NCHILD3"      "RACE"
+    ##  [5] "INSTCONT"     "OBEREG"       "NATENGSP"     "AGE"         
+    ##  [9] "NCHILD3"      "RACE"
 
-Structural Equation Models
---------------------------
+Model Evaluation with Training Data
+===================================
 
-Now we want to include the intermediary satisfaction variables. Because satisfaction is a multi-dimensional construct, we need to model that in an SEM. But first, we need to data wrangle. SEM logit in R is fussy, requiring that factor variables be coded into numeric binaries.
+Bayesian Multi-level Models
+---------------------------
 
-``` r
-semdf_train<-df_train[names(df_train) %in% c(Impvars,names(dfS),"TURNINTENT")] # probably need to include for Mplus hierarchical analysis
-options(na.action='na.pass') # required to keep na's in the model.matrix function
-semdf_train<-data.frame(model.matrix(~ . -1, data=semdf_train))
-options(na.action='na.omit')
-semdf_train$TIMEEMPLOYED_SQ<-semdf_train$TIMEEMPLOYED^2 # Allow for non-linearity in time employed
-semdf_train$AGE_SQ<-semdf_train$AGE^2 # Allow for non-linearity in time employed
-#paste("TURNINTENTYes ~", paste(names(semdf_train)[-c(1:2)], collapse= "+"))
-```
-
-First, let's look at a simple model of adjunct class predicting turnover intentions. It is necessary to use a probit at this time in R (and Mplus). Missingness is dealt with using FIML. First, the faculty typology variable.
+Now we want to include the intermediary satisfaction variables. Because satisfaction is a multi-dimensional construct, we need to model that in an SEM. But first, we need to data wrangle. Mplus has variable names constraints and binary requirements.
 
 ``` r
-Model1 <- '
-# structural model
-TURNINTENTYes ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+ GAPPANTTExpert+GAPPANTTFreelancer
-'
-fit1<-sem(Model1, link="probit",data=semdf_train, missing = "fiml")
-```
-
-Now include work-related characteristics.
-
-``` r
-Model2 <- '
-# structural model
-
-TURNINTENTYes ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+GAPPANTTExpert+GAPPANTTFreelancer+PRINACT2Research+PRINACT2Administration+PRINACT2Other+DEGEARN2Professional+DEGEARN2Masters+DEGEARN2BA.or.Less+TIMEEMPLOYED+TIMEEMPLOYED_SQ+PRODUCTIVITY+INSTCONTPublic+BIGLANHard.Pure+BIGLANSoft.Applied+BIGLANSoft.Pure
-'
-fit2<-sem(Model2, link="probit", data=semdf_train, missing = "fiml") 
-```
-
-Now let's add all the important variables identified in the logit training model (e.g., demography).
-
-``` r
-Model3 <- '
-# structural model
-
-TURNINTENTYes ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+GAPPANTTExpert+GAPPANTTFreelancer+PRINACT2Research+PRINACT2Administration+PRINACT2Other+DEGEARN2Professional+DEGEARN2Masters+DEGEARN2BA.or.Less+TIMEEMPLOYED+TIMEEMPLOYED_SQ+PRODUCTIVITY+INSTCONTPublic+BIGLANHard.Pure+BIGLANSoft.Applied+BIGLANSoft.Pure+NATENGSPYes+AGE+AGE_SQ+SEXFemale+NCHILD3+RACEAsian+RACEBlack+RACEHispanic+RACEOther
-'
-fit3<-sem(Model3, link="probit", data=semdf_train, missing = "fiml") 
-```
-
-For the next model, we include the measuement model of satisfaction items to see how satisfaction mitigates the connection between background characteristics and turnover intentions.
-
-CFI and TFI now look pretty low, but the RMSEA is decent.
-
-What sort of modifications should be made to the model? Let's use the modification indices to modify the last model. We'll focus on which satisfaction items should be allowed to be correlated.
-
-``` r
-mi <- modindices(fit4a); head(mi[order(mi$mi, decreasing=TRUE), ], 10) # n most impactful ways to modify
-```
-
-    ##                  lhs op           rhs       mi    epc sepc.lv sepc.all
-    ## 1538 BIGLANSoft.Pure  ~ TURNINTENTYes 1182.301  4.098   4.098    4.237
-    ## 1436  INSTCONTPublic  ~ TURNINTENTYes  463.640  1.335   1.335    1.353
-    ## 735            Terms =~       SATIS05  406.593  0.782   0.413    0.475
-    ## 730             Work =~       SATIS11  344.616  0.616   0.302    0.406
-    ## 953          SATIS09 ~~       SATIS10  298.137  0.226   0.226    0.321
-    ## 840          SATIS08 ~~       SATIS15  247.309  0.096   0.096    0.161
-    ## 985            Terms  ~ TURNINTENTYes  243.526 -0.216  -0.408   -0.202
-    ## 769         Benefits =~       SATIS07  209.870  0.323   0.253    0.252
-    ## 869          SATIS14 ~~       SATIS15  189.540  0.083   0.083    0.138
-    ## 864          SATIS13 ~~       SATIS11  158.550  0.087   0.087    0.123
-    ##      sepc.nox
-    ## 1538    4.237
-    ## 1436    1.353
-    ## 735     0.475
-    ## 730     0.406
-    ## 953     0.321
-    ## 840     0.161
-    ## 985    -0.202
-    ## 769     0.252
-    ## 869     0.138
-    ## 864     0.123
-
-``` r
-# computational time equals ~ 10 minutes
-Model4 <- '
-# measurement model
-
-Work =~ SATIS05+SATIS06+SATIS07+SATIS08+SATIS13+SATIS14+SATIS15+SATIS18
-Terms =~ SATIS01+SATIS04+SATIS12+SATIS16+SATIS17
-Relations =~ SATIS09+SATIS10+SATIS11
-Benefits =~ SATIS02+SATIS03+SATIS20
-
-# structural model
-Work ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+GAPPANTTExpert+GAPPANTTFreelancer+PRINACT2Research+PRINACT2Administration+PRINACT2Other+DEGEARN2Professional+DEGEARN2Masters+DEGEARN2BA.or.Less+TIMEEMPLOYED+TIMEEMPLOYED_SQ+PRODUCTIVITY+INSTCONTPublic+BIGLANHard.Pure+BIGLANSoft.Applied+BIGLANSoft.Pure+NATENGSPYes+AGE+AGE_SQ+SEXFemale+NCHILD3+RACEAsian+RACEBlack+RACEHispanic+RACEOther
-Relations ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+GAPPANTTExpert+GAPPANTTFreelancer+PRINACT2Research+PRINACT2Administration+PRINACT2Other+DEGEARN2Professional+DEGEARN2Masters+DEGEARN2BA.or.Less+TIMEEMPLOYED+TIMEEMPLOYED_SQ+PRODUCTIVITY+INSTCONTPublic+BIGLANHard.Pure+BIGLANSoft.Applied+BIGLANSoft.Pure+NATENGSPYes+AGE+AGE_SQ+SEXFemale+NCHILD3+RACEAsian+RACEBlack+RACEHispanic+RACEOther
-Terms ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+GAPPANTTExpert+GAPPANTTFreelancer+PRINACT2Research+PRINACT2Administration+PRINACT2Other+DEGEARN2Professional+DEGEARN2Masters+DEGEARN2BA.or.Less+TIMEEMPLOYED+TIMEEMPLOYED_SQ+PRODUCTIVITY+INSTCONTPublic+BIGLANHard.Pure+BIGLANSoft.Applied+BIGLANSoft.Pure+NATENGSPYes+AGE+AGE_SQ+SEXFemale+NCHILD3+RACEAsian+RACEBlack+RACEHispanic+RACEOther
-Benefits ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+GAPPANTTExpert+GAPPANTTFreelancer+PRINACT2Research+PRINACT2Administration+PRINACT2Other+DEGEARN2Professional+DEGEARN2Masters+DEGEARN2BA.or.Less+TIMEEMPLOYED+TIMEEMPLOYED_SQ+PRODUCTIVITY+INSTCONTPublic+BIGLANHard.Pure+BIGLANSoft.Applied+BIGLANSoft.Pure+NATENGSPYes+AGE+AGE_SQ+SEXFemale+NCHILD3+RACEAsian+RACEBlack+RACEHispanic+RACEOther
-TURNINTENTYes ~ GAPPANTTAspiring.Academic+GAPPANTTCareer.Ender+GAPPANTTExpert+GAPPANTTFreelancer+PRINACT2Research+PRINACT2Administration+PRINACT2Other+DEGEARN2Professional+DEGEARN2Masters+DEGEARN2BA.or.Less+TIMEEMPLOYED+TIMEEMPLOYED_SQ+PRODUCTIVITY+INSTCONTPublic+BIGLANHard.Pure+BIGLANSoft.Applied+BIGLANSoft.Pure+NATENGSPYes+AGE+AGE_SQ+SEXFemale+NCHILD3+RACEAsian+RACEBlack+RACEHispanic+RACEOther+Work+Relations+Terms+Benefits
-
-Work ~~ Relations
-Work ~~ Terms
-Work ~~ Benefits
-Relations ~~ Terms
-Relations ~~ Benefits
-Terms ~~ Benefits
-
-SATIS09 ~~ SATIS10
-SATIS08 ~~ SATIS15
-SATIS14 ~~ SATIS15
-SATIS11 ~~ SATIS13
-'
-
-fit4<-sem(Model4, link="probit", data=semdf_train, missing = "fiml")
-fitMeasures(fit4, c("chisq","cfi","tli","rmsea"))
-```
-
-    ##    chisq      cfi      tli    rmsea 
-    ## 4599.507    0.877    0.840    0.037
-
-Evaluating Models Using Test Data
-=================================
-
-Our model was built exclusively using training data. These models will now be run on test data. Splitting the sample in this way corrects for overfitting.
-
-``` r
-semdf_test<-df_test[names(df_test) %in% c(Impvars,names(dfS),"TURNINTENT")] # probably need to include for Mplus hierarchical analysis
+semdf_test<-df_test[names(df_test) %in% c(Impvars,names(dfS),"TURNINTENT","ACE")] # probably need to include for Mplus hierarchical analysis
 options(na.action='na.pass') # required to keep na's in the model.matrix function
 semdf_test<-data.frame(model.matrix(~ . -1, data=semdf_test))
 options(na.action='na.omit')
-semdf_test$AGE_SQ<-semdf_test$AGE^2 # Allow for non-linearity in time employed
+semdf_test$TIMEEMPLOYED<-semdf_test$TIMEEMPLOYED-mean(semdf_test$TIMEEMPLOYED,na.rm=T)
 semdf_test$TIMEEMPLOYED_SQ<-semdf_test$TIMEEMPLOYED^2 # Allow for non-linearity in time employed
-#paste("TURNINTENTYes ~", paste(names(semdf_test)[-c(1:2)], collapse= "+"))
-```
-
-``` r
-Mod1<-sem(Model1, link="probit", data=semdf_test, missing = "fiml")
-Mod2<-sem(Model2, link="probit", data=semdf_test, missing = "fiml") 
-Mod3<-sem(Model3, link="probit",data=semdf_test, missing = "fiml") 
-```
-
-``` r
-Mod4<-sem(Model4, link="probit", data=semdf_test, missing = "fiml") 
-summary(Mod4, standardized = TRUE, fit.measures = TRUE)
-```
-
-Frequentist Estimates
----------------------
-
-### Comparing All Frequentist Models Using Test Data (Probit)
-
-``` r
-# Parameter estimates
-PE1<-parameterEstimates(Mod1)[c(1:4),c(3:4,7)]
-PE2<-parameterEstimates(Mod2)[c(1:17),c(3:4,7)]
-PE3<-parameterEstimates(Mod3)[c(1:26),c(3:4,7)]
-PE4<-parameterEstimates(Mod4)[c(124:153),c(3:4,7)]
-
-cbind.fill <- function(...){
-    nm <- list(...) 
-    nm <- lapply(nm, as.matrix)
-    n <- max(sapply(nm, nrow)) 
-    do.call(cbind, lapply(nm, function (x) 
-        rbind(x, matrix(, n-nrow(x), ncol(x))))) 
-}
-
-PE<-cbind.fill(PE1[,(2:3)],PE2[,(2:3)], PE3[,(2:3)], PE4[,(2:3)])
-row.names(PE)<-c("Aspiring Academic","Career-Ender","Expert","Freelancer","Research","Administration","Other","Professional","Masters","BA or Less","Time-Employed","Time-Employed^2","Scholarly Productivity","Public Control","Hard/Pure","Soft/Applied","Soft/Pure","Native English","Age","Age^2","Female","Number of Children","Asian","Black","Hispanic","Other","Work and Responsibilities","Work Relationships","Terms of Employment","Job Benefits")
-
-# Fit Statistics
-fs1<-fitMeasures(Mod1, c("chisq","cfi","tli","rmsea"))
-fs2<-fitMeasures(Mod2, c("chisq","cfi","tli","rmsea"))
-fs3<-fitMeasures(Mod3, c("chisq","cfi","tli","rmsea"))
-fs4<-fitMeasures(Mod4, c("chisq","cfi","tli","rmsea"))
-
-C3<-rep(NA,4)
-fs<-cbind(fs1,C3,fs2,C3,fs3,C3,fs4,C3)
-Fit_Statistics<-rep(NA,4)
-table<-round(rbind(PE,Fit_Statistics,fs),3)
-colnames(table)<-rep(c("Estimate","p-value"),4)
-kable(table)
-```
-
-Bayesian Estimates
-------------------
-
-### Bayesian Estimate Using Test Data (Probit)
-
-``` r
-mplus_out<-read.xls(file.path(Doc, "Bayesian_results.xlsx"))
-mplus_out$X<-c("Aspiring Academic","Career-Ender","Expert","Freelancer","Research","Administration","Other","Professional","Masters","BA or Less","Time-Employed","Time-Employed^2","Scholarly Productivity","Public Control","Hard/Pure","Soft/Applied","Soft/Pure","Native English","Age","Age^2","Female","Number of Children","Asian","Black","Hispanic","Other","Work and Responsibilities","Work Relationships","Terms of Employment","Job Benefits")
-kable(mplus_out)
-```
-
-| X                         |  Estimate|  Posterior.S.D.|  Lower.CI|  Upper.CI| Signif. |
-|:--------------------------|---------:|---------------:|---------:|---------:|:--------|
-| Aspiring Academic         |     0.016|           0.075|    -0.118|     0.171|         |
-| Career-Ender              |    -0.018|           0.218|    -0.468|     0.386|         |
-| Expert                    |    -0.328|           0.089|    -0.503|    -0.155| \*      |
-| Freelancer                |    -0.032|           0.082|    -0.190|     0.135|         |
-| Research                  |     0.251|           0.177|    -0.081|     0.608|         |
-| Administration            |     0.359|           0.100|     0.166|     0.563| \*      |
-| Other                     |     0.271|           0.129|     0.017|     0.521| \*      |
-| Professional              |    -0.038|           0.100|    -0.234|     0.162|         |
-| Masters                   |    -0.096|           0.064|    -0.225|     0.027|         |
-| BA or Less                |    -0.126|           0.099|    -0.337|     0.067|         |
-| Time-Employed             |     0.013|           0.007|    -0.001|     0.027|         |
-| Time-Employed^2           |     0.000|           0.000|    -0.001|     0.000|         |
-| Scholarly Productivity    |     0.016|           0.004|     0.008|     0.024| \*      |
-| Public Control            |     0.035|           0.053|    -0.075|     0.136|         |
-| Hard/Pure                 |    -0.220|           0.138|    -0.493|     0.052|         |
-| Soft/Applied              |     0.171|           0.070|     0.035|     0.312| \*      |
-| Soft/Pure                 |     0.046|           0.058|    -0.073|     0.152|         |
-| Native English            |     0.432|           0.091|     0.251|     0.608| \*      |
-| Age                       |    -0.008|           0.003|    -0.013|    -0.002| \*      |
-| Age^2                     |     0.000|           0.000|    -0.001|     0.000| \*      |
-| Female                    |    -0.064|           0.051|    -0.178|     0.033|         |
-| Number of Children        |    -0.043|           0.019|    -0.082|    -0.007| \*      |
-| Asian                     |    -0.144|           0.142|    -0.438|     0.140|         |
-| Black                     |    -0.016|           0.140|    -0.281|     0.277|         |
-| Hispanic                  |    -0.267|           0.152|    -0.579|     0.014|         |
-| Other                     |    -0.135|           0.103|    -0.340|     0.056|         |
-| Work and Responsibilities |     0.222|           0.167|    -0.131|     0.501|         |
-| Work Relationships        |    -0.165|           0.059|    -0.277|    -0.039| \*      |
-| Terms of Employment       |    -1.459|           0.214|    -1.900|    -1.058| \*      |
-| Job Benefits              |     0.233|           0.075|     0.101|     0.389| \*      |
-
-Table to Compare Frequentist and Bayesian Estimates
----------------------------------------------------
-
-``` r
-space<-c("","")
-Bayes<-rbind(mplus_out[,c(2,6)],space,space,space,space,space)
-names(Bayes)<-c("Bayes","Sign.Bayes")
-FinalTable<-cbind(table,Bayes)
-kable(FinalTable)
-```
-
-|  Estimate|  p-value|  Estimate|  p-value|  Estimate|  p-value|  Estimate|  p-value| Bayes  | Sign.Bayes |
-|---------:|--------:|---------:|--------:|---------:|--------:|---------:|--------:|:-------|:-----------|
-|    -0.132|    0.000|    -0.110|    0.000|    -0.077|    0.001|    -0.001|    0.968| 0.016  |            |
-|    -0.067|    0.344|    -0.058|    0.413|     0.044|    0.537|    -0.007|    0.925| -0.018 |            |
-|    -0.127|    0.000|    -0.087|    0.002|    -0.076|    0.008|    -0.111|    0.000| -0.328 | \*         |
-|     0.087|    0.000|     0.090|    0.000|     0.096|    0.000|    -0.017|    0.528| -0.032 |            |
-|        NA|       NA|    -0.037|    0.511|    -0.031|    0.574|     0.095|    0.093| 0.251  |            |
-|        NA|       NA|     0.087|    0.009|     0.075|    0.021|     0.110|    0.001| 0.359  | \*         |
-|        NA|       NA|     0.053|    0.216|     0.046|    0.274|     0.090|    0.031| 0.271  | \*         |
-|        NA|       NA|    -0.018|    0.560|    -0.012|    0.708|    -0.001|    0.964| -0.038 |            |
-|        NA|       NA|    -0.038|    0.073|    -0.052|    0.014|    -0.028|    0.181| -0.096 |            |
-|        NA|       NA|    -0.072|    0.035|    -0.077|    0.021|    -0.036|    0.275| -0.126 |            |
-|        NA|       NA|     0.004|    0.049|     0.005|    0.039|     0.004|    0.070| 0.013  |            |
-|        NA|       NA|     0.000|    0.026|     0.000|    0.200|     0.000|    0.750| 0      |            |
-|        NA|       NA|     0.006|    0.000|     0.006|    0.000|     0.005|    0.000| 0.016  | \*         |
-|        NA|       NA|     0.061|    0.000|     0.066|    0.000|     0.011|    0.520| 0.035  |            |
-|        NA|       NA|    -0.018|    0.703|    -0.038|    0.410|    -0.064|    0.168| -0.22  |            |
-|        NA|       NA|     0.039|    0.094|     0.031|    0.177|     0.044|    0.060| 0.171  | \*         |
-|        NA|       NA|     0.084|    0.000|     0.072|    0.000|     0.015|    0.448| 0.046  |            |
-|        NA|       NA|        NA|       NA|     0.165|    0.000|     0.145|    0.000| 0.432  | \*         |
-|        NA|       NA|        NA|       NA|     0.023|    0.000|     0.009|    0.114| -0.008 | \*         |
-|        NA|       NA|        NA|       NA|     0.000|    0.000|     0.000|    0.046| 0      | \*         |
-|        NA|       NA|        NA|       NA|     0.013|    0.441|    -0.018|    0.307| -0.064 |            |
-|        NA|       NA|        NA|       NA|    -0.028|    0.000|    -0.015|    0.020| -0.043 | \*         |
-|        NA|       NA|        NA|       NA|    -0.031|    0.517|    -0.044|    0.346| -0.144 |            |
-|        NA|       NA|        NA|       NA|    -0.070|    0.136|    -0.001|    0.985| -0.016 |            |
-|        NA|       NA|        NA|       NA|    -0.119|    0.025|    -0.083|    0.111| -0.267 |            |
-|        NA|       NA|        NA|       NA|    -0.016|    0.615|    -0.045|    0.150| -0.135 |            |
-|        NA|       NA|        NA|       NA|        NA|       NA|     0.122|    0.132| 0.222  |            |
-|        NA|       NA|        NA|       NA|        NA|       NA|    -0.099|    0.033| -0.165 | \*         |
-|        NA|       NA|        NA|       NA|        NA|       NA|    -0.475|    0.000| -1.459 | \*         |
-|        NA|       NA|        NA|       NA|        NA|       NA|     0.076|    0.001| 0.233  | \*         |
-|        NA|       NA|        NA|       NA|        NA|       NA|        NA|       NA|        |            |
-|     0.000|       NA|     0.000|       NA|     0.000|       NA|  3237.667|       NA|        |            |
-|     1.000|       NA|     1.000|       NA|     1.000|       NA|     0.877|       NA|        |            |
-|     1.000|       NA|     1.000|       NA|     1.000|       NA|     0.840|       NA|        |            |
-|     0.000|       NA|     0.000|       NA|     0.000|       NA|     0.037|       NA|        |            |
-
-Multi-level Models
-------------------
-
-Working
-
-MPlus Code
-----------
-
-### Mplus Code for Bayesian Analysis
-
-First, we export the data in Mplus ready format:
-
-``` r
-semdf_test<-df_test[names(df_test) %in% c("TURNINTENT",Impvars,names(dfS))] # probably need to include for Mplus hierarchical analysis
-options(na.action='na.pass') # required to keep na's in the model.matrix function
-semdf_test<-data.frame(model.matrix(~ . -1, data=semdf_test))
-options(na.action='na.omit')
-semdf_test$TIMEEMPLOYED_SQ<-semdf_test$TIMEEMPLOYED^2 # Allow for non-linearity in stress.
-semdf_test$AGE=semdf_test$AGE-mean(semdf_test$AGE, na.rm=T)
-semdf_test$AGE_SQ<-semdf_test$AGE^2 # Allow for non-linearity in stress.
+semdf_test$AGE<-semdf_test$AGE-mean(semdf_test$AGE,na.rm=T)
+semdf_test$AGE_SQ<-semdf_test$AGE^2 # Allow for non-linearity in time employed
+#paste("TURNINTENTYes ~", paste(names(semdf_train)[-c(1:2)], collapse= "+"))
 
 mdata<-semdf_test
 col_idx <- grep("TURNINTENT", names(mdata))
 mdata<- mdata[, c(col_idx, (1:ncol(mdata))[-col_idx])]
 mdata[is.na(mdata)] <- "*"
-mdata= mdata %>% select(-SEXMale)
-names(mdata)<-c('TURNINTE','SATIS01','SATIS02','SATIS03','SATIS04','SATIS05','SATIS06','SATIS07','SATIS08','SATIS09','SATIS10','SATIS11','SATIS12','SATIS13','SATIS14','SATIS15','SATIS16','SATIS17','SATIS18','SATIS20', 'Female','English','Age','Public','Product','GAPAA','GAPCE','GAPEx','GAPFree','Asian','Black','Hisp','RACEOth','DEGProf','DEGMast','DEGBAL','HardPure','SoftApp','SoftPure','BIGOTH','TIMEEMP','PRIRe','PRIAdmin','PRIOth','nChild','TIMEEMP2','Age2')
-write.table(mdata, file.path(Private_Cache,"mdata.txt"), sep="\t", col.names = F, row.names = F)
+mdata= mdata %>% select(-NATENGSPNo)
+names(mdata)<-c('TURNINTE','ACE','SATIS01','SATIS02','SATIS03','SATIS04','SATIS05','SATIS06','SATIS07','SATIS08','SATIS09','SATIS10','SATIS11','SATIS12','SATIS13','SATIS14','SATIS15','SATIS16','SATIS17','SATIS18','SATIS20','English','Age','Public','WestOth','Midwest','South','GAPAA','GAPCE','GAPEx','GAPFree','Asian','Black','Hisp','RACEOth','DEGProf','DEGMast','DEGBAL','TIMEEMP','PRIRe','PRIAdOth','nChild','TIMEEMP2','Age2')
+write.table(mdata, file.path(Private_Cache,"mp_test.txt"), sep="\t", col.names = F, row.names = F)
 ```
 
-The specific programming code for MPlus is as follows.
+First, let's look at a simple model of adjunct class predicting turnover intentions. It is necessary to use a probit at this time in R (and Mplus). Missingness is dealt with using FIML. First, the faculty typology variable.
 
 ``` r
-###_HERE<-read.xls("/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Turnover/doc/analysis.inp")
+###_HERE<-read.xls("/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/Mod1.inp")
+###_HERE<-read.xls("/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/Mod2.inp")
+###_HERE<-read.xls("/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/Mod3.inp")
+```
+
+### Bayesian Models
+
+``` r
+BayesianTables<-read.xls("/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/doc/Bayesian_Tables.xlsx")
+Btable<-BayesianTables[,c(1,2,3,7,8,9,13,14,15,19,20,21,25)]
+kable(Btable)
+```
+
+| X                               | Model.1             | X.1        | X.5 | Model.2                  | X.6        | X.10 | Model.3                  | X.11       | X.15 | SEM.Model                  | X.16       | X.20 |
+|:--------------------------------|:--------------------|:-----------|:----|:-------------------------|:-----------|:-----|:-------------------------|:-----------|:-----|:---------------------------|:-----------|:-----|
+|                                 | Estimate            | Post. S.D. |     | Estimate                 | Post. S.D. |      | Estimate                 | Post. S.D. |      | Estimate                   | Post. S.D. |      |
+| Aspiring Academic               | -0.26               | 0.057      | \*  | -0.209                   | 0.068      | \*   | -0.159                   | 0.069      | \*   | -0.089                     | 0.077      |      |
+| Career-Ender                    | -0.053              | 0.178      |     | -0.031                   | 0.189      |      | 0.148                    | 0.2        |      | 0.172                      | 0.197      |      |
+| Expert                          | -0.288              | 0.077      | \*  | -0.175                   | 0.082      | \*   | -0.174                   | 0.087      | \*   | -0.248                     | 0.093      | \*   |
+| Freelancer                      | 0.201               | 0.06       | \*  | 0.271                    | 0.072      | \*   | 0.295                    | 0.074      | \*   | 0.106                      | 0.074      |      |
+| Research                        |                     |            |     | 0.007                    | 0.155      |      | 0.061                    | 0.158      |      | 0.202                      | 0.173      |      |
+| Administration/Other            |                     |            |     | 0.155                    | 0.076      | \*   | 0.138                    | 0.076      |      | 0.188                      | 0.076      | \*   |
+| Professional                    |                     |            |     | -0.025                   | 0.078      |      | -0.022                   | 0.081      |      | -0.003                     | 0.09       |      |
+| Masters                         |                     |            |     | -0.06                    | 0.054      |      | -0.08                    | 0.054      |      | -0.056                     | 0.056      |      |
+| BA or Less                      |                     |            |     | -0.091                   | 0.089      |      | -0.105                   | 0.089      |      | -0.047                     | 0.091      |      |
+| Time Employed                   |                     |            |     | 0.012                    | 0.004      | \*   | 0.011                    | 0.005      | \*   | 0.009                      | 0.004      |      |
+| Time Employed^2                 |                     |            |     | 0                        | 0          | \*   | 0                        | 0          |      | 0                          | 0          |      |
+| Public Control                  |                     |            |     | 0.138                    | 0.055      | \*   | 0.129                    | 0.058      | \*   | 0.063                      | 0.069      |      |
+| West/Other                      |                     |            |     | 0.088                    | 0.072      |      | 0.101                    | 0.074      |      | 0.163                      | 0.091      |      |
+| Midwest                         |                     |            |     | 0.065                    | 0.072      |      | 0.083                    | 0.065      |      | 0.119                      | 0.082      |      |
+| South                           |                     |            |     | 0.035                    | 0.099      |      | 0.056                    | 0.105      |      | 0.133                      | 0.107      |      |
+| Native English                  |                     |            |     |                          |            |      | 0.429                    | 0.084      | \*   | 0.481                      | 0.091      | \*   |
+| Age                             |                     |            |     |                          |            |      | -0.004                   | 0.002      |      | -0.003                     | 0.002      |      |
+| Age^2                           |                     |            |     |                          |            |      | -0.001                   | 0          | \*   | -0.001                     | 0          | \*   |
+| Asian                           |                     |            |     |                          |            |      | -0.204                   | 0.131      |      | -0.253                     | 0.137      | \*   |
+| Black                           |                     |            |     |                          |            |      | -0.271                   | 0.136      | \*   | -0.209                     | 0.144      |      |
+| Hispanic                        |                     |            |     |                          |            |      | -0.096                   | 0.152      |      | -0.088                     | 0.157      |      |
+| Other                           |                     |            |     |                          |            |      | 0.029                    | 0.089      |      | -0.062                     | 0.09       |      |
+| Number of Children              |                     |            |     |                          |            |      | -0.062                   | 0.018      | \*   | -0.042                     | 0.019      | \*   |
+| Satis. w/ Work Responsibilities |                     |            |     |                          |            |      |                          |            |      | -0.046                     | 0.135      |      |
+| Satis. w/ Work Relationships    |                     |            |     |                          |            |      |                          |            |      | -0.09                      | 0.056      |      |
+| Satis. w/ Employment Terms      |                     |            |     |                          |            |      |                          |            |      | -0.829                     | 0.151      | \*   |
+| Satis. w/ Job Benefits          |                     |            |     |                          |            |      |                          |            |      | 0.125                      | 0.069      |      |
+| Fit Statistic: Chi-square C.I.  | \[-18.058, 17.948\] |            |     | \[4367.009, 4614.450\]\* |            |      | \[7058.960, 7360.038\]\* |            |      | \[9881.989 , 10404.936\]\* |            |      |
+
+``` r
+write.csv(Btable, "/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/doc/Final_Bayesian_Tables.csv")
 ```
 
 ``` r

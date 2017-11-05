@@ -1,0 +1,197 @@
+Mplus VERSION 8 (Mac)
+MUTHEN & MUTHEN
+11/05/2017  10:06 AM
+
+INPUT INSTRUCTIONS
+
+  TITLE:		Title
+  DATA:		FILE = /Users/chadgevans/Research/Projects/Data/HERI/Cache/mp_test.txt;
+  VARIABLE:		NAMES = TURNINTE ACE SATIS01 SATIS02 SATIS03 SATIS04 SATIS05
+  		SATIS06 SATIS07 SATIS08 SATIS09 SATIS10 SATIS11 SATIS12
+  		SATIS13 SATIS14 SATIS15 SATIS16 SATIS17 SATIS18 SATIS20
+  		English Age Public WestOth Midwest South GAPAA GAPCE GAPEx
+  		GAPFree Asian Black Hisp RACEOth DEGProf DEGMast DEGBAL
+  		TIMEEMP PRIRe PRIAdOth nChild TIMEEMP2 Age2;
+  		USEVARIABLES = TURNINTE GAPAA GAPCE GAPEx GAPFree;
+  		CATEGORICAL = TURNINTE;
+  		MISSING = *;
+  ANALYSIS: 		ESTIMATOR=BAYES;
+  		PROCESSORS=2;
+  		FBITER=1000
+  MODEL:		TURNINTE ON GAPAA GAPCE GAPEx GAPFree;
+  		GAPAA GAPCE GAPEx GAPFree;
+
+
+
+*** WARNING
+  Data set contains cases with missing on all variables.
+  These cases were not included in the analysis.
+  Number of cases with missing on all variables:  3
+   1 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+Title
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        3589
+
+Number of dependent variables                                    1
+Number of independent variables                                  4
+Number of continuous latent variables                            0
+
+Observed dependent variables
+
+  Binary and ordered categorical (ordinal)
+   TURNINTE
+
+Observed independent variables
+   GAPAA       GAPCE       GAPEX       GAPFREE
+
+
+Estimator                                                    BAYES
+Specifications for Bayesian Estimation
+  Point estimate                                            MEDIAN
+  Number of Markov chain Monte Carlo (MCMC) chains               2
+  Random seed for the first chain                                0
+  Starting value information                           UNPERTURBED
+  Treatment of categorical mediator                         LATENT
+  Algorithm used for Markov chain Monte Carlo           GIBBS(PX1)
+  Fixed number of iterations                                  1000
+  K-th iteration used for thinning                               1
+Link                                                        PROBIT
+
+Input data file(s)
+  /Users/chadgevans/Research/Projects/Data/HERI/Cache/mp_test.txt
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.100
+
+     Number of missing data patterns             3
+
+
+     PROPORTION OF DATA PRESENT
+
+
+           Covariance Coverage
+              TURNINTE      GAPAA         GAPCE         GAPEX         GAPFREE
+              ________      ________      ________      ________      ________
+ TURNINTE       0.995
+ GAPAA          0.989         0.994
+ GAPCE          0.989         0.994         0.994
+ GAPEX          0.989         0.994         0.994         0.994
+ GAPFREE        0.989         0.994         0.994         0.994         0.994
+
+
+UNIVARIATE PROPORTIONS AND COUNTS FOR CATEGORICAL VARIABLES
+
+    TURNINTE
+      Category 1    0.544         1943.000
+      Category 2    0.456         1628.000
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     GAPAA                 0.209       1.433       0.000   79.13%       0.000      0.000      0.000
+            3569.000       0.165       0.054       1.000   20.87%       0.000      1.000
+     GAPCE                 0.014       8.358       0.000   98.63%       0.000      0.000      0.000
+            3569.000       0.014      67.851       1.000    1.37%       0.000      0.000
+     GAPEX                 0.102       2.630       0.000   89.80%       0.000      0.000      0.000
+            3569.000       0.092       4.919       1.000   10.20%       0.000      0.000
+     GAPFREE               0.164       1.813       0.000   83.58%       0.000      0.000      0.000
+            3569.000       0.137       1.287       1.000   16.42%       0.000      0.000
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+     USE THE FBITERATIONS OPTION TO INCREASE THE NUMBER OF ITERATIONS BY A FACTOR
+     OF AT LEAST TWO TO CHECK CONVERGENCE AND THAT THE PSR VALUE DOES NOT INCREASE.
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                              19
+
+Bayesian Posterior Predictive Checking using Chi-Square
+
+          95% Confidence Interval for the Difference Between
+          the Observed and the Replicated Chi-Square Values
+
+                                -18.058            17.948
+
+          Posterior Predictive P-Value              0.490
+
+
+
+MODEL RESULTS
+
+                                Posterior  One-Tailed         95% C.I.
+                    Estimate       S.D.      P-Value   Lower 2.5%  Upper 2.5%  Significance
+
+ TURNINTE   ON
+    GAPAA             -0.260       0.057      0.000      -0.370      -0.150      *
+    GAPCE             -0.053       0.178      0.396      -0.422       0.308
+    GAPEX             -0.288       0.077      0.000      -0.441      -0.131      *
+    GAPFREE            0.201       0.060      0.000       0.081       0.314      *
+
+ GAPCE    WITH
+    GAPAA             -0.003       0.001      0.000      -0.004      -0.001      *
+
+ GAPEX    WITH
+    GAPAA             -0.021       0.002      0.000      -0.025      -0.017      *
+    GAPCE             -0.001       0.001      0.012      -0.002       0.000      *
+
+ GAPFREE  WITH
+    GAPAA             -0.034       0.003      0.000      -0.039      -0.029      *
+    GAPCE             -0.002       0.001      0.000      -0.004      -0.001      *
+    GAPEX             -0.017       0.002      0.000      -0.021      -0.013      *
+
+ Means
+    GAPAA              0.209       0.007      0.000       0.196       0.222      *
+    GAPCE              0.014       0.002      0.000       0.010       0.017      *
+    GAPEX              0.102       0.005      0.000       0.091       0.113      *
+    GAPFREE            0.164       0.006      0.000       0.152       0.176      *
+
+ Thresholds
+    TURNINTE$1         0.060       0.029      0.021       0.002       0.115      *
+
+ Variances
+    GAPAA              0.165       0.004      0.000       0.158       0.173      *
+    GAPCE              0.014       0.000      0.000       0.013       0.014      *
+    GAPEX              0.092       0.002      0.000       0.088       0.096      *
+    GAPFREE            0.138       0.003      0.000       0.131       0.144      *
+
+
+     Beginning Time:  10:06:01
+        Ending Time:  10:06:03
+       Elapsed Time:  00:00:02
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2017 Muthen & Muthen
