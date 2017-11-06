@@ -2,7 +2,7 @@ Faculty Satisfaction and Turnover Analysis
 ================
 Chad Evans
 
-Built with 3.3.2. Last run on 2017-11-05.
+Built with 3.3.2. Last run on 2017-11-06.
 
 -   [Configure](#configure)
     -   Libraries
@@ -553,9 +553,6 @@ print(Impvars)
 Model Evaluation with Training Data
 ===================================
 
-Bayesian Multi-level Models
----------------------------
-
 Now we want to include the intermediary satisfaction variables. Because satisfaction is a multi-dimensional construct, we need to model that in an SEM. But first, we need to data wrangle. Mplus has variable names constraints and binary requirements.
 
 ``` r
@@ -580,13 +577,17 @@ write.table(mdata, file.path(Private_Cache,"mp_test.txt"), sep="\t", col.names =
 
 First, let's look at a simple model of adjunct class predicting turnover intentions. It is necessary to use a probit at this time in R (and Mplus). Missingness is dealt with using FIML. First, the faculty typology variable.
 
+### Mplus Output
+
 ``` r
-###_HERE<-read.xls("/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/Mod1.inp")
-###_HERE<-read.xls("/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/Mod2.inp")
-###_HERE<-read.xls("/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/Mod3.inp")
+HLM_Mod1<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_Mod1.out")
+HLM_Mod2<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_Mod2.out")
+HLM_Mod3<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_Mod3.out"
+HLM_SEM<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_SEM.out"
 ```
 
-### Bayesian Models
+Bayesian Multi-level Models
+---------------------------
 
 ``` r
 BayesianTables<-read.xls("/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/doc/Bayesian_Tables.xlsx")
@@ -597,34 +598,34 @@ kable(Btable)
 | X                               | Model.1             | X.1        | X.5 | Model.2                  | X.6        | X.10 | Model.3                  | X.11       | X.15 | SEM.Model                  | X.16       | X.20 |
 |:--------------------------------|:--------------------|:-----------|:----|:-------------------------|:-----------|:-----|:-------------------------|:-----------|:-----|:---------------------------|:-----------|:-----|
 |                                 | Estimate            | Post. S.D. |     | Estimate                 | Post. S.D. |      | Estimate                 | Post. S.D. |      | Estimate                   | Post. S.D. |      |
-| Aspiring Academic               | -0.26               | 0.057      | \*  | -0.209                   | 0.068      | \*   | -0.159                   | 0.069      | \*   | -0.089                     | 0.077      |      |
-| Career-Ender                    | -0.053              | 0.178      |     | -0.031                   | 0.189      |      | 0.148                    | 0.2        |      | 0.172                      | 0.197      |      |
-| Expert                          | -0.288              | 0.077      | \*  | -0.175                   | 0.082      | \*   | -0.174                   | 0.087      | \*   | -0.248                     | 0.093      | \*   |
-| Freelancer                      | 0.201               | 0.06       | \*  | 0.271                    | 0.072      | \*   | 0.295                    | 0.074      | \*   | 0.106                      | 0.074      |      |
-| Research                        |                     |            |     | 0.007                    | 0.155      |      | 0.061                    | 0.158      |      | 0.202                      | 0.173      |      |
-| Administration/Other            |                     |            |     | 0.155                    | 0.076      | \*   | 0.138                    | 0.076      |      | 0.188                      | 0.076      | \*   |
-| Professional                    |                     |            |     | -0.025                   | 0.078      |      | -0.022                   | 0.081      |      | -0.003                     | 0.09       |      |
-| Masters                         |                     |            |     | -0.06                    | 0.054      |      | -0.08                    | 0.054      |      | -0.056                     | 0.056      |      |
-| BA or Less                      |                     |            |     | -0.091                   | 0.089      |      | -0.105                   | 0.089      |      | -0.047                     | 0.091      |      |
-| Time Employed                   |                     |            |     | 0.012                    | 0.004      | \*   | 0.011                    | 0.005      | \*   | 0.009                      | 0.004      |      |
-| Time Employed^2                 |                     |            |     | 0                        | 0          | \*   | 0                        | 0          |      | 0                          | 0          |      |
-| Public Control                  |                     |            |     | 0.138                    | 0.055      | \*   | 0.129                    | 0.058      | \*   | 0.063                      | 0.069      |      |
-| West/Other                      |                     |            |     | 0.088                    | 0.072      |      | 0.101                    | 0.074      |      | 0.163                      | 0.091      |      |
-| Midwest                         |                     |            |     | 0.065                    | 0.072      |      | 0.083                    | 0.065      |      | 0.119                      | 0.082      |      |
-| South                           |                     |            |     | 0.035                    | 0.099      |      | 0.056                    | 0.105      |      | 0.133                      | 0.107      |      |
-| Native English                  |                     |            |     |                          |            |      | 0.429                    | 0.084      | \*   | 0.481                      | 0.091      | \*   |
-| Age                             |                     |            |     |                          |            |      | -0.004                   | 0.002      |      | -0.003                     | 0.002      |      |
-| Age^2                           |                     |            |     |                          |            |      | -0.001                   | 0          | \*   | -0.001                     | 0          | \*   |
-| Asian                           |                     |            |     |                          |            |      | -0.204                   | 0.131      |      | -0.253                     | 0.137      | \*   |
-| Black                           |                     |            |     |                          |            |      | -0.271                   | 0.136      | \*   | -0.209                     | 0.144      |      |
-| Hispanic                        |                     |            |     |                          |            |      | -0.096                   | 0.152      |      | -0.088                     | 0.157      |      |
-| Other                           |                     |            |     |                          |            |      | 0.029                    | 0.089      |      | -0.062                     | 0.09       |      |
-| Number of Children              |                     |            |     |                          |            |      | -0.062                   | 0.018      | \*   | -0.042                     | 0.019      | \*   |
-| Satis. w/ Work Responsibilities |                     |            |     |                          |            |      |                          |            |      | -0.046                     | 0.135      |      |
-| Satis. w/ Work Relationships    |                     |            |     |                          |            |      |                          |            |      | -0.09                      | 0.056      |      |
-| Satis. w/ Employment Terms      |                     |            |     |                          |            |      |                          |            |      | -0.829                     | 0.151      | \*   |
-| Satis. w/ Job Benefits          |                     |            |     |                          |            |      |                          |            |      | 0.125                      | 0.069      |      |
-| Fit Statistic: Chi-square C.I.  | \[-18.058, 17.948\] |            |     | \[4367.009, 4614.450\]\* |            |      | \[7058.960, 7360.038\]\* |            |      | \[9881.989 , 10404.936\]\* |            |      |
+| Aspiring Academic               | -0.260              | 0.057      | \*  | -0.209                   | 0.068      | \*   | -0.159                   | 0.069      | \*   | -0.044                     | 0.076      |      |
+| Career-Ender                    | -0.053              | 0.178      |     | -0.031                   | 0.189      |      | 0.148                    | 0.200      |      | 0.165                      | 0.213      |      |
+| Expert                          | -0.288              | 0.077      | \*  | -0.175                   | 0.082      | \*   | -0.174                   | 0.087      | \*   | -0.271                     | 0.095      | \*   |
+| Freelancer                      | 0.201               | 0.060      | \*  | 0.271                    | 0.072      | \*   | 0.295                    | 0.074      | \*   | 0.021                      | 0.082      |      |
+| Research                        |                     |            |     | 0.007                    | 0.155      |      | 0.061                    | 0.158      |      | 0.203                      | 0.166      |      |
+| Administration/Other            |                     |            |     | 0.155                    | 0.076      | \*   | 0.138                    | 0.076      |      | 0.202                      | 0.084      | \*   |
+| Professional                    |                     |            |     | -0.025                   | 0.078      |      | -0.022                   | 0.081      |      | 0.014                      | 0.084      |      |
+| Masters                         |                     |            |     | -0.060                   | 0.054      |      | -0.080                   | 0.054      |      | -0.035                     | 0.060      |      |
+| BA or Less                      |                     |            |     | -0.091                   | 0.089      |      | -0.105                   | 0.089      |      | 0.002                      | 0.096      |      |
+| Time Employed                   |                     |            |     | 0.012                    | 0.004      | \*   | 0.011                    | 0.005      | \*   | 0.006                      | 0.005      |      |
+| Time Employed^2                 |                     |            |     | 0.000                    | 0.000      | \*   | 0.000                    | 0.000      |      | 0.000                      | 0.000      |      |
+| Public Control                  |                     |            |     | 0.138                    | 0.055      | \*   | 0.129                    | 0.058      | \*   | 0.167                      | 0.100      |      |
+| West/Other                      |                     |            |     | 0.088                    | 0.072      |      | 0.101                    | 0.074      |      | 0.096                      | 0.079      |      |
+| Midwest                         |                     |            |     | 0.065                    | 0.072      |      | 0.083                    | 0.065      |      | 0.114                      | 0.088      |      |
+| South                           |                     |            |     | 0.035                    | 0.099      |      | 0.056                    | 0.105      |      | 0.107                      | 0.115      |      |
+| Native English                  |                     |            |     |                          |            |      | 0.429                    | 0.084      | \*   | 0.474                      | 0.091      | \*   |
+| Age                             |                     |            |     |                          |            |      | -0.004                   | 0.002      |      | -0.002                     | 0.003      |      |
+| Age^2                           |                     |            |     |                          |            |      | -0.001                   | 0.000      | \*   | 0.000                      | 0.000      | \*   |
+| Asian                           |                     |            |     |                          |            |      | -0.204                   | 0.131      |      | -0.274                     | 0.133      | \*   |
+| Black                           |                     |            |     |                          |            |      | -0.271                   | 0.136      | \*   | -0.131                     | 0.134      |      |
+| Hispanic                        |                     |            |     |                          |            |      | -0.096                   | 0.152      |      | -0.065                     | 0.157      |      |
+| Other                           |                     |            |     |                          |            |      | 0.029                    | 0.089      |      | -0.069                     | 0.095      |      |
+| Number of Children              |                     |            |     |                          |            |      | -0.062                   | 0.018      | \*   | -0.034                     | 0.020      |      |
+| Satis. w/ Work Responsibilities |                     |            |     |                          |            |      |                          |            |      | -0.302                     | 0.069      | \*   |
+| Satis. w/ Work Relationships    |                     |            |     |                          |            |      |                          |            |      | -0.107                     | 0.036      | \*   |
+| Satis. w/ Employment Terms      |                     |            |     |                          |            |      |                          |            |      | -0.654                     | 0.087      | \*   |
+| Satis. w/ Job Benefits          |                     |            |     |                          |            |      |                          |            |      | -0.003                     | 0.044      |      |
+| Fit Statistic: Chi-square C.I.  | \[-18.058, 17.948\] |            |     | \[4367.009, 4614.450\]\* |            |      | \[7058.960, 7360.038\]\* |            |      | \[11766.223, 12264.032\]\* |            |      |
 
 ``` r
 write.csv(Btable, "/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/doc/Final_Bayesian_Tables.csv")

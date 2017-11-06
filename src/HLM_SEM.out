@@ -1,6 +1,6 @@
 Mplus VERSION 8 (Mac)
 MUTHEN & MUTHEN
-11/05/2017   9:51 AM
+11/06/2017   8:18 AM
 
 INPUT INSTRUCTIONS
 
@@ -27,17 +27,16 @@ INPUT INSTRUCTIONS
   		ESTIMATOR=BAYES;
   		PROCESSORS=2;
   		FBITER=1000
-  MODEL:		%BETWEEN%
-  		TURNINTE ON Public WestOth Midwest South;
-  		Public WestOth Midwest South;
-  		
-  		%WITHIN%
+  MODEL:		%WITHIN%
       		Work BY SATIS05 SATIS06 SATIS07 SATIS08
       		SATIS13 SATIS14 SATIS15 SATIS18;
       		Relations BY SATIS09 SATIS10 SATIS11;
       		Terms BY SATIS01 SATIS04 SATIS12 SATIS16 SATIS17;
       		Benefits BY SATIS02 SATIS03 SATIS20;
-      		TURNINTE ON GAPAA GAPCE GAPEx GAPFree PRIRe PRIAdOth
+      		Work Relations Terms Benefits ON GAPAA GAPCE GAPEx GAPFree PRIRe PRIAdOth
+  		DEGProf DEGMast DEGBAL TIMEEMP TIMEEMP2 English Age Age2
+  		Asian Black Hisp RACEOth nChild;
+  		TURNINTE ON GAPAA GAPCE GAPEx GAPFree PRIRe PRIAdOth
   		DEGProf DEGMast DEGBAL TIMEEMP TIMEEMP2 English Age Age2
   		Asian Black Hisp RACEOth nChild Work Relations Terms Benefits;
       		GAPAA GAPCE GAPEx GAPFree PRIRe PRIAdOth
@@ -46,85 +45,18 @@ INPUT INSTRUCTIONS
   		SATIS06 SATIS07 SATIS08 SATIS09 SATIS10 SATIS11 SATIS12
   		SATIS13 SATIS14 SATIS15 SATIS16 SATIS17 SATIS18 SATIS20;
   		
+  		%BETWEEN%
+  		Work2 BY SATIS05 SATIS06 SATIS07 SATIS08
+      		SATIS13 SATIS14 SATIS15 SATIS18;
+      		Rel2 BY SATIS09 SATIS10 SATIS11;
+      		Terms2 BY SATIS01 SATIS04 SATIS12 SATIS16 SATIS17;
+      		Ben2 BY SATIS02 SATIS03 SATIS20;
+      		Work2 Rel2 Terms2 Ben2 ON Public WestOth Midwest South;
+  		TURNINTE ON Public WestOth Midwest South Work2 Rel2 Terms2 Ben2;
+  		Public WestOth Midwest South;
 
 
 
-*** WARNING in MODEL command
-  A y-variable has been declared on the within level but not referred to on
-  the between level.  Please check that this is what is intended.  If this is not intended,
-  specify the variable as a within variable.  Problem with:  SATIS01
-*** WARNING in MODEL command
-  A y-variable has been declared on the within level but not referred to on
-  the between level.  Please check that this is what is intended.  If this is not intended,
-  specify the variable as a within variable.  Problem with:  SATIS02
-*** WARNING in MODEL command
-  A y-variable has been declared on the within level but not referred to on
-  the between level.  Please check that this is what is intended.  If this is not intended,
-  specify the variable as a within variable.  Problem with:  SATIS03
-*** WARNING in MODEL command
-  A y-variable has been declared on the within level but not referred to on
-  the between level.  Please check that this is what is intended.  If this is not intended,
-  specify the variable as a within variable.  Problem with:  SATIS04
-*** WARNING in MODEL command
-  A y-variable has been declared on the within level but not referred to on
-  the between level.  Please check that this is what is intended.  If this is not intended,
-  specify the variable as a within variable.  Problem with:  SATIS05
-*** WARNING in MODEL command
-  A y-variable has been declared on the within level but not referred to on
-  the between level.  Please check that this is what is intended.  If this is not intended,
-  specify the variable as a within variable.  Problem with:  SATIS06
-*** WARNING in MODEL command
-  A y-variable has been declared on the within level but not referred to on
-  the between level.  Please check that this is what is intended.  If this is not intended,
-  specify the variable as a within variable.  Problem with:  SATIS07
-*** WARNING in MODEL command
-  A y-variable has been declared on the within level but not referred to on
-  the between level.  Please check that this is what is intended.  If this is not intended,
-  specify the variable as a within variable.  Problem with:  SATIS08
-*** WARNING in MODEL command
-  A y-variable has been declared on the within level but not referred to on
-  the between level.  Please check that this is what is intended.  If this is not intended,
-  specify the variable as a within variable.  Problem with:  SATIS09
-*** WARNING in MODEL command
-  A y-variable has been declared on the within level but not referred to on
-  the between level.  Please check that this is what is intended.  If this is not intended,
-  specify the variable as a within variable.  Problem with:  SATIS10
-*** WARNING in MODEL command
-  A y-variable has been declared on the within level but not referred to on
-  the between level.  Please check that this is what is intended.  If this is not intended,
-  specify the variable as a within variable.  Problem with:  SATIS11
-*** WARNING in MODEL command
-  A y-variable has been declared on the within level but not referred to on
-  the between level.  Please check that this is what is intended.  If this is not intended,
-  specify the variable as a within variable.  Problem with:  SATIS12
-*** WARNING in MODEL command
-  A y-variable has been declared on the within level but not referred to on
-  the between level.  Please check that this is what is intended.  If this is not intended,
-  specify the variable as a within variable.  Problem with:  SATIS13
-*** WARNING in MODEL command
-  A y-variable has been declared on the within level but not referred to on
-  the between level.  Please check that this is what is intended.  If this is not intended,
-  specify the variable as a within variable.  Problem with:  SATIS14
-*** WARNING in MODEL command
-  A y-variable has been declared on the within level but not referred to on
-  the between level.  Please check that this is what is intended.  If this is not intended,
-  specify the variable as a within variable.  Problem with:  SATIS15
-*** WARNING in MODEL command
-  A y-variable has been declared on the within level but not referred to on
-  the between level.  Please check that this is what is intended.  If this is not intended,
-  specify the variable as a within variable.  Problem with:  SATIS16
-*** WARNING in MODEL command
-  A y-variable has been declared on the within level but not referred to on
-  the between level.  Please check that this is what is intended.  If this is not intended,
-  specify the variable as a within variable.  Problem with:  SATIS17
-*** WARNING in MODEL command
-  A y-variable has been declared on the within level but not referred to on
-  the between level.  Please check that this is what is intended.  If this is not intended,
-  specify the variable as a within variable.  Problem with:  SATIS18
-*** WARNING in MODEL command
-  A y-variable has been declared on the within level but not referred to on
-  the between level.  Please check that this is what is intended.  If this is not intended,
-  specify the variable as a within variable.  Problem with:  SATIS20
 *** WARNING
   One or more individual-level variables have no variation within a
   cluster for the following clusters.
@@ -352,7 +284,7 @@ INPUT INSTRUCTIONS
                   2685 5277 2269 1506 700 2696 2993 2272 1939 1991 620 2195 703 6332 2285 6157
                   268 4889 207 763 236
 
-  20 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+   1 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
 
 
 
@@ -365,7 +297,7 @@ Number of observations                                        3592
 
 Number of dependent variables                                   20
 Number of independent variables                                 23
-Number of continuous latent variables                            4
+Number of continuous latent variables                            8
 
 Observed dependent variables
 
@@ -385,7 +317,8 @@ Observed independent variables
    PRIRE       PRIADOTH    NCHILD      TIMEEMP2    AGE2
 
 Continuous latent variables
-   WORK        RELATION    TERMS       BENEFITS
+   WORK        RELATION    TERMS       BENEFITS    WORK2       REL2
+   TERMS2      BEN2
 
 Variables with special functions
 
@@ -859,14 +792,14 @@ THE MODEL ESTIMATION TERMINATED NORMALLY
 
 MODEL FIT INFORMATION
 
-Number of Free Parameters                             176
+Number of Free Parameters                             285
 
 Bayesian Posterior Predictive Checking using Chi-Square
 
           95% Confidence Interval for the Difference Between
           the Observed and the Replicated Chi-Square Values
 
-                               9881.989         10404.936
+                              11766.223         12264.032
 
           Posterior Predictive P-Value              0.000
 
@@ -881,222 +814,357 @@ Within Level
 
  WORK     BY
     SATIS05            1.000       0.000      0.000       1.000       1.000
-    SATIS06            0.727       0.030      0.000       0.671       0.788      *
-    SATIS07            0.865       0.042      0.000       0.785       0.947      *
-    SATIS08            0.938       0.034      0.000       0.869       1.004      *
-    SATIS13            1.203       0.044      0.000       1.122       1.292      *
-    SATIS14            1.046       0.036      0.000       0.976       1.121      *
-    SATIS15            0.875       0.036      0.000       0.803       0.944      *
-    SATIS18            0.876       0.041      0.000       0.797       0.956      *
+    SATIS06            0.713       0.036      0.000       0.641       0.789      *
+    SATIS07            0.824       0.044      0.000       0.738       0.914      *
+    SATIS08            0.950       0.040      0.000       0.864       1.028      *
+    SATIS13            1.189       0.051      0.000       1.080       1.280      *
+    SATIS14            1.112       0.039      0.000       1.030       1.190      *
+    SATIS15            0.945       0.040      0.000       0.869       1.024      *
+    SATIS18            0.901       0.044      0.000       0.816       0.990      *
 
  RELATION BY
     SATIS09            1.000       0.000      0.000       1.000       1.000
-    SATIS10            0.894       0.020      0.000       0.856       0.932      *
-    SATIS11            0.560       0.018      0.000       0.524       0.594      *
+    SATIS10            0.803       0.022      0.000       0.757       0.848      *
+    SATIS11            0.476       0.017      0.000       0.442       0.508      *
 
  TERMS    BY
     SATIS01            1.000       0.000      0.000       1.000       1.000
-    SATIS04            1.201       0.044      0.000       1.122       1.291      *
-    SATIS12            1.233       0.041      0.000       1.162       1.323      *
-    SATIS16            0.830       0.093      0.000       0.639       1.007      *
-    SATIS17            1.292       0.043      0.000       1.220       1.382      *
+    SATIS04            1.208       0.051      0.000       1.111       1.313      *
+    SATIS12            1.372       0.057      0.000       1.261       1.486      *
+    SATIS16            0.965       0.107      0.000       0.758       1.223      *
+    SATIS17            1.489       0.060      0.000       1.403       1.635      *
 
  BENEFITS BY
     SATIS02            1.000       0.000      0.000       1.000       1.000
-    SATIS03            1.025       0.031      0.000       0.974       1.094      *
-    SATIS20            0.686       0.044      0.000       0.599       0.769      *
+    SATIS03            0.926       0.030      0.000       0.873       0.998      *
+    SATIS20            0.647       0.045      0.000       0.559       0.737      *
+
+ WORK       ON
+    GAPAA              0.099       0.030      0.000       0.040       0.156      *
+    GAPCE              0.147       0.079      0.036      -0.012       0.308
+    GAPEX              0.037       0.035      0.143      -0.031       0.105
+    GAPFREE           -0.139       0.031      0.000      -0.201      -0.077      *
+    PRIRE             -0.040       0.067      0.273      -0.175       0.092
+    PRIADOTH          -0.023       0.032      0.225      -0.085       0.041
+    DEGPROF           -0.019       0.035      0.289      -0.096       0.050
+    DEGMAST            0.028       0.023      0.106      -0.016       0.074
+    DEGBAL             0.071       0.039      0.030      -0.002       0.149
+    TIMEEMP           -0.007       0.002      0.001      -0.010      -0.004      *
+    TIMEEMP2           0.000       0.000      0.014       0.000       0.000      *
+    ENGLISH            0.064       0.036      0.028      -0.003       0.137
+    AGE                0.001       0.001      0.098      -0.001       0.003
+    AGE2               0.000       0.000      0.000       0.000       0.000      *
+    ASIAN             -0.123       0.056      0.018      -0.240      -0.011      *
+    BLACK              0.040       0.055      0.231      -0.071       0.148
+    HISP              -0.019       0.061      0.382      -0.140       0.089
+    RACEOTH           -0.132       0.038      0.000      -0.210      -0.063      *
+    NCHILD             0.036       0.008      0.000       0.021       0.051      *
+
+ RELATIONS  ON
+    GAPAA              0.045       0.044      0.147      -0.041       0.131
+    GAPCE              0.175       0.124      0.084      -0.083       0.413
+    GAPEX             -0.002       0.052      0.479      -0.108       0.093
+    GAPFREE           -0.124       0.044      0.006      -0.209      -0.037      *
+    PRIRE              0.046       0.097      0.316      -0.148       0.233
+    PRIADOTH          -0.052       0.049      0.139      -0.150       0.040
+    DEGPROF            0.068       0.053      0.112      -0.041       0.165
+    DEGMAST            0.024       0.034      0.234      -0.046       0.086
+    DEGBAL             0.141       0.054      0.008       0.035       0.242      *
+    TIMEEMP           -0.009       0.003      0.001      -0.014      -0.004      *
+    TIMEEMP2           0.000       0.000      0.025       0.000       0.000
+    ENGLISH           -0.010       0.055      0.426      -0.113       0.104
+    AGE                0.003       0.002      0.030       0.000       0.006
+    AGE2               0.000       0.000      0.000       0.000       0.001      *
+    ASIAN             -0.089       0.086      0.161      -0.264       0.074
+    BLACK              0.003       0.084      0.482      -0.165       0.167
+    HISP               0.003       0.090      0.475      -0.164       0.172
+    RACEOTH           -0.161       0.056      0.003      -0.268      -0.052      *
+    NCHILD             0.040       0.011      0.000       0.017       0.062      *
+
+ TERMS      ON
+    GAPAA              0.104       0.029      0.000       0.045       0.157      *
+    GAPCE             -0.138       0.083      0.041      -0.304       0.013
+    GAPEX             -0.172       0.036      0.000      -0.244      -0.102      *
+    GAPFREE           -0.391       0.031      0.000      -0.452      -0.328      *
+    PRIRE              0.243       0.063      0.000       0.125       0.371      *
+    PRIADOTH           0.098       0.031      0.001       0.036       0.161      *
+    DEGPROF            0.053       0.034      0.058      -0.014       0.121
+    DEGMAST            0.071       0.022      0.000       0.027       0.110      *
+    DEGBAL             0.112       0.037      0.000       0.038       0.184      *
+    TIMEEMP           -0.005       0.002      0.007      -0.008      -0.001      *
+    TIMEEMP2           0.000       0.000      0.000       0.000       0.001      *
+    ENGLISH           -0.022       0.033      0.242      -0.086       0.044
+    AGE                0.003       0.001      0.002       0.001       0.005      *
+    AGE2               0.000       0.000      0.000       0.000       0.000      *
+    ASIAN             -0.023       0.053      0.320      -0.130       0.082
+    BLACK              0.173       0.051      0.000       0.070       0.277      *
+    HISP               0.024       0.059      0.356      -0.095       0.141
+    RACEOTH           -0.088       0.035      0.004      -0.163      -0.024      *
+    NCHILD             0.036       0.007      0.000       0.021       0.048      *
+
+ BENEFITS   ON
+    GAPAA             -0.489       0.053      0.000      -0.598      -0.382      *
+    GAPCE             -0.331       0.186      0.043      -0.681       0.038
+    GAPEX             -0.778       0.070      0.000      -0.915      -0.648      *
+    GAPFREE           -1.005       0.051      0.000      -1.112      -0.904      *
+    PRIRE              0.161       0.100      0.058      -0.031       0.366
+    PRIADOTH           0.082       0.050      0.053      -0.017       0.186
+    DEGPROF            0.006       0.057      0.458      -0.097       0.120
+    DEGMAST           -0.049       0.036      0.085      -0.124       0.019
+    DEGBAL            -0.006       0.067      0.463      -0.138       0.127
+    TIMEEMP           -0.003       0.003      0.146      -0.010       0.002
+    TIMEEMP2           0.001       0.000      0.000       0.000       0.001      *
+    ENGLISH            0.105       0.061      0.054      -0.020       0.216
+    AGE               -0.003       0.002      0.062      -0.006       0.001
+    AGE2               0.000       0.000      0.094       0.000       0.000
+    ASIAN             -0.082       0.093      0.178      -0.260       0.107
+    BLACK             -0.057       0.095      0.278      -0.246       0.126
+    HISP              -0.174       0.106      0.063      -0.371       0.043
+    RACEOTH           -0.148       0.058      0.003      -0.264      -0.036      *
+    NCHILD             0.032       0.013      0.008       0.005       0.055      *
 
  TURNINTE   ON
-    WORK              -0.046       0.135      0.372      -0.298       0.238
-    RELATIONS         -0.090       0.056      0.050      -0.206       0.017
-    TERMS             -0.829       0.151      0.000      -1.177      -0.549      *
-    BENEFITS           0.125       0.069      0.037      -0.017       0.258
+    WORK              -0.302       0.069      0.000      -0.443      -0.173      *
+    RELATIONS         -0.107       0.036      0.000      -0.187      -0.047      *
+    TERMS             -0.654       0.087      0.000      -0.827      -0.487      *
+    BENEFITS          -0.003       0.044      0.472      -0.091       0.085
 
  TURNINTE   ON
-    GAPAA             -0.089       0.077      0.129      -0.246       0.051
-    GAPCE              0.172       0.197      0.179      -0.240       0.550
-    GAPEX             -0.248       0.093      0.003      -0.440      -0.061      *
-    GAPFREE            0.106       0.074      0.084      -0.038       0.253
-    PRIRE              0.202       0.173      0.136      -0.153       0.522
-    PRIADOTH           0.188       0.076      0.006       0.025       0.339      *
-    DEGPROF           -0.003       0.090      0.485      -0.174       0.173
-    DEGMAST           -0.056       0.056      0.148      -0.173       0.052
-    DEGBAL            -0.047       0.091      0.299      -0.224       0.127
-    TIMEEMP            0.009       0.004      0.027       0.000       0.017
-    TIMEEMP2           0.000       0.000      0.347       0.000       0.000
-    ENGLISH            0.481       0.091      0.000       0.305       0.659      *
-    AGE               -0.003       0.002      0.147      -0.008       0.002
-    AGE2              -0.001       0.000      0.000      -0.001       0.000      *
-    ASIAN             -0.253       0.137      0.021      -0.546      -0.008      *
-    BLACK             -0.209       0.144      0.084      -0.481       0.069
-    HISP              -0.088       0.157      0.280      -0.407       0.216
-    RACEOTH           -0.062       0.090      0.230      -0.249       0.124
-    NCHILD            -0.042       0.019      0.011      -0.081      -0.007      *
-
- RELATION WITH
-    WORK               0.253       0.011      0.000       0.233       0.276      *
-
- TERMS    WITH
-    WORK               0.191       0.010      0.000       0.172       0.211      *
-    RELATIONS          0.191       0.010      0.000       0.172       0.212      *
-
- BENEFITS WITH
-    WORK               0.154       0.011      0.000       0.132       0.175      *
-    RELATIONS          0.137       0.013      0.000       0.112       0.162      *
-    TERMS              0.267       0.014      0.000       0.239       0.294      *
+    GAPAA             -0.044       0.076      0.290      -0.183       0.114
+    GAPCE              0.165       0.213      0.234      -0.267       0.579
+    GAPEX             -0.271       0.095      0.003      -0.451      -0.081      *
+    GAPFREE            0.021       0.082      0.402      -0.129       0.186
+    PRIRE              0.203       0.166      0.105      -0.106       0.516
+    PRIADOTH           0.202       0.084      0.007       0.047       0.371      *
+    DEGPROF            0.014       0.084      0.431      -0.149       0.181
+    DEGMAST           -0.035       0.060      0.289      -0.149       0.094
+    DEGBAL             0.002       0.096      0.492      -0.188       0.187
+    TIMEEMP            0.006       0.005      0.077      -0.002       0.016
+    TIMEEMP2           0.000       0.000      0.414       0.000       0.000
+    ENGLISH            0.474       0.091      0.000       0.301       0.659      *
+    AGE               -0.002       0.003      0.281      -0.006       0.004
+    AGE2               0.000       0.000      0.002      -0.001       0.000      *
+    ASIAN             -0.274       0.133      0.009      -0.533      -0.030      *
+    BLACK             -0.131       0.134      0.151      -0.407       0.135
+    HISP              -0.065       0.157      0.351      -0.346       0.258
+    RACEOTH           -0.069       0.095      0.236      -0.254       0.119
+    NCHILD            -0.034       0.020      0.053      -0.071       0.007
 
  Variances
     ENGLISH            0.084       0.002      0.000       0.080       0.088      *
-    AGE              138.941       3.503      0.000     132.329     146.166      *
-    GAPAA              0.148       0.004      0.000       0.141       0.156      *
+    AGE              138.811       3.436      0.000     132.347     145.859      *
+    GAPAA              0.148       0.004      0.000       0.142       0.156      *
     GAPCE              0.013       0.000      0.000       0.013       0.014      *
-    GAPEX              0.086       0.002      0.000       0.082       0.090      *
-    GAPFREE            0.127       0.003      0.000       0.121       0.133      *
+    GAPEX              0.087       0.002      0.000       0.082       0.091      *
+    GAPFREE            0.128       0.003      0.000       0.122       0.134      *
     ASIAN              0.033       0.001      0.000       0.032       0.035      *
     BLACK              0.028       0.001      0.000       0.027       0.030      *
     HISP               0.025       0.001      0.000       0.024       0.026      *
     RACEOTH            0.066       0.002      0.000       0.063       0.069      *
     DEGPROF            0.087       0.002      0.000       0.083       0.091      *
     DEGMAST            0.232       0.006      0.000       0.221       0.244      *
-    DEGBAL             0.070       0.002      0.000       0.067       0.074      *
-    TIMEEMP           68.392       1.742      0.000      65.010      71.942      *
+    DEGBAL             0.070       0.002      0.000       0.067       0.073      *
+    TIMEEMP           68.042       1.757      0.000      64.843      71.799      *
     PRIRE              0.020       0.000      0.000       0.019       0.021      *
     PRIADOTH           0.087       0.002      0.000       0.083       0.091      *
-    NCHILD             1.761       0.042      0.000       1.678       1.844      *
-    TIMEEMP2       38070.348     954.364      0.000   36251.984   39937.574      *
-    AGE2           25867.160     612.555      0.000   24629.355   27125.230      *
-    WORK               0.248       0.015      0.000       0.220       0.279      *
-    RELATIONS          0.533       0.018      0.000       0.498       0.567      *
-    TERMS              0.275       0.015      0.000       0.246       0.304      *
-    BENEFITS           0.590       0.029      0.000       0.529       0.647      *
+    NCHILD             1.768       0.044      0.000       1.685       1.855      *
+    TIMEEMP2       38032.969     935.231      0.000   36178.109   39807.820      *
+    AGE2           25903.879     655.925      0.000   24619.699   27240.457      *
 
  Residual Variances
-    SATIS01            0.493       0.014      0.000       0.465       0.521      *
-    SATIS02            0.279       0.017      0.000       0.247       0.315      *
-    SATIS03            0.191       0.014      0.000       0.163       0.219      *
-    SATIS04            0.444       0.015      0.000       0.416       0.474      *
-    SATIS05            0.474       0.014      0.000       0.446       0.501      *
-    SATIS06            0.459       0.012      0.000       0.436       0.484      *
-    SATIS07            0.703       0.020      0.000       0.665       0.744      *
-    SATIS08            0.343       0.010      0.000       0.325       0.362      *
-    SATIS09            0.139       0.008      0.000       0.123       0.155      *
-    SATIS10            0.295       0.010      0.000       0.276       0.315      *
-    SATIS11            0.363       0.009      0.000       0.346       0.384      *
-    SATIS12            0.515       0.017      0.000       0.482       0.548      *
-    SATIS13            0.568       0.016      0.000       0.538       0.600      *
-    SATIS14            0.295       0.009      0.000       0.278       0.313      *
-    SATIS15            0.401       0.011      0.000       0.381       0.424      *
-    SATIS16            0.748       0.062      0.000       0.612       0.848      *
-    SATIS17            0.371       0.015      0.000       0.340       0.398      *
-    SATIS18            0.653       0.017      0.000       0.622       0.690      *
-    SATIS20            0.850       0.044      0.000       0.761       0.939      *
+    SATIS01            0.538       0.015      0.000       0.509       0.569      *
+    SATIS02            0.222       0.018      0.000       0.189       0.263      *
+    SATIS03            0.251       0.017      0.000       0.217       0.282      *
+    SATIS04            0.495       0.016      0.000       0.467       0.529      *
+    SATIS05            0.489       0.014      0.000       0.462       0.519      *
+    SATIS06            0.461       0.012      0.000       0.437       0.486      *
+    SATIS07            0.721       0.020      0.000       0.684       0.760      *
+    SATIS08            0.341       0.010      0.000       0.321       0.362      *
+    SATIS09            0.064       0.012      0.000       0.037       0.086      *
+    SATIS10            0.330       0.012      0.000       0.306       0.355      *
+    SATIS11            0.389       0.010      0.000       0.369       0.410      *
+    SATIS12            0.490       0.018      0.000       0.458       0.526      *
+    SATIS13            0.599       0.018      0.000       0.565       0.633      *
+    SATIS14            0.275       0.010      0.000       0.257       0.295      *
+    SATIS15            0.378       0.011      0.000       0.358       0.402      *
+    SATIS16            0.747       0.064      0.000       0.641       0.898      *
+    SATIS17            0.308       0.016      0.000       0.274       0.338      *
+    SATIS18            0.656       0.018      0.000       0.621       0.694      *
+    SATIS20            0.845       0.044      0.000       0.756       0.939      *
+    WORK               0.216       0.014      0.000       0.192       0.248      *
+    RELATIONS          0.587       0.020      0.000       0.549       0.625      *
+    TERMS              0.187       0.013      0.000       0.160       0.211      *
+    BENEFITS           0.500       0.024      0.000       0.451       0.547      *
 
 Between Level
 
+ WORK2    BY
+    SATIS05            1.000       0.000      0.000       1.000       1.000
+    SATIS06            4.087       0.858      0.000       2.907       6.159      *
+    SATIS07            4.191       0.935      0.000       2.831       6.387      *
+    SATIS08            2.542       0.586      0.000       1.560       3.867      *
+    SATIS13            0.481       0.558      0.196      -0.602       1.565
+    SATIS14            1.728       0.436      0.000       1.080       2.801      *
+    SATIS15            2.953       0.720      0.000       1.970       4.960      *
+    SATIS18            0.953       0.745      0.100      -0.610       2.340
+
+ REL2     BY
+    SATIS09            1.000       0.000      0.000       1.000       1.000
+    SATIS10            0.802       0.195      0.000       0.370       1.181      *
+    SATIS11            1.461       0.408      0.000       0.989       2.429      *
+
+ TERMS2   BY
+    SATIS01            1.000       0.000      0.000       1.000       1.000
+    SATIS04            0.582       0.188      0.001       0.159       0.948      *
+    SATIS12            1.483       0.272      0.000       0.887       1.863      *
+    SATIS16           -0.279       0.712      0.351      -1.787       0.773
+    SATIS17            1.114       0.267      0.000       0.541       1.549      *
+
+ BEN2     BY
+    SATIS02            1.000       0.000      0.000       1.000       1.000
+    SATIS03            1.133       0.096      0.000       0.931       1.314      *
+    SATIS20            0.504       0.235      0.020       0.047       0.954      *
+
+ WORK2      ON
+    PUBLIC            -0.047       0.013      0.000      -0.074      -0.023      *
+    WESTOTH            0.022       0.012      0.016       0.002       0.049      *
+    MIDWEST            0.023       0.011      0.001       0.006       0.049      *
+    SOUTH              0.008       0.015      0.296      -0.018       0.043
+
+ REL2       ON
+    PUBLIC            -0.075       0.021      0.000      -0.120      -0.041      *
+    WESTOTH            0.028       0.028      0.103      -0.015       0.095
+    MIDWEST           -0.009       0.025      0.359      -0.051       0.047
+    SOUTH              0.004       0.038      0.461      -0.050       0.099
+
+ TERMS2     ON
+    PUBLIC            -0.158       0.039      0.000      -0.256      -0.093      *
+    WESTOTH            0.036       0.049      0.222      -0.088       0.105
+    MIDWEST            0.068       0.043      0.056      -0.015       0.156
+    SOUTH              0.108       0.058      0.043      -0.031       0.208
+
+ BEN2       ON
+    PUBLIC             0.006       0.050      0.438      -0.093       0.111
+    WESTOTH           -0.113       0.055      0.019      -0.224      -0.005      *
+    MIDWEST           -0.030       0.053      0.285      -0.134       0.070
+    SOUTH              0.008       0.080      0.461      -0.149       0.155
+
  TURNINTE   ON
-    PUBLIC             0.063       0.069      0.177      -0.068       0.194
-    WESTOTH            0.163       0.091      0.029      -0.005       0.351
-    MIDWEST            0.119       0.082      0.093      -0.062       0.269
-    SOUTH              0.133       0.107      0.124      -0.087       0.330
+    WORK2              2.732       0.978      0.000       0.840       4.672      *
+    REL2               0.872       0.963      0.124      -0.870       2.863
+    TERMS2            -0.736       0.390      0.035      -1.461       0.093
+    BEN2               0.137       0.136      0.156      -0.116       0.405
+
+ TURNINTE   ON
+    PUBLIC             0.167       0.100      0.047      -0.038       0.377
+    WESTOTH            0.096       0.079      0.083      -0.064       0.264
+    MIDWEST            0.114       0.088      0.050      -0.024       0.328
+    SOUTH              0.107       0.115      0.159      -0.084       0.336
 
  Means
-    PUBLIC             0.367       0.025      0.000       0.317       0.415      *
-    WESTOTH            0.227       0.022      0.000       0.181       0.268      *
-    MIDWEST            0.319       0.024      0.000       0.272       0.368      *
-    SOUTH              0.144       0.019      0.000       0.106       0.179      *
-    ENGLISH            0.910       0.006      0.000       0.898       0.924      *
-    AGE                0.246       0.327      0.251      -0.406       0.810
-    GAPAA              0.185       0.012      0.000       0.162       0.206      *
-    GAPCE              0.016       0.003      0.000       0.010       0.021      *
-    GAPEX              0.080       0.007      0.000       0.064       0.092      *
-    GAPFREE            0.143       0.009      0.000       0.124       0.159      *
-    ASIAN              0.033       0.004      0.000       0.025       0.041      *
-    BLACK              0.028       0.005      0.000       0.019       0.037      *
-    HISP               0.024       0.004      0.000       0.015       0.031      *
-    RACEOTH            0.069       0.006      0.000       0.059       0.080      *
-    DEGPROF            0.092       0.006      0.000       0.080       0.104      *
-    DEGMAST            0.508       0.014      0.000       0.480       0.535      *
-    DEGBAL             0.080       0.006      0.000       0.069       0.092      *
-    TIMEEMP            0.669       0.245      0.004       0.192       1.160      *
-    PRIRE              0.020       0.004      0.000       0.013       0.028      *
-    PRIADOTH           0.115       0.008      0.000       0.098       0.131      *
-    NCHILD             1.566       0.036      0.000       1.500       1.640      *
-    TIMEEMP2          75.243       2.317      0.000      71.469      81.807      *
-    AGE2             146.307       3.480      0.000     139.299     152.772      *
-    SATIS01            2.244       0.023      0.000       2.199       2.287      *
-    SATIS02            2.620       0.025      0.000       2.571       2.670      *
-    SATIS03            2.539       0.024      0.000       2.495       2.587      *
-    SATIS04            2.371       0.019      0.000       2.335       2.415      *
-    SATIS05            2.610       0.017      0.000       2.579       2.643      *
-    SATIS06            2.724       0.021      0.000       2.682       2.764      *
-    SATIS07            2.730       0.027      0.000       2.674       2.781      *
-    SATIS08            3.232       0.014      0.000       3.209       3.262      *
-    SATIS09            3.063       0.014      0.000       3.038       3.092      *
-    SATIS10            2.844       0.015      0.000       2.814       2.868      *
-    SATIS11            3.182       0.014      0.000       3.153       3.213      *
-    SATIS12            2.346       0.022      0.000       2.303       2.389      *
-    SATIS13            2.912       0.017      0.000       2.879       2.944      *
-    SATIS14            3.063       0.011      0.000       3.042       3.085      *
-    SATIS15            3.320       0.016      0.000       3.288       3.352      *
-    SATIS16            1.853       0.055      0.000       1.744       1.956      *
-    SATIS17            2.029       0.018      0.000       1.996       2.070      *
-    SATIS18            2.845       0.023      0.000       2.804       2.891      *
-    SATIS20            2.750       0.048      0.000       2.655       2.848      *
+    PUBLIC             0.365       0.025      0.000       0.312       0.414      *
+    WESTOTH            0.225       0.022      0.000       0.184       0.269      *
+    MIDWEST            0.320       0.025      0.000       0.267       0.367      *
+    SOUTH              0.144       0.019      0.000       0.104       0.178      *
+    ENGLISH            0.909       0.007      0.000       0.896       0.924      *
+    AGE                0.266       0.297      0.199      -0.321       0.814
+    GAPAA              0.184       0.011      0.000       0.162       0.208      *
+    GAPCE              0.015       0.003      0.000       0.009       0.020      *
+    GAPEX              0.080       0.007      0.000       0.066       0.092      *
+    GAPFREE            0.147       0.009      0.000       0.129       0.162      *
+    ASIAN              0.033       0.004      0.000       0.026       0.041      *
+    BLACK              0.028       0.005      0.000       0.018       0.036      *
+    HISP               0.023       0.004      0.000       0.016       0.030      *
+    RACEOTH            0.068       0.005      0.000       0.058       0.078      *
+    DEGPROF            0.094       0.006      0.000       0.080       0.105      *
+    DEGMAST            0.506       0.013      0.000       0.480       0.531      *
+    DEGBAL             0.079       0.007      0.000       0.066       0.092      *
+    TIMEEMP            0.797       0.258      0.001       0.291       1.294      *
+    PRIRE              0.019       0.004      0.000       0.012       0.028      *
+    PRIADOTH           0.115       0.009      0.000       0.097       0.131      *
+    NCHILD             1.560       0.034      0.000       1.489       1.624      *
+    TIMEEMP2          72.922       3.452      0.000      65.142      79.296      *
+    AGE2             146.771       2.519      0.000     141.108     151.815      *
+
+ Intercepts
+    SATIS01            2.270       0.037      0.000       2.204       2.364      *
+    SATIS02            2.604       0.032      0.000       2.539       2.664      *
+    SATIS03            2.538       0.029      0.000       2.481       2.596      *
+    SATIS04            2.388       0.027      0.000       2.332       2.443      *
+    SATIS05            2.621       0.018      0.000       2.586       2.653      *
+    SATIS06            2.753       0.031      0.000       2.687       2.808      *
+    SATIS07            2.754       0.035      0.000       2.678       2.820      *
+    SATIS08            3.263       0.017      0.000       3.219       3.288      *
+    SATIS09            3.101       0.018      0.000       3.062       3.132      *
+    SATIS10            2.874       0.019      0.000       2.839       2.907      *
+    SATIS11            3.221       0.033      0.000       3.165       3.283      *
+    SATIS12            2.381       0.039      0.000       2.293       2.466      *
+    SATIS13            2.925       0.017      0.000       2.890       2.958      *
+    SATIS14            3.081       0.016      0.000       3.052       3.115      *
+    SATIS15            3.340       0.020      0.000       3.294       3.374      *
+    SATIS16            1.864       0.056      0.000       1.742       1.970      *
+    SATIS17            2.071       0.029      0.000       2.011       2.130      *
+    SATIS18            2.857       0.023      0.000       2.815       2.904      *
+    SATIS20            2.742       0.048      0.000       2.650       2.839      *
 
  Thresholds
-    TURNINTE$1         0.213       0.057      0.000       0.102       0.317      *
+    TURNINTE$1         0.194       0.059      0.000       0.084       0.313      *
 
  Variances
-    PUBLIC             0.234       0.018      0.000       0.201       0.272      *
-    WESTOTH            0.177       0.013      0.000       0.153       0.205      *
-    MIDWEST            0.220       0.017      0.000       0.188       0.258      *
-    SOUTH              0.124       0.009      0.000       0.108       0.143      *
-    ENGLISH            0.004       0.001      0.000       0.002       0.007      *
-    AGE                8.553       1.976      0.000       5.241      12.863      *
-    GAPAA              0.017       0.003      0.000       0.011       0.023      *
+    PUBLIC             0.235       0.018      0.000       0.203       0.272      *
+    WESTOTH            0.176       0.013      0.000       0.152       0.204      *
+    MIDWEST            0.219       0.017      0.000       0.190       0.256      *
+    SOUTH              0.124       0.009      0.000       0.108       0.144      *
+    ENGLISH            0.004       0.001      0.000       0.002       0.006      *
+    AGE                8.615       2.141      0.000       5.256      13.576      *
+    GAPAA              0.015       0.003      0.000       0.011       0.021      *
     GAPCE              0.001       0.000      0.000       0.001       0.001      *
     GAPEX              0.004       0.001      0.000       0.003       0.006      *
-    GAPFREE            0.010       0.002      0.000       0.006       0.013      *
+    GAPFREE            0.009       0.002      0.000       0.007       0.012      *
     ASIAN              0.001       0.000      0.000       0.001       0.002      *
     BLACK              0.003       0.001      0.000       0.002       0.004      *
     HISP               0.001       0.000      0.000       0.001       0.002      *
     RACEOTH            0.001       0.000      0.000       0.001       0.002      *
-    DEGPROF            0.003       0.001      0.000       0.002       0.005      *
-    DEGMAST            0.019       0.004      0.000       0.012       0.027      *
+    DEGPROF            0.003       0.001      0.000       0.002       0.004      *
+    DEGMAST            0.018       0.004      0.000       0.011       0.027      *
     DEGBAL             0.003       0.001      0.000       0.002       0.005      *
-    TIMEEMP            8.016       1.587      0.000       5.186      11.248      *
+    TIMEEMP            8.709       1.689      0.000       5.892      12.531      *
     PRIRE              0.002       0.000      0.000       0.001       0.002      *
     PRIADOTH           0.010       0.002      0.000       0.007       0.013      *
-    NCHILD             0.117       0.027      0.000       0.074       0.181      *
-    TIMEEMP2          34.841     149.235      0.000       0.697     476.986      *
-    AGE2             176.106      92.749      0.000      40.672     401.720      *
-    SATIS01            0.050       0.009      0.000       0.035       0.070      *
-    SATIS02            0.057       0.012      0.000       0.039       0.083      *
-    SATIS03            0.050       0.010      0.000       0.035       0.071      *
-    SATIS04            0.010       0.004      0.000       0.003       0.022      *
-    SATIS05            0.010       0.004      0.000       0.005       0.020      *
-    SATIS06            0.057       0.011      0.000       0.038       0.081      *
-    SATIS07            0.076       0.014      0.000       0.053       0.109      *
-    SATIS08            0.006       0.003      0.000       0.001       0.014      *
-    SATIS09            0.003       0.001      0.000       0.001       0.006      *
-    SATIS10            0.002       0.001      0.000       0.001       0.006      *
-    SATIS11            0.007       0.003      0.000       0.003       0.015      *
-    SATIS12            0.043       0.009      0.000       0.029       0.064      *
-    SATIS13            0.017       0.006      0.000       0.009       0.030      *
-    SATIS14            0.005       0.003      0.000       0.002       0.013      *
-    SATIS15            0.019       0.005      0.000       0.012       0.033      *
-    SATIS16            0.194       0.053      0.000       0.123       0.323      *
-    SATIS17            0.022       0.008      0.000       0.010       0.041      *
-    SATIS18            0.045       0.011      0.000       0.026       0.068      *
-    SATIS20            0.250       0.049      0.000       0.169       0.363      *
+    NCHILD             0.110       0.024      0.000       0.069       0.160      *
+    TIMEEMP2         237.550     197.011      0.000      37.241     733.599      *
+    AGE2             108.843      93.802      0.000       8.256     341.898      *
 
  Residual Variances
-    TURNINTE           0.055       0.020      0.000       0.033       0.113      *
+    TURNINTE           0.027       0.010      0.000       0.011       0.051      *
+    SATIS01            0.043       0.009      0.000       0.026       0.062      *
+    SATIS02            0.036       0.008      0.000       0.023       0.053      *
+    SATIS03            0.005       0.006      0.000       0.002       0.023      *
+    SATIS04            0.016       0.005      0.000       0.007       0.026      *
+    SATIS05            0.013       0.005      0.000       0.006       0.025      *
+    SATIS06            0.044       0.011      0.000       0.028       0.070      *
+    SATIS07            0.056       0.014      0.000       0.031       0.084      *
+    SATIS08            0.003       0.002      0.000       0.001       0.009      *
+    SATIS09            0.003       0.002      0.000       0.001       0.007      *
+    SATIS10            0.002       0.001      0.000       0.000       0.006      *
+    SATIS11            0.004       0.003      0.000       0.001       0.010      *
+    SATIS12            0.017       0.008      0.000       0.003       0.033      *
+    SATIS13            0.015       0.007      0.000       0.006       0.033      *
+    SATIS14            0.005       0.003      0.000       0.001       0.013      *
+    SATIS15            0.010       0.003      0.000       0.004       0.019      *
+    SATIS16            0.134       0.043      0.000       0.046       0.231      *
+    SATIS17            0.010       0.006      0.000       0.003       0.025      *
+    SATIS18            0.043       0.012      0.000       0.022       0.065      *
+    SATIS20            0.252       0.049      0.000       0.170       0.366      *
+    WORK2              0.002       0.001      0.000       0.001       0.004      *
+    REL2               0.003       0.002      0.000       0.001       0.009      *
+    TERMS2             0.015       0.009      0.000       0.007       0.038      *
+    BEN2               0.071       0.014      0.000       0.045       0.101      *
 
 
-     Beginning Time:  09:51:58
-        Ending Time:  09:52:48
-       Elapsed Time:  00:00:50
+     Beginning Time:  08:18:54
+        Ending Time:  08:19:46
+       Elapsed Time:  00:00:52
 
 
 

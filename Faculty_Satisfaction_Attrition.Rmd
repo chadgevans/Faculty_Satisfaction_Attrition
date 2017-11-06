@@ -257,7 +257,6 @@ print(Impvars)
 ```
 
 # Model Evaluation with Training Data
-## Bayesian Multi-level Models
 
 Now we want to include the intermediary satisfaction variables.  Because satisfaction is a multi-dimensional construct, we need to model that in an SEM.  But first, we need to data wrangle.  Mplus has variable names constraints and binary requirements.
 
@@ -284,14 +283,16 @@ write.table(mdata, file.path(Private_Cache,"mp_test.txt"), sep="\t", col.names =
 First, let's look at a simple model of adjunct class predicting turnover intentions.
 It is necessary to use a probit at this time in R (and Mplus).  Missingness is dealt with using FIML.  First, the faculty typology variable.
 
-```{r}
-###_HERE<-read.xls("/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/Mod1.inp")
-###_HERE<-read.xls("/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/Mod2.inp")
-###_HERE<-read.xls("/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/Mod3.inp")
-
+### Mplus Output
+```{r, eval=FALSE}
+HLM_Mod1<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_Mod1.out")
+HLM_Mod2<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_Mod2.out")
+HLM_Mod3<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_Mod3.out"
+HLM_SEM<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_SEM.out"
 ```
 
-### Bayesian Models
+## Bayesian Multi-level Models
+
 ```{r}
 BayesianTables<-read.xls("/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/doc/Bayesian_Tables.xlsx")
 Btable<-BayesianTables[,c(1,2,3,7,8,9,13,14,15,19,20,21,25)]
