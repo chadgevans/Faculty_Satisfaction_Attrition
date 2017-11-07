@@ -18,7 +18,7 @@ Built with 3.3.2. Last run on 2017-11-07.
     -   [Measurement Invariance](#measurement-invariance)
 -   [Model Specification with Training Data](#model-specification-with-training-data)
     -   [Linear Training Model with Robust SEs](#linear-training-model-with-robust-ses)
--   [Model Evaluation with Training Data](#model-evaluation-with-test-data)
+-   [Model Evaluation with Test Data](#model-evaluation-with-test-data)
     -   [Bayesian Multi-level Models](#bayesian-multi-level-models)
 
 Configure
@@ -550,8 +550,8 @@ print(Impvars)
     ##  [5] "INSTCONT"     "OBEREG"       "NATENGSP"     "AGE"         
     ##  [9] "NCHILD3"      "RACE"
 
-Model Evaluation with Training Data
-===================================
+Model Evaluation with Test Data
+===============================
 
 Now we want to include the intermediary satisfaction variables. Because satisfaction is a multi-dimensional construct, we need to model that in an SEM. But first, we need to data wrangle. Mplus has variable names constraints and binary requirements.
 
