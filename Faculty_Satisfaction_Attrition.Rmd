@@ -1,5 +1,5 @@
 ---
-title: "Faculty Satisfaction and Turnover Analysis"
+title: "Faculty Satisfaction and Attrition Intentions Analysis"
 author: Chad Evans
 output: 
   github_document:

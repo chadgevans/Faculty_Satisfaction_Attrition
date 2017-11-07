@@ -1,4 +1,4 @@
-Faculty Satisfaction and Turnover Analysis
+Faculty Satisfaction and Attrition Intentions Analysis
 ================
 Chad Evans
 
