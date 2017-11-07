@@ -2,7 +2,7 @@ Faculty Satisfaction and Turnover Analysis
 ================
 Chad Evans
 
-Built with 3.3.2. Last run on 2017-11-06.
+Built with 3.3.2. Last run on 2017-11-07.
 
 -   [Configure](#configure)
     -   Libraries
@@ -30,7 +30,7 @@ Munge
 ``` r
 source(file.path(Munge, "01_Merge_the_data.R"))
 source(file.path(Munge, "02_Clean_the_data.R"))
-source(file.path(Munge, "Recode_new.R"))
+source(file.path(Munge, "03_Recode.R"))
 save(df, file=file.path(Private_Cache,"Cleaned_HERI.RData"))
 ```
 
@@ -118,7 +118,7 @@ Let's subset the satisfaction items (from the training data). Let's also exclude
 dfS <- df_train %>% select(starts_with("SATIS"),-SATIS19,-SATIS_WORKPLACE,-SATIS_COMPENSATION)
 ```
 
-We need to determine the optimal number of satisfaction factors for this analysis. To do so, we calculate the correlation matrix and use eigenvalues, a scree plot and some theory to determine the optimal number of factors.
+We need to determine the optimal number of satisfaction factors for this analysis. To do so, we calculate the correlation matrix and use eigenvalues, a scree plot and some theory to determine the optimal number of factors. FIML is used for missingness.
 
 ``` r
 corMat<-corFiml(dfS, covar = FALSE,show=FALSE) # Covariance Matrix from FIML
@@ -575,7 +575,7 @@ names(mdata)<-c('TURNINTE','ACE','SATIS01','SATIS02','SATIS03','SATIS04','SATIS0
 write.table(mdata, file.path(Private_Cache,"mp_test.txt"), sep="\t", col.names = F, row.names = F)
 ```
 
-First, let's look at a simple model of adjunct class predicting turnover intentions. It is necessary to use a probit at this time in R (and Mplus). Missingness is dealt with using FIML. First, the faculty typology variable.
+First, let's look at a simple model of adjunct class predicting attrition intentions. Because of the computational demands of this series of analyses, I will use the bayesian estimator and the probit link (both of which improve computational efficiency). Using probit is necessary at the moment in both Mplus and R. I use Mplus and not R because Mplus integrates these requirements nicely along with FIML for the missing data. This first analysis is a single level analysis because there are no level-two (institutional) characteristics in the model. Models 2 and after all contain institutional level characteristics, so they were implemented as a Multi-level Bayesian SEM with probit link function. Multi-level model was important to handle the dependency associated with level-two characteristics.
 
 ### Mplus Output
 
