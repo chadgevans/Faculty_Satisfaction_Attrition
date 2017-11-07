@@ -1,4 +1,5 @@
 # Faculty_Satisfaction_Attrition
 
-This analysis, my third dissertation chapter, examines the job satisfaction and turnover intentions of non-tenure track faculty using data from the HERI Faculty Survey.  Job satisfaction was modeled in a structural equation framework using 19 items on job satisfaction in a measurement model.  The predictor variable was a binary variable turnover intentions, for whether a faculty member had thought about leaving academia.
+Although most postsecondary faculty work off the tenure track, we know little about the attrition process of contingent academic labor.  Establishing an understanding of this process is important for maintaining a talented and capable workforce in academia.  Utilizing a sample of full-time and part-time non-tenure track faculty from the 2010 HERI Faculty Survey (N=8980), this study examines the job satisfaction and attrition intensions of these workers and how these factors are related to work and organizational characteristics.  It extends this important line of research by distinguishing important subgroups of non-traditional faculty.  I find that satisfaction with job support, work relationships and employment terms are key to this process.  Also, adjuncts providing expertise are distinct from other adjunct types with regard to attrition intentions.
+
 
