@@ -34,8 +34,8 @@ knitr::opts_chunk$set(echo = TRUE, message=FALSE, fig.width=7, fig.height=7, fig
 ```
 
 ```{r Directories, include=FALSE}
-Private_Cache <- "/Users/chadgevans/Research/Projects/Data/HERI/Cache"
-Raw<-"/Users/chadgevans/Research/Projects/Data/HERI/Raw"
+Private_Cache <- "/Users/chadgevans/Documents/Research/Projects/Data/HERI/Cache"
+Raw<-"/Users/chadgevans/Documents/Research/Projects/Data/HERI/Raw"
 Munge<-"./munge"
 Source<-"./src"
 Graph<-"./graph"
@@ -57,7 +57,7 @@ library(corrplot)
 library(sandwich)
 library(lmtest)
 library(gdata)
-source("/Users/chadgevans/Research/Projects/Faculty_Classification/lib/nfCrossTable.R")
+source("/Users/chadgevans/Documents/Research/Projects/Faculty_Classification/lib/nfCrossTable.R")
 #source(file.path(Munge, "CenterIt.R"))
 ```
 
@@ -84,10 +84,11 @@ GAPPAnames<-c("Full-time","Aspiring Academic","Career-Ender","Expert","Freelance
 VARS<-c("AGE", "SEX","MARITAL2","RACEGROUP2","DEGEARN2","PRINACT2","INSTCONT","CARNEGIE2","BIGLAN","SELECTIVITY2","OBEREG")
 table<-round(nfCrossTable(data=df[,VARS],CTvar=as.integer(df$GAPPANTT)),2)
 colnames(table)<-GAPPAnames
-rownames(table)<-c("Avg. Age","Female","Married","White","Ph.D.","Professional","Masters","BA or Less","Teacher","Researcher","Administrator/Other","Public","Research I","Research II","Research III/Doctoral","Bachelor's/Master's","Associates/Other","Hard/Applied","Hard/Pure","Soft/Applied","Soft/Pure","Other","Selective","East","West/Other","Midwest","South")
+rownames(table)<-c("Avg. Age","Female","Married","White","Ph.D.","Professional","Masters","BA or Less","Teacher","Researcher","Administrator/Other","Public","Research I","Research II","Research III/Doctoral","Bachelor's/Master's","Associates/Other","Hard/Applied","Hard/Pure","Soft/Applied","Soft/Pure","Selective","East","West/Other","Midwest","South")
 kable(table, caption = "Distribution of Adjunct Clusters by Work Characteristics")
 prop.table(table(df$GAPPANTT))
 ```
+
 
 ## Exploratory Factor Analysis
 This project will use data to help specify the model.  In order to prevent overfitting, I split the data into a training subset and a test subset (60/40).  The training data will be used for model development.  The test data will not have any role in construction of the model, making observations fully independent.  This helps to ensure that the final model I specify will generalize to the population.
@@ -224,11 +225,11 @@ kable(anovatable)
 For this project, I will use a backward stepping variable selection process. I begin with what are the (approx.) twenty most important variables (excluding satisfaction indicators for now). These variables are as follows:
 
 ```{r Potentially_Important_variables}
-indvars<-c("GAPPANTT","PRINACT2","DEGEARN2","GENACT01","TIMEEMPLOYED","PRODUCTIVITY","SALARYALL")
-instvars<-c("CARNEGIE2","INSTCONT","SELECTIVITY","BIGLAN","OBEREG") # Not including INSTTYPE bc of small cells
+indvars<-c("GAPPANTT","PRINACT2","DEGEARN2","GENACT01","TIMEEMPLOYED","PRODUCTIVITY","SALARYALL","PROFDEVFAC")
+instvars<-c("CARNEGIE2","INSTCONT","SELECTIVITY","BIGLAN","OBEREG","INSTTYPE") # Not including INSTTYPE bc of small cells
 demvars<-c("NATENGSP","GENACT02","AGE","SEX","MARITAL2","NCHILD3","RACE")
 Vars<-c("TURNINTENT",indvars,instvars,demvars)
-Description<-c("Turnover Intentions","Adjunct Classifier","Principle Activity","Highest Degree Earned","Union Member","Time Employed","Scholarly Productivity","Salary","Carnegie Research Status","Control","Selectivity","Biglan Subject Area","Region","Native English-speaker","Citizenship status","Age","Sex","Marital Status","Number of Children","Race")
+Description<-c("Turnover Intentions","Adjunct Classifier","Principle Activity","Highest Degree Earned","Union Member","Time Employed","Scholarly Productivity","Salary","Professional Development","Carnegie Research Status","Control","Selectivity","Biglan Subject Area","Region","Type","Native English-speaker","Citizenship status","Age","Sex","Marital Status","Number of Children","Race")
 print(data.frame(cbind(Vars,Description)))
 
 df_train <- df_train %>%
@@ -243,16 +244,21 @@ Let's train a linear logistic regression model on these variables and use robust
 ```{r Robust_Logistic_regression}
 # helper script to chain model variables into model formula
 #paste("as.numeric(TURNINTENT)-1 ~", paste(c(indvars,instvars,demvars), collapse= "+"))
-glmmod<-glm(formula=as.numeric(TURNINTENT)-1 ~ GAPPANTT+PRINACT2+DEGEARN2+TIMEEMPLOYED+I(TIMEEMPLOYED^2)+INSTCONT+OBEREG+NATENGSP+AGE+I(AGE^2)+NCHILD3+RACE, data=df_train, family = binomial) #937 observations lost to missingness (or 17 percent of the data)
+
+glmmod<-glm(formula=as.numeric(TURNINTENT)-1 ~ GAPPANTT+DEGEARN2+TIMEEMPLOYED+I(TIMEEMPLOYED^2)+PRODUCTIVITY+INSTCONT+BIGLAN+NATENGSP+AGE+I(AGE^2)+SEX+NCHILD3, data=df_train, family = binomial)
+
 RobustMod<-coeftest(glmmod, vcov = sandwich) # To get Robust SEs.
 print(RobustMod)
 #100*exp(RobustMod[,1]-1)
+
 ```
+
+
 
 The backward selection process suggests the following important individual and work characteristics (alpha<0.05).  It also suggests that second order terms are appropriate for the effect of time employed and age. 
 
 ```{r Important_variables}
-Impvars<-c("GAPPANTT","PRINACT2","DEGEARN2","TIMEEMPLOYED","INSTCONT","OBEREG","NATENGSP","AGE","NCHILD3","RACE")
+Impvars<-c("GAPPANTT","DEGEARN2","TIMEEMPLOYED","PRODUCTIVITY","INSTCONT","BIGLAN","NATENGSP","AGE","SEX","NCHILD3")
 print(Impvars)
 ```
 
@@ -275,8 +281,9 @@ mdata<-semdf_test
 col_idx <- grep("TURNINTENT", names(mdata))
 mdata<- mdata[, c(col_idx, (1:ncol(mdata))[-col_idx])]
 mdata[is.na(mdata)] <- "*"
-mdata= mdata %>% select(-NATENGSPNo)
-names(mdata)<-c('TURNINTE','ACE','SATIS01','SATIS02','SATIS03','SATIS04','SATIS05','SATIS06','SATIS07','SATIS08','SATIS09','SATIS10','SATIS11','SATIS12','SATIS13','SATIS14','SATIS15','SATIS16','SATIS17','SATIS18','SATIS20','English','Age','Public','WestOth','Midwest','South','GAPAA','GAPCE','GAPEx','GAPFree','Asian','Black','Hisp','RACEOth','DEGProf','DEGMast','DEGBAL','TIMEEMP','PRIRe','PRIAdOth','nChild','TIMEEMP2','Age2')
+mdata= mdata %>% select(-SEXMale)
+
+names(mdata)<-c('TURNINTE','ACE','SATIS01','SATIS02','SATIS03','SATIS04','SATIS05','SATIS06','SATIS07','SATIS08','SATIS09','SATIS10','SATIS11','SATIS12','SATIS13','SATIS14','SATIS15','SATIS16','SATIS17','SATIS18','SATIS20','Female','English','Age','Control','Product','GAPFree','GAPCE','GAPAA','GAPFT','DEGProf','DEGMast','DEGBAL','BIGHP','BIGSA','BIGSP','TIMEEMP','nChild','TIMEEMP2','Age2')
 write.table(mdata, file.path(Private_Cache,"mp_test.txt"), sep="\t", col.names = F, row.names = F)
 ```
 
@@ -284,22 +291,22 @@ First, let's look at a simple model of adjunct class predicting attrition intent
 
 ### Mplus Output
 ```{r, eval=FALSE}
-HLM_Mod1<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_Mod1.out")
-HLM_Mod2<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_Mod2.out")
-HLM_Mod3<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_Mod3.out"
-HLM_SEM<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_SEM.out"
+HLM_Mod1<-"/Users/chadgevans/Documents/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_1.out"
+HLM_Mod2<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_2.out"
+HLM_Mod3<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_3.out"
+HLM_SEM<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_3.out"
 ```
 
 ## Bayesian Multi-level Models
 
 ```{r}
-BayesianTables<-read.xls("/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/doc/Bayesian_Tables.xlsx")
-Btable<-BayesianTables[,c(1,2,3,7,8,9,13,14,15,19,20,21,25)]
+BayesianTables<-read.xls("/Users/chadgevans/Documents/Research/Projects/Faculty_Satisfaction_Attrition/doc/Bayesian_Tables.xlsx")
+Btable<-BayesianTables[,c(1,2,3,7,8,9,13,14,15,19)]
 kable(Btable)
 ```
 
 ```{r eval=FALSE}
-write.csv(Btable, "/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/doc/Final_Bayesian_Tables.csv")
+write.csv(Btable, "/Users/chadgevans/Documents/Research/Projects/Faculty_Satisfaction_Attrition/doc/Final_Bayesian_Tables.csv")
 ```
 
 ```{r}

@@ -2,7 +2,7 @@ Faculty Satisfaction and Attrition Intentions Analysis
 ================
 Chad Evans
 
-Built with 3.3.2. Last run on 2017-11-07.
+Built with 3.3.2. Last run on 2018-01-16.
 
 -   [Configure](#configure)
     -   Libraries
@@ -53,49 +53,48 @@ GAPPAnames<-c("Full-time","Aspiring Academic","Career-Ender","Expert","Freelance
 VARS<-c("AGE", "SEX","MARITAL2","RACEGROUP2","DEGEARN2","PRINACT2","INSTCONT","CARNEGIE2","BIGLAN","SELECTIVITY2","OBEREG")
 table<-round(nfCrossTable(data=df[,VARS],CTvar=as.integer(df$GAPPANTT)),2)
 colnames(table)<-GAPPAnames
-rownames(table)<-c("Avg. Age","Female","Married","White","Ph.D.","Professional","Masters","BA or Less","Teacher","Researcher","Administrator/Other","Public","Research I","Research II","Research III/Doctoral","Bachelor's/Master's","Associates/Other","Hard/Applied","Hard/Pure","Soft/Applied","Soft/Pure","Other","Selective","East","West/Other","Midwest","South")
+rownames(table)<-c("Avg. Age","Female","Married","White","Ph.D.","Professional","Masters","BA or Less","Teacher","Researcher","Administrator/Other","Public","Research I","Research II","Research III/Doctoral","Bachelor's/Master's","Associates/Other","Hard/Applied","Hard/Pure","Soft/Applied","Soft/Pure","Selective","East","West/Other","Midwest","South")
 kable(table, caption = "Distribution of Adjunct Clusters by Work Characteristics")
 ```
 
 |                       |  Full-time|  Aspiring Academic|  Career-Ender|  Expert|  Freelancer|
 |-----------------------|----------:|------------------:|-------------:|-------:|-----------:|
-| Avg. Age              |      48.59|              54.94|         63.98|   49.32|       46.48|
-| Female                |       0.56|               0.52|          0.44|    0.40|        0.62|
-| Married               |       0.77|               0.83|          0.79|    0.76|        0.74|
-| White                 |       0.84|               0.89|          0.80|    0.78|        0.79|
-| Ph.D.                 |       0.37|               0.24|          0.29|    0.14|        0.27|
-| Professional          |       0.09|               0.11|          0.14|    0.12|        0.07|
-| Masters               |       0.49|               0.54|          0.48|    0.64|        0.59|
-| BA or Less            |       0.05|               0.11|          0.09|    0.10|        0.07|
-| Teacher               |       0.80|               0.95|          0.95|    0.98|        0.96|
-| Researcher            |       0.04|               0.01|          0.02|    0.01|        0.01|
-| Administrator/Other   |       0.17|               0.04|          0.04|    0.02|        0.02|
-| Public                |       0.38|               0.38|          0.46|    0.39|        0.47|
-| Research I            |       0.05|               0.05|          0.05|    0.05|        0.04|
-| Research II           |       0.21|               0.15|          0.12|    0.16|        0.13|
-| Research III/Doctoral |       0.09|               0.05|          0.07|    0.06|        0.06|
-| Bachelor's/Master's   |       0.64|               0.71|          0.69|    0.68|        0.73|
-| Associates/Other      |       0.01|               0.05|          0.08|    0.04|        0.04|
-| Hard/Applied          |       0.35|               0.36|          0.28|    0.47|        0.22|
-| Hard/Pure             |       0.04|               0.03|          0.05|    0.01|        0.03|
-| Soft/Applied          |       0.19|               0.20|          0.25|    0.17|        0.17|
-| Soft/Pure             |       0.33|               0.34|          0.37|    0.29|        0.51|
-| Other                 |       0.09|               0.07|          0.06|    0.06|        0.07|
-| Selective             |       0.14|               0.06|          0.03|    0.03|        0.06|
-| East                  |       0.32|               0.26|          0.28|    0.26|        0.26|
-| West/Other            |       0.25|               0.33|          0.33|    0.31|        0.37|
-| Midwest               |       0.29|               0.38|          0.29|    0.38|        0.34|
-| South                 |       0.14|               0.03|          0.09|    0.05|        0.03|
+| Avg. Age              |      52.64|              52.36|         65.64|   48.47|       48.59|
+| Female                |       0.40|               0.66|          0.48|    0.53|        0.56|
+| Married               |       0.84|               0.83|          0.80|    0.75|        0.77|
+| White                 |       0.87|               0.90|          0.92|    0.79|        0.84|
+| Ph.D.                 |       0.14|               0.28|          0.42|    0.23|        0.37|
+| Professional          |       0.12|               0.09|          0.11|    0.09|        0.09|
+| Masters               |       0.58|               0.56|          0.42|    0.60|        0.49|
+| BA or Less            |       0.16|               0.08|          0.05|    0.08|        0.05|
+| Teacher               |       0.98|               0.93|          0.92|    0.97|        0.80|
+| Researcher            |       0.01|               0.01|          0.02|    0.01|        0.04|
+| Administrator/Other   |       0.02|               0.06|          0.06|    0.02|        0.17|
+| Public                |       0.33|               0.40|          0.44|    0.44|        0.38|
+| Research I            |       0.04|               0.04|          0.06|    0.04|        0.05|
+| Research II           |       0.19|               0.14|          0.10|    0.14|        0.21|
+| Research III/Doctoral |       0.04|               0.06|          0.06|    0.06|        0.09|
+| Bachelor's/Master's   |       0.69|               0.71|          0.72|    0.71|        0.64|
+| Associates/Other      |       0.04|               0.05|          0.06|    0.04|        0.01|
+| Hard/Applied          |       0.55|               0.34|          0.33|    0.37|        0.44|
+| Hard/Pure             |       0.02|               0.04|          0.03|    0.02|        0.04|
+| Soft/Applied          |       0.18|               0.22|          0.23|    0.18|        0.19|
+| Soft/Pure             |       0.25|               0.40|          0.41|    0.43|        0.33|
+| Selective             |       0.04|               0.07|          0.09|    0.05|        0.14|
+| East                  |       0.28|               0.25|          0.22|    0.26|        0.32|
+| West/Other            |       0.30|               0.35|          0.33|    0.34|        0.25|
+| Midwest               |       0.40|               0.36|          0.39|    0.35|        0.29|
+| South                 |       0.02|               0.03|          0.06|    0.04|        0.14|
 
 ``` r
 prop.table(table(df$GAPPANTT))
 ```
 
     ## 
-    ##            FT NTT Aspiring Academic      Career-Ender            Expert 
-    ##        0.50705645        0.21124552        0.01456093        0.09565412 
-    ##        Freelancer 
-    ##        0.17148297
+    ##            Expert        Freelancer      Career-Ender Aspiring Academic 
+    ##        0.08770161        0.08299731        0.03550627        0.28673835 
+    ##            FT NTT 
+    ##        0.50705645
 
 Exploratory Factor Analysis
 ---------------------------
@@ -454,11 +453,11 @@ Model Specification with Training Data
 For this project, I will use a backward stepping variable selection process. I begin with what are the (approx.) twenty most important variables (excluding satisfaction indicators for now). These variables are as follows:
 
 ``` r
-indvars<-c("GAPPANTT","PRINACT2","DEGEARN2","GENACT01","TIMEEMPLOYED","PRODUCTIVITY","SALARYALL")
-instvars<-c("CARNEGIE2","INSTCONT","SELECTIVITY","BIGLAN","OBEREG") # Not including INSTTYPE bc of small cells
+indvars<-c("GAPPANTT","PRINACT2","DEGEARN2","GENACT01","TIMEEMPLOYED","PRODUCTIVITY","SALARYALL","PROFDEVFAC")
+instvars<-c("CARNEGIE2","INSTCONT","SELECTIVITY","BIGLAN","OBEREG","INSTTYPE") # Not including INSTTYPE bc of small cells
 demvars<-c("NATENGSP","GENACT02","AGE","SEX","MARITAL2","NCHILD3","RACE")
 Vars<-c("TURNINTENT",indvars,instvars,demvars)
-Description<-c("Turnover Intentions","Adjunct Classifier","Principle Activity","Highest Degree Earned","Union Member","Time Employed","Scholarly Productivity","Salary","Carnegie Research Status","Control","Selectivity","Biglan Subject Area","Region","Native English-speaker","Citizenship status","Age","Sex","Marital Status","Number of Children","Race")
+Description<-c("Turnover Intentions","Adjunct Classifier","Principle Activity","Highest Degree Earned","Union Member","Time Employed","Scholarly Productivity","Salary","Professional Development","Carnegie Research Status","Control","Selectivity","Biglan Subject Area","Region","Type","Native English-speaker","Citizenship status","Age","Sex","Marital Status","Number of Children","Race")
 print(data.frame(cbind(Vars,Description)))
 ```
 
@@ -471,18 +470,20 @@ print(data.frame(cbind(Vars,Description)))
     ## 6  TIMEEMPLOYED            Time Employed
     ## 7  PRODUCTIVITY   Scholarly Productivity
     ## 8     SALARYALL                   Salary
-    ## 9     CARNEGIE2 Carnegie Research Status
-    ## 10     INSTCONT                  Control
-    ## 11  SELECTIVITY              Selectivity
-    ## 12       BIGLAN      Biglan Subject Area
-    ## 13       OBEREG                   Region
-    ## 14     NATENGSP   Native English-speaker
-    ## 15     GENACT02       Citizenship status
-    ## 16          AGE                      Age
-    ## 17          SEX                      Sex
-    ## 18     MARITAL2           Marital Status
-    ## 19      NCHILD3       Number of Children
-    ## 20         RACE                     Race
+    ## 9    PROFDEVFAC Professional Development
+    ## 10    CARNEGIE2 Carnegie Research Status
+    ## 11     INSTCONT                  Control
+    ## 12  SELECTIVITY              Selectivity
+    ## 13       BIGLAN      Biglan Subject Area
+    ## 14       OBEREG                   Region
+    ## 15     INSTTYPE                     Type
+    ## 16     NATENGSP   Native English-speaker
+    ## 17     GENACT02       Citizenship status
+    ## 18          AGE                      Age
+    ## 19          SEX                      Sex
+    ## 20     MARITAL2           Marital Status
+    ## 21      NCHILD3       Number of Children
+    ## 22         RACE                     Race
 
 ``` r
 df_train <- df_train %>%
@@ -499,7 +500,9 @@ Let's train a linear logistic regression model on these variables and use robust
 ``` r
 # helper script to chain model variables into model formula
 #paste("as.numeric(TURNINTENT)-1 ~", paste(c(indvars,instvars,demvars), collapse= "+"))
-glmmod<-glm(formula=as.numeric(TURNINTENT)-1 ~ GAPPANTT+PRINACT2+DEGEARN2+TIMEEMPLOYED+I(TIMEEMPLOYED^2)+INSTCONT+OBEREG+NATENGSP+AGE+I(AGE^2)+NCHILD3+RACE, data=df_train, family = binomial) #937 observations lost to missingness (or 17 percent of the data)
+
+glmmod<-glm(formula=as.numeric(TURNINTENT)-1 ~ GAPPANTT+DEGEARN2+TIMEEMPLOYED+I(TIMEEMPLOYED^2)+PRODUCTIVITY+INSTCONT+BIGLAN+NATENGSP+AGE+I(AGE^2)+SEX+NCHILD3, data=df_train, family = binomial)
+
 RobustMod<-coeftest(glmmod, vcov = sandwich) # To get Robust SEs.
 print(RobustMod)
 ```
@@ -508,30 +511,26 @@ print(RobustMod)
     ## z test of coefficients:
     ## 
     ##                              Estimate  Std. Error z value  Pr(>|z|)    
-    ## (Intercept)               -2.43249417  0.52325589 -4.6488 3.339e-06 ***
-    ## GAPPANTTAspiring Academic -0.31978874  0.08282310 -3.8611 0.0001129 ***
-    ## GAPPANTTCareer-Ender       0.90727627  0.26870357  3.3765 0.0007342 ***
-    ## GAPPANTTExpert            -0.47992708  0.11646473 -4.1208 3.776e-05 ***
-    ## GAPPANTTFreelancer        -0.09167444  0.08572278 -1.0694 0.2848763    
-    ## PRINACT2Research           0.51026063  0.19874272  2.5674 0.0102452 *  
-    ## PRINACT2Admin/Other       -0.03203307  0.10466189 -0.3061 0.7595571    
-    ## DEGEARN2Professional      -0.10175145  0.11540147 -0.8817 0.3779298    
-    ## DEGEARN2Masters           -0.23270024  0.07077966 -3.2877 0.0010102 ** 
-    ## DEGEARN2BA or Less        -0.26181623  0.12996770 -2.0145 0.0439601 *  
-    ## TIMEEMPLOYED               0.02745059  0.00963560  2.8489 0.0043875 ** 
-    ## I(TIMEEMPLOYED^2)         -0.00051372  0.00028758 -1.7864 0.0740395 .  
-    ## INSTCONTPublic             0.17731124  0.06454317  2.7472 0.0060111 ** 
-    ## OBEREGWest_Other           0.16677759  0.08330577  2.0020 0.0452855 *  
-    ## OBEREGMidwest              0.10286966  0.07946765  1.2945 0.1954981    
-    ## OBEREGSouth                0.02926781  0.11889961  0.2462 0.8055617    
-    ## NATENGSPYes                0.59583269  0.12367798  4.8176 1.453e-06 ***
-    ## AGE                        0.08696226  0.02195028  3.9618 7.439e-05 ***
-    ## I(AGE^2)                  -0.00099482  0.00022410 -4.4391 9.034e-06 ***
-    ## NCHILD3                   -0.06031170  0.02339673 -2.5778 0.0099436 ** 
-    ## RACEAsian                 -0.39411870  0.19765111 -1.9940 0.0461507 *  
-    ## RACEBlack                 -0.02403224  0.16729526 -0.1437 0.8857755    
-    ## RACEHispanic               0.14339267  0.18128914  0.7910 0.4289667    
-    ## RACEOther                  0.31042510  0.11951164  2.5974 0.0093920 ** 
+    ## (Intercept)               -2.43508906  0.57575551 -4.2294 2.343e-05 ***
+    ## GAPPANTTFreelancer         0.02200727  0.14829425  0.1484  0.882025    
+    ## GAPPANTTCareer-Ender       0.93372650  0.19588949  4.7666 1.874e-06 ***
+    ## GAPPANTTAspiring Academic  0.49678010  0.12101061  4.1053 4.039e-05 ***
+    ## GAPPANTTFT NTT             0.60708019  0.11634821  5.2178 1.811e-07 ***
+    ## DEGEARN2Professional      -0.19106795  0.12209275 -1.5649  0.117597    
+    ## DEGEARN2Masters           -0.23643807  0.08069886 -2.9299  0.003391 ** 
+    ## DEGEARN2BA or Less        -0.40958210  0.13480136 -3.0384  0.002378 ** 
+    ## TIMEEMPLOYED               0.03099021  0.01006431  3.0792  0.002075 ** 
+    ## I(TIMEEMPLOYED^2)         -0.00088413  0.00030732 -2.8768  0.004017 ** 
+    ## PRODUCTIVITY               0.02216107  0.00513000  4.3199 1.561e-05 ***
+    ## INSTCONTPublic             0.16288764  0.06217660  2.6198  0.008799 ** 
+    ## BIGLANHard/Pure           -0.18359660  0.16984993 -1.0809  0.279726    
+    ## BIGLANSoft/Applied         0.04552609  0.08531504  0.5336  0.593602    
+    ## BIGLANSoft/Pure            0.15245510  0.07036970  2.1665  0.030274 *  
+    ## NATENGSPYes                0.55839966  0.10464629  5.3361 9.498e-08 ***
+    ## AGE                        0.06496234  0.02167914  2.9965  0.002731 ** 
+    ## I(AGE^2)                  -0.00088116  0.00022079 -3.9910 6.580e-05 ***
+    ## SEXFemale                 -0.18337137  0.06278912 -2.9204  0.003495 ** 
+    ## NCHILD3                   -0.07565977  0.02368211 -3.1948  0.001399 ** 
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -542,13 +541,13 @@ print(RobustMod)
 The backward selection process suggests the following important individual and work characteristics (alpha&lt;0.05). It also suggests that second order terms are appropriate for the effect of time employed and age.
 
 ``` r
-Impvars<-c("GAPPANTT","PRINACT2","DEGEARN2","TIMEEMPLOYED","INSTCONT","OBEREG","NATENGSP","AGE","NCHILD3","RACE")
+Impvars<-c("GAPPANTT","DEGEARN2","TIMEEMPLOYED","PRODUCTIVITY","INSTCONT","BIGLAN","NATENGSP","AGE","SEX","NCHILD3")
 print(Impvars)
 ```
 
-    ##  [1] "GAPPANTT"     "PRINACT2"     "DEGEARN2"     "TIMEEMPLOYED"
-    ##  [5] "INSTCONT"     "OBEREG"       "NATENGSP"     "AGE"         
-    ##  [9] "NCHILD3"      "RACE"
+    ##  [1] "GAPPANTT"     "DEGEARN2"     "TIMEEMPLOYED" "PRODUCTIVITY"
+    ##  [5] "INSTCONT"     "BIGLAN"       "NATENGSP"     "AGE"         
+    ##  [9] "SEX"          "NCHILD3"
 
 Model Evaluation with Test Data
 ===============================
@@ -570,8 +569,9 @@ mdata<-semdf_test
 col_idx <- grep("TURNINTENT", names(mdata))
 mdata<- mdata[, c(col_idx, (1:ncol(mdata))[-col_idx])]
 mdata[is.na(mdata)] <- "*"
-mdata= mdata %>% select(-NATENGSPNo)
-names(mdata)<-c('TURNINTE','ACE','SATIS01','SATIS02','SATIS03','SATIS04','SATIS05','SATIS06','SATIS07','SATIS08','SATIS09','SATIS10','SATIS11','SATIS12','SATIS13','SATIS14','SATIS15','SATIS16','SATIS17','SATIS18','SATIS20','English','Age','Public','WestOth','Midwest','South','GAPAA','GAPCE','GAPEx','GAPFree','Asian','Black','Hisp','RACEOth','DEGProf','DEGMast','DEGBAL','TIMEEMP','PRIRe','PRIAdOth','nChild','TIMEEMP2','Age2')
+mdata= mdata %>% select(-SEXMale)
+
+names(mdata)<-c('TURNINTE','ACE','SATIS01','SATIS02','SATIS03','SATIS04','SATIS05','SATIS06','SATIS07','SATIS08','SATIS09','SATIS10','SATIS11','SATIS12','SATIS13','SATIS14','SATIS15','SATIS16','SATIS17','SATIS18','SATIS20','Female','English','Age','Control','Product','GAPFree','GAPCE','GAPAA','GAPFT','DEGProf','DEGMast','DEGBAL','BIGHP','BIGSA','BIGSP','TIMEEMP','nChild','TIMEEMP2','Age2')
 write.table(mdata, file.path(Private_Cache,"mp_test.txt"), sep="\t", col.names = F, row.names = F)
 ```
 
@@ -580,55 +580,51 @@ First, let's look at a simple model of adjunct class predicting attrition intent
 ### Mplus Output
 
 ``` r
-HLM_Mod1<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_Mod1.out")
-HLM_Mod2<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_Mod2.out")
-HLM_Mod3<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_Mod3.out"
-HLM_SEM<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_SEM.out"
+HLM_Mod1<-"/Users/chadgevans/Documents/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_1.out"
+HLM_Mod2<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_2.out"
+HLM_Mod3<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_3.out"
+HLM_SEM<-"/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/src/HLM_3.out"
 ```
 
 Bayesian Multi-level Models
 ---------------------------
 
 ``` r
-BayesianTables<-read.xls("/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/doc/Bayesian_Tables.xlsx")
-Btable<-BayesianTables[,c(1,2,3,7,8,9,13,14,15,19,20,21,25)]
+BayesianTables<-read.xls("/Users/chadgevans/Documents/Research/Projects/Faculty_Satisfaction_Attrition/doc/Bayesian_Tables.xlsx")
+Btable<-BayesianTables[,c(1,2,3,7,8,9,13,14,15,19)]
 kable(Btable)
 ```
 
-| X                               | Model.1             | X.1        | X.5 | Model.2                  | X.6        | X.10 | Model.3                  | X.11       | X.15 | SEM.Model                  | X.16       | X.20 |
-|:--------------------------------|:--------------------|:-----------|:----|:-------------------------|:-----------|:-----|:-------------------------|:-----------|:-----|:---------------------------|:-----------|:-----|
-|                                 | Estimate            | Post. S.D. |     | Estimate                 | Post. S.D. |      | Estimate                 | Post. S.D. |      | Estimate                   | Post. S.D. |      |
-| Aspiring Academic               | -0.260              | 0.057      | \*  | -0.209                   | 0.068      | \*   | -0.159                   | 0.069      | \*   | -0.044                     | 0.076      |      |
-| Career-Ender                    | -0.053              | 0.178      |     | -0.031                   | 0.189      |      | 0.148                    | 0.200      |      | 0.165                      | 0.213      |      |
-| Expert                          | -0.288              | 0.077      | \*  | -0.175                   | 0.082      | \*   | -0.174                   | 0.087      | \*   | -0.271                     | 0.095      | \*   |
-| Freelancer                      | 0.201               | 0.060      | \*  | 0.271                    | 0.072      | \*   | 0.295                    | 0.074      | \*   | 0.021                      | 0.082      |      |
-| Research                        |                     |            |     | 0.007                    | 0.155      |      | 0.061                    | 0.158      |      | 0.203                      | 0.166      |      |
-| Administration/Other            |                     |            |     | 0.155                    | 0.076      | \*   | 0.138                    | 0.076      |      | 0.202                      | 0.084      | \*   |
-| Professional                    |                     |            |     | -0.025                   | 0.078      |      | -0.022                   | 0.081      |      | 0.014                      | 0.084      |      |
-| Masters                         |                     |            |     | -0.060                   | 0.054      |      | -0.080                   | 0.054      |      | -0.035                     | 0.060      |      |
-| BA or Less                      |                     |            |     | -0.091                   | 0.089      |      | -0.105                   | 0.089      |      | 0.002                      | 0.096      |      |
-| Time Employed                   |                     |            |     | 0.012                    | 0.004      | \*   | 0.011                    | 0.005      | \*   | 0.006                      | 0.005      |      |
-| Time Employed^2                 |                     |            |     | 0.000                    | 0.000      | \*   | 0.000                    | 0.000      |      | 0.000                      | 0.000      |      |
-| Public Control                  |                     |            |     | 0.138                    | 0.055      | \*   | 0.129                    | 0.058      | \*   | 0.167                      | 0.100      |      |
-| West/Other                      |                     |            |     | 0.088                    | 0.072      |      | 0.101                    | 0.074      |      | 0.096                      | 0.079      |      |
-| Midwest                         |                     |            |     | 0.065                    | 0.072      |      | 0.083                    | 0.065      |      | 0.114                      | 0.088      |      |
-| South                           |                     |            |     | 0.035                    | 0.099      |      | 0.056                    | 0.105      |      | 0.107                      | 0.115      |      |
-| Native English                  |                     |            |     |                          |            |      | 0.429                    | 0.084      | \*   | 0.474                      | 0.091      | \*   |
-| Age                             |                     |            |     |                          |            |      | -0.004                   | 0.002      |      | -0.002                     | 0.003      |      |
-| Age^2                           |                     |            |     |                          |            |      | -0.001                   | 0.000      | \*   | 0.000                      | 0.000      | \*   |
-| Asian                           |                     |            |     |                          |            |      | -0.204                   | 0.131      |      | -0.274                     | 0.133      | \*   |
-| Black                           |                     |            |     |                          |            |      | -0.271                   | 0.136      | \*   | -0.131                     | 0.134      |      |
-| Hispanic                        |                     |            |     |                          |            |      | -0.096                   | 0.152      |      | -0.065                     | 0.157      |      |
-| Other                           |                     |            |     |                          |            |      | 0.029                    | 0.089      |      | -0.069                     | 0.095      |      |
-| Number of Children              |                     |            |     |                          |            |      | -0.062                   | 0.018      | \*   | -0.034                     | 0.020      |      |
-| Satis. w/ Work Responsibilities |                     |            |     |                          |            |      |                          |            |      | -0.302                     | 0.069      | \*   |
-| Satis. w/ Work Relationships    |                     |            |     |                          |            |      |                          |            |      | -0.107                     | 0.036      | \*   |
-| Satis. w/ Employment Terms      |                     |            |     |                          |            |      |                          |            |      | -0.654                     | 0.087      | \*   |
-| Satis. w/ Job Benefits          |                     |            |     |                          |            |      |                          |            |      | -0.003                     | 0.044      |      |
-| Fit Statistic: Chi-square C.I.  | \[-18.058, 17.948\] |            |     | \[4367.009, 4614.450\]\* |            |      | \[7058.960, 7360.038\]\* |            |      | \[11766.223, 12264.032\]\* |            |      |
+| X                               | Model.1             | X.1        | X.5 | HLM.Model                 | X.6        | X.10 | SEM.Model                  | X.11       | X.15 |
+|:--------------------------------|:--------------------|:-----------|:----|:--------------------------|:-----------|:-----|:---------------------------|:-----------|:-----|
+|                                 | Estimate            | Post. S.D. |     | Estimate                  | Post. S.D. |      | Estimate                   | Post. S.D. |      |
+| Freelancer                      | 0.100               | 0.101      |     | 0.106                     | 0.112      |      | -0.037                     | 0.118      |      |
+| Career-Ender                    | 0.624               | 0.139      | \*  | 0.081                     | 0.165      |      | 0.702                      | 0.167      | \*   |
+| Aspiring Academic               | 0.397               | 0.082      | \*  | 0.451                     | 0.089      | \*   | -0.037                     | 0.093      |      |
+| Full-time                       | 0.371               | 0.077      | \*  | 0.374                     | 0.097      | \*   | 0.145                      | 0.096      |      |
+| Age                             | -0.007              | 0.002      | \*  | -0.017                    | 0.003      | \*   | -0.009                     | 0.003      | \*   |
+| Age^2                           | -0.001              | 0.000      | \*  | -0.001                    | 0.000      | \*   | 0.000                      | 0.000      | \*   |
+| Female                          | 0.034               | 0.043      |     | 0.009                     | 0.049      |      | 0.004                      | 0.050      |      |
+| Number of Children              | -0.098              | 0.016      | \*  | -0.077                    | 0.018      | \*   | -0.055                     | 0.020      | \*   |
+| Native English                  | 0.444               | 0.075      | \*  | 0.331                     | 0.079      | \*   | 0.545                      | 0.085      | \*   |
+| Professional                    |                     |            |     | -0.016                    | 0.085      |      | -0.043                     | 0.093      |      |
+| Masters                         |                     |            |     | -0.216                    | 0.060      | \*   | -0.118                     | 0.068      |      |
+| BA or Less                      |                     |            |     | -0.311                    | 0.098      | \*   | -0.125                     | 0.096      |      |
+| Productivity                    |                     |            |     | 0.021                     | 0.004      | \*   | 0.016                      | 0.004      | \*   |
+| Time Employed                   |                     |            |     | 0.013                     | 0.005      | \*   | 0.005                      | 0.005      |      |
+| Time Employed^2                 |                     |            |     | -0.001                    | 0.000      | \*   | 0.000                      | 0.000      |      |
+| Hard-Pure                       |                     |            |     | -0.091                    | 0.132      |      | -0.284                     | 0.141      | \*   |
+| Soft-Applied                    |                     |            |     | 0.011                     | 0.065      |      | 0.190                      | 0.064      | \*   |
+| Soft-Pure                       |                     |            |     | 0.244                     | 0.053      | \*   | 0.037                      | 0.057      |      |
+| Public                          |                     |            |     | 0.174                     | 0.061      | \*   | 0.127                      | 0.110      |      |
+| Satis. w/ Work Responsibilities |                     |            |     |                           |            |      | -0.355                     | 0.087      | \*   |
+| Satis. w/ Work Relationships    |                     |            |     |                           |            |      | -0.170                     | 0.041      | \*   |
+| Satis. w/ Employment Terms      |                     |            |     |                           |            |      | -0.946                     | 0.091      | \*   |
+| Satis. w/ Job Benefits          |                     |            |     |                           |            |      | 0.017                      | 0.044      |      |
+| Fit Statistic: Chi-square C.I.  | \[-29.063, 27.564\] |            |     | \[9603.045, 10006.868\]\* |            |      | \[14433.121, 15009.691\]\* |            |      |
 
 ``` r
-write.csv(Btable, "/Users/chadgevans/Research/Projects/Faculty_Satisfaction_Attrition/doc/Final_Bayesian_Tables.csv")
+write.csv(Btable, "/Users/chadgevans/Documents/Research/Projects/Faculty_Satisfaction_Attrition/doc/Final_Bayesian_Tables.csv")
 ```
 
 ``` r
@@ -637,7 +633,7 @@ sessionInfo()
 
     ## R version 3.3.2 (2016-10-31)
     ## Platform: x86_64-apple-darwin13.4.0 (64-bit)
-    ## Running under: macOS Sierra 10.12.6
+    ## Running under: macOS  10.13.2
     ## 
     ## locale:
     ## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8

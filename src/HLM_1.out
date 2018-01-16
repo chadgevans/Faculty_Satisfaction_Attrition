@@ -1,0 +1,282 @@
+Mplus VERSION 8 (Mac)
+MUTHEN & MUTHEN
+01/07/2018   9:36 AM
+
+INPUT INSTRUCTIONS
+
+  TITLE:		Title
+  DATA:		FILE = /Users/chadgevans/Documents/Research/Projects/Data/HERI/Cache/mp_test.txt;
+  VARIABLE:		NAMES = TURNINTE ACE SATIS01 SATIS02 SATIS03 SATIS04 SATIS05
+  		SATIS06 SATIS07 SATIS08 SATIS09 SATIS10 SATIS11 SATIS12
+  		SATIS13 SATIS14 SATIS15 SATIS16 SATIS17 SATIS18 SATIS20
+  		Female English Age Public Product GAPFree GAPCE GAPAA
+  		GAPFT DEGProf DEGMast DEGBAL BIGHP BIGSA BIGSP TIMEEMP
+  		nChild TIMEEMP2 Age2;
+  		USEVARIABLES = TURNINTE Female English Age GAPFree GAPCE GAPAA
+  		GAPFT nChild Age2;
+  		CATEGORICAL = TURNINTE;
+  		MISSING = *;
+  ANALYSIS: 		ESTIMATOR=BAYES;
+  		PROCESSORS=2;
+  		FBITER=1000
+  MODEL:		TURNINTE ON GAPFree GAPCE GAPAA GAPFT
+      		Age Age2 Female nChild English;
+      		GAPFree GAPCE GAPAA GAPFT
+      		Age Age2 Female nChild English;
+  		
+
+
+
+*** WARNING
+  Data set contains cases with missing on all variables.
+  These cases were not included in the analysis.
+  Number of cases with missing on all variables:  3
+   1 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+Title
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        3589
+
+Number of dependent variables                                    1
+Number of independent variables                                  9
+Number of continuous latent variables                            0
+
+Observed dependent variables
+
+  Binary and ordered categorical (ordinal)
+   TURNINTE
+
+Observed independent variables
+   FEMALE      ENGLISH     AGE         GAPFREE     GAPCE       GAPAA
+   GAPFT       NCHILD      AGE2
+
+
+Estimator                                                    BAYES
+Specifications for Bayesian Estimation
+  Point estimate                                            MEDIAN
+  Number of Markov chain Monte Carlo (MCMC) chains               2
+  Random seed for the first chain                                0
+  Starting value information                           UNPERTURBED
+  Treatment of categorical mediator                         LATENT
+  Algorithm used for Markov chain Monte Carlo           GIBBS(PX1)
+  Fixed number of iterations                                  1000
+  K-th iteration used for thinning                               1
+Link                                                        PROBIT
+
+Input data file(s)
+  /Users/chadgevans/Documents/Research/Projects/Data/HERI/Cache/mp_test.txt
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.100
+
+     Number of missing data patterns            26
+
+
+     PROPORTION OF DATA PRESENT
+
+
+           Covariance Coverage
+              TURNINTE      FEMALE        ENGLISH       AGE           GAPFREE
+              ________      ________      ________      ________      ________
+ TURNINTE       0.995
+ FEMALE         0.986         0.991
+ ENGLISH        0.989         0.990         0.994
+ AGE            0.963         0.965         0.966         0.967
+ GAPFREE        0.990         0.985         0.988         0.962         0.994
+ GAPCE          0.990         0.985         0.988         0.962         0.994
+ GAPAA          0.990         0.985         0.988         0.962         0.994
+ GAPFT          0.990         0.985         0.988         0.962         0.994
+ NCHILD         0.967         0.967         0.969         0.947         0.966
+ AGE2           0.963         0.965         0.966         0.967         0.962
+
+
+           Covariance Coverage
+              GAPCE         GAPAA         GAPFT         NCHILD        AGE2
+              ________      ________      ________      ________      ________
+ GAPCE          0.994
+ GAPAA          0.994         0.994
+ GAPFT          0.994         0.994         0.994
+ NCHILD         0.966         0.966         0.966         0.970
+ AGE2           0.962         0.962         0.962         0.947         0.967
+
+
+UNIVARIATE PROPORTIONS AND COUNTS FOR CATEGORICAL VARIABLES
+
+    TURNINTE
+      Category 1    0.429         1533.000
+      Category 2    0.571         2038.000
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     FEMALE                0.546      -0.184       0.000   45.43%       0.000      0.000      1.000
+            3557.000       0.248      -1.966       1.000   54.57%       1.000      1.000
+     ENGLISH               0.903      -2.718       0.000    9.73%       1.000      1.000      1.000
+            3567.000       0.088       5.387       1.000   90.27%       1.000      1.000
+     AGE                   0.000      -0.084     -26.949    0.06%     -11.949     -2.949      1.051
+            3470.000     146.614      -0.793      40.051    0.06%       5.051     11.051
+     GAPFREE               0.078       3.156       0.000   92.23%       0.000      0.000      0.000
+            3566.000       0.072       7.958       1.000    7.77%       0.000      0.000
+     GAPCE                 0.033       5.245       0.000   96.72%       0.000      0.000      0.000
+            3566.000       0.032      25.513       1.000    3.28%       0.000      0.000
+     GAPAA                 0.285       0.950       0.000   71.45%       0.000      0.000      0.000
+            3566.000       0.204      -1.098       1.000   28.55%       0.000      1.000
+     GAPFT                 0.512      -0.047       0.000   48.82%       0.000      0.000      1.000
+            3566.000       0.250      -1.998       1.000   51.18%       1.000      1.000
+     NCHILD                1.577       0.523       0.000   31.47%       0.000      1.000      2.000
+            3483.000       1.878      -0.091       8.000    0.11%       2.000      3.000
+     AGE2                146.614       1.929       0.003    2.54%      15.592     63.182     98.977
+            3470.000   25945.040       6.741    1604.106    0.06%     122.131    257.644
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+     USE THE FBITERATIONS OPTION TO INCREASE THE NUMBER OF ITERATIONS BY A FACTOR
+     OF AT LEAST TWO TO CHECK CONVERGENCE AND THAT THE PSR VALUE DOES NOT INCREASE.
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                              64
+
+Bayesian Posterior Predictive Checking using Chi-Square
+
+          95% Confidence Interval for the Difference Between
+          the Observed and the Replicated Chi-Square Values
+
+                                -29.063            27.564
+
+          Posterior Predictive P-Value              0.461
+
+
+
+MODEL RESULTS
+
+                                Posterior  One-Tailed         95% C.I.
+                    Estimate       S.D.      P-Value   Lower 2.5%  Upper 2.5%  Significance
+
+ TURNINTE   ON
+    GAPFREE            0.100       0.101      0.157      -0.090       0.313
+    GAPCE              0.624       0.139      0.000       0.362       0.904      *
+    GAPAA              0.397       0.082      0.000       0.247       0.564      *
+    GAPFT              0.371       0.077      0.000       0.235       0.533      *
+    AGE               -0.007       0.002      0.000      -0.011      -0.003      *
+    AGE2              -0.001       0.000      0.000      -0.001       0.000      *
+    FEMALE             0.034       0.043      0.216      -0.056       0.118
+    NCHILD            -0.098       0.016      0.000      -0.130      -0.066      *
+    ENGLISH            0.444       0.075      0.000       0.290       0.595      *
+
+ ENGLISH  WITH
+    FEMALE            -0.001       0.002      0.321      -0.006       0.004
+
+ AGE      WITH
+    FEMALE            -0.886       0.103      0.000      -1.097      -0.690      *
+    ENGLISH            0.208       0.061      0.000       0.101       0.339      *
+
+ GAPFREE  WITH
+    FEMALE             0.007       0.002      0.002       0.002       0.011      *
+    ENGLISH            0.002       0.001      0.107      -0.001       0.004
+    AGE                0.274       0.054      0.000       0.169       0.379      *
+
+ GAPCE    WITH
+    FEMALE            -0.001       0.001      0.323      -0.004       0.002
+    ENGLISH            0.002       0.001      0.037       0.000       0.003
+    AGE                0.531       0.037      0.000       0.463       0.605      *
+    GAPFREE           -0.002       0.001      0.001      -0.004      -0.001      *
+
+ GAPAA    WITH
+    FEMALE            -0.004       0.004      0.154      -0.011       0.003
+    ENGLISH           -0.006       0.002      0.004      -0.010      -0.001      *
+    AGE               -0.382       0.094      0.000      -0.576      -0.197      *
+    GAPFREE           -0.022       0.002      0.000      -0.026      -0.018      *
+    GAPCE             -0.009       0.001      0.000      -0.012      -0.007      *
+
+ GAPFT    WITH
+    FEMALE             0.011       0.004      0.002       0.003       0.019      *
+    ENGLISH           -0.001       0.002      0.322      -0.006       0.003
+    AGE               -0.658       0.102      0.000      -0.868      -0.474      *
+    GAPFREE           -0.040       0.002      0.000      -0.044      -0.035      *
+    GAPCE             -0.017       0.001      0.000      -0.020      -0.014      *
+    GAPAA             -0.146       0.004      0.000      -0.155      -0.138      *
+
+ NCHILD   WITH
+    FEMALE            -0.058       0.011      0.000      -0.081      -0.035      *
+    ENGLISH            0.008       0.007      0.148      -0.007       0.021
+    AGE                5.186       0.301      0.000       4.625       5.794      *
+    GAPFREE            0.011       0.006      0.040      -0.001       0.023
+    GAPCE              0.018       0.004      0.000       0.009       0.026      *
+    GAPAA             -0.002       0.011      0.411      -0.023       0.019
+    GAPFT             -0.051       0.012      0.000      -0.074      -0.028      *
+
+ AGE2     WITH
+    FEMALE            -5.115       1.324      0.000      -7.816      -2.534      *
+    ENGLISH            0.621       0.795      0.221      -0.896       2.243
+    AGE             -152.720      33.234      0.000    -220.554     -92.817      *
+    GAPFREE            2.147       0.734      0.001       0.689       3.532      *
+    GAPCE              4.754       0.488      0.000       3.812       5.713      *
+    GAPAA             -0.918       1.228      0.214      -3.376       1.314
+    GAPFT             -7.167       1.381      0.000      -9.809      -4.458      *
+    NCHILD           -28.331       3.864      0.000     -36.314     -21.287      *
+
+ Means
+    FEMALE             0.545       0.008      0.000       0.529       0.561      *
+    ENGLISH            0.903       0.005      0.000       0.893       0.912      *
+    AGE               -0.050       0.206      0.421      -0.454       0.357
+    GAPFREE            0.078       0.004      0.000       0.069       0.086      *
+    GAPCE              0.033       0.003      0.000       0.027       0.039      *
+    GAPAA              0.286       0.008      0.000       0.270       0.300      *
+    GAPFT              0.511       0.009      0.000       0.494       0.529      *
+    NCHILD             1.580       0.023      0.000       1.533       1.627      *
+    AGE2             146.306       2.796      0.000     140.677     151.917      *
+
+ Thresholds
+    TURNINTE$1         0.299       0.108      0.001       0.082       0.511      *
+
+ Variances
+    FEMALE             0.248       0.006      0.000       0.237       0.259      *
+    ENGLISH            0.088       0.002      0.000       0.084       0.092      *
+    AGE              146.432       3.588      0.000     139.678     153.735      *
+    GAPFREE            0.072       0.002      0.000       0.068       0.075      *
+    GAPCE              0.032       0.001      0.000       0.031       0.034      *
+    GAPAA              0.204       0.005      0.000       0.195       0.214      *
+    GAPFT              0.250       0.006      0.000       0.239       0.261      *
+    NCHILD             1.878       0.044      0.000       1.795       1.964      *
+    AGE2           25931.314     594.680      0.000   24866.670   27185.104      *
+
+
+     Beginning Time:  09:36:35
+        Ending Time:  09:36:38
+       Elapsed Time:  00:00:03
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2017 Muthen & Muthen

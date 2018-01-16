@@ -1,11 +1,11 @@
 Mplus VERSION 8 (Mac)
 MUTHEN & MUTHEN
-11/06/2017   8:29 AM
+01/04/2018   6:49 AM
 
 INPUT INSTRUCTIONS
 
   TITLE:		Title
-  DATA:		FILE = /Users/chadgevans/Research/Projects/Data/HERI/Cache/mp_test.txt;
+  DATA:		FILE = /Users/chadgevans/Documents/Research/Projects/Data/HERI/Cache/mp_test.txt;
   VARIABLE:		NAMES = TURNINTE ACE SATIS01 SATIS02 SATIS03 SATIS04 SATIS05
   		SATIS06 SATIS07 SATIS08 SATIS09 SATIS10 SATIS11 SATIS12
   		SATIS13 SATIS14 SATIS15 SATIS16 SATIS17 SATIS18 SATIS20
@@ -341,7 +341,7 @@ Specifications for Bayesian Estimation
 Link                                                        PROBIT
 
 Input data file(s)
-  /Users/chadgevans/Research/Projects/Data/HERI/Cache/mp_test.txt
+  /Users/chadgevans/Documents/Research/Projects/Data/HERI/Cache/mp_test.txt
 Input data format  FREE
 
 
@@ -1162,9 +1162,9 @@ Between Level
     BEN2               0.071       0.014      0.000       0.045       0.101      *
 
 
-     Beginning Time:  08:29:22
-        Ending Time:  08:30:14
-       Elapsed Time:  00:00:52
+     Beginning Time:  06:49:56
+        Ending Time:  06:50:51
+       Elapsed Time:  00:00:55
 
 
 

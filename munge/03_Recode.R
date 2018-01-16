@@ -11,13 +11,21 @@ for (i in satisvars){df[,i]<-as.numeric(unlist(factor(df[,i], levels = c("Not sa
 } # Make them all numeric
 
 df<-df %>% mutate(GAPPANTT=factor(if_else(FULLSTAT=="Yes", "FT NTT", 
-                                          if_else(FULLSTAT=="No" & PTCHOICE=="No", "Aspiring Academic",
-                                                  if_else(FULLSTAT=="No" & PTCHOICE=="Yes" & PTCAREER=="Yes", "Expert",
-                                                          if_else(FULLSTAT=="No" & PTCHOICE=="Yes" & PTCAREER=="No" & GENACT03=="Yes", "Career-Ender", "Freelancer"))))))
-df$GAPPANTT<-relevel(df$GAPPANTT,"FT NTT")
+                                          if_else(FULLSTAT=="No" & PTCHOICE=="Yes", "Aspiring Academic",
+                                                  if_else(FULLSTAT=="No" & PTCHOICE=="No" & PTCAREER=="Yes", "Expert",
+                                                          if_else(FULLSTAT=="No" & PTCHOICE=="No" & PTCAREER=="No" & GENACT03=="Yes", "Career-Ender", "Freelancer"))))))
+#df$GAPPANTT<-relevel(df$GAPPANTT,"FT NTT")
+df$GAPPANTT<-factor(df$GAPPANTT, levels = c("Expert","Freelancer","Career-Ender","Aspiring Academic","FT NTT"))
 
-df<-df %>% mutate(TURNINTENT=factor(if_else(PASTACT01=="Yes" |  PASTACT02=="Yes", "Yes", "No")))
+# CAREER TURNOVER
+#df<-df %>% mutate(TURNINTENT=factor(if_else(PASTACT01=="Yes" |  PASTACT02=="Yes", "Yes", "No")))
 # This defines Turnover and dropping out of academia entirely, not changing academic employers. (see Pastact04)
+
+# ORGANIZATIONAL or CAREER TURNOVER
+df<-df %>% mutate(TURNINTENT=factor(if_else(PASTACT03=="Yes" | PASTACT02=="Yes" | PASTACT01=="Yes", "Yes", "No")))
+
+
+
 df$YEAR<-NULL # 2010 for all R's
 df$RESTYPE<-NULL # empty vector
 
@@ -28,9 +36,9 @@ df<- df %>%
   mutate(MARITAL2= car::recode(MARITAL2, "c('Single','Divorced','Widowed','Separated')='Unmarried'; c('Married','Unmarried, living with partner')='Married'"))
 df$MARITAL2<-relevel(df$MARITAL2,"Unmarried")
 
-df<- df %>% 
+df<- df %>% # THIS Combines "Other" with whites
   mutate(RACE=RACEGROUP)  %>% 
-  mutate(RACE= car::recode(RACE, "c('American Indian','Other','Two or more race/ethnicity')='Other'"))
+  mutate(RACE= car::recode(RACE, "c('American Indian','Other','Two or more race/ethnicity')='White'"))
 df$RACE<-relevel(df$RACE,"White")
 df$RACEGROUP2<-df$RACEGROUP; levels(df$RACEGROUP2)<-c(rep("Minority",6),"White") # cohab=married
 
@@ -88,7 +96,7 @@ df<- df %>%
                          `Area/ethnic/cultural/gender studies`="Soft/Pure",
                          `Arts (visual and performing)`="Soft/Pure",
                          `Biological and biomedical sciences`="Hard/Applied",
-                         `Business/management/marketing/related`="Hard/Applied",
+                         `Business/management/marketing/related`="Hard/Applied", # This might be better coded as Soft/Applied
                          `Communication/journalism/ comm. tech`="Soft/Applied",
                          `Computer/info sciences/support tech`="Hard/Applied",
                          `Construction trades`="Hard/Applied",
@@ -103,7 +111,7 @@ df<- df %>%
                          `Mathematics and statistics`="Hard/Applied",
                          `Mechanical/repair technologies/techs`="Hard/Applied",
                          `Multi/interdisciplinary studies`="Soft/Pure",
-                         `Other`="Other",
+                         `Other`="Hard/Applied",
                          `Parks/recreation/leisure/fitness studies`="Soft/Applied",
                          `Personal and culinary services`="Soft/Applied",
                          `Philosophy, religion & theology`="Soft/Pure",
@@ -113,8 +121,8 @@ df<- df %>%
                          `Science technologies/technicians`="Hard/Applied",
                          `Security & protective services`="Soft/Applied",
                          `Social sciences (except psych) and history`="Soft/Pure",
-                         `Transportation & materials moving`="Other"))
-df$BIGLAN<-factor(df$BIGLAN, levels = c("Hard/Applied","Hard/Pure","Soft/Applied","Soft/Pure","Other"))
+                         `Transportation & materials moving`="Hard/Applied"))
+df$BIGLAN<-factor(df$BIGLAN, levels = c("Hard/Applied","Hard/Pure","Soft/Applied","Soft/Pure"))
 df$BIGLAN2<-df$DEPT; levels(df$BIGLAN2)<-c("Hard.Applied.Life","Soft.Applied.NonLife","Soft.Pure.Life","Soft.Pure.NonLife","Hard.Applied.Life","Soft.Applied.NonLife","Soft.Applied.NonLife","Hard.Applied.NonLife","Hard.Applied.NonLife","Soft.Applied.Life","Hard.Applied.NonLife","Soft.Pure.NonLife","Soft.Applied.Life","Soft.Pure.NonLife","Hard.Applied.Life","Soft.Applied.NonLife","Soft.Applied.NonLife","Hard.Pure.NonLife","Hard.Applied.NonLife","Soft.Pure.Life","Soft.Applied.Life","Hard.Applied.NonLife","Soft.Pure.NonLife","Soft.Pure.NonLife","Hard.Pure.NonLife","Soft.Pure.Life","Soft.Applied.NonLife","Hard.Applied.NonLife","Soft.Applied.NonLife","Soft.Pure.Life","Soft.Applied.NonLife","Other")
 df$BIGLAN3<-df$BIGLAN2; levels(df$BIGLAN3)<-c("Hard.Applied","Soft.Applied","Soft.Pure.Life","Soft.Pure.NonLife","Hard.Applied","Soft.Applied","Hard.Pure","Other")
 
